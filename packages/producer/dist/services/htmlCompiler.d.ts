@@ -54,10 +54,25 @@ export declare function collectExternalAssets(html: string, projectDir: string):
     externalAssets: Map<string, string>;
 };
 /**
+ * Optional behavior toggles for {@link compileForRender}. All fields are
+ * additive; omitting `options` preserves the in-process renderer's defaults.
+ */
+export interface CompileForRenderOptions {
+    /**
+     * Threaded through to {@link injectDeterministicFontFaces}. When `true`,
+     * any external font fetch failure throws `FontFetchError` instead of
+     * silently falling back to system fonts. Distributed `plan()` sets this
+     * to `true` so font availability is part of the planDir's content-addressed
+     * hash and fetch failures surface as typed non-retryable errors. Default
+     * `false` preserves the in-process behavior.
+     */
+    failClosedFontFetch?: boolean;
+}
+/**
  * Compile an HTML composition project into a single self-contained HTML string
  * with all media metadata resolved.
  */
-export declare function compileForRender(projectDir: string, htmlPath: string, downloadDir: string): Promise<CompiledComposition>;
+export declare function compileForRender(projectDir: string, htmlPath: string, downloadDir: string, options?: CompileForRenderOptions): Promise<CompiledComposition>;
 /**
  * Discover media elements from the browser DOM after JavaScript has run.
  * This catches videos/audios whose `src` is set dynamically via JS

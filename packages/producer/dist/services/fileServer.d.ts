@@ -34,6 +34,44 @@ type IsPathInsideOptions = {
  * Exported for unit tests; not part of the public package surface.
  */
 export declare function isPathInside(child: string, parent: string, options?: IsPathInsideOptions): boolean;
+/**
+ * Options for {@link buildVirtualTimeShim}.
+ */
+export interface VirtualTimeShimOptions {
+    /**
+     * When `true`, the shim additionally replaces `Math.random` and
+     * `crypto.getRandomValues` with a Mulberry32-seeded PRNG keyed by the
+     * current frame's virtual time. Compositions that call `Math.random()`
+     * during render then produce byte-identical pixels across machines and
+     * across replays of the same `(planDir, chunkIndex)` pair.
+     *
+     * Default `false`: leaves `Math.random` / `crypto.getRandomValues` native,
+     * preserving the in-process renderer's non-deterministic behavior for
+     * compositions that rely on it.
+     */
+    seedRandomFromFrame: boolean;
+}
+/**
+ * Build the page-side virtual-time shim script.
+ *
+ * The shim freezes `Date.now`, `performance.now`, and the rAF/setTimeout
+ * pipeline so a render seek can deterministically advance the page's
+ * notion of "now". The renderer issues `__HF_VIRTUAL_TIME__.seekToTime(ms)`
+ * before every frame capture; everything timing-related on the page sees
+ * exactly `ms` until the next seek.
+ *
+ * When `options.seedRandomFromFrame` is `true`, the returned script also
+ * installs a seeded `Math.random` / `crypto.getRandomValues` keyed by the
+ * current virtual time — so compositions with stochastic visuals retry
+ * identically. When `false`, the shim emits no random-override code; the
+ * page's native `Math.random` is left alone (the in-process default).
+ */
+export declare function buildVirtualTimeShim(options: VirtualTimeShimOptions): string;
+/**
+ * Default in-process virtual-time shim — `seedRandomFromFrame: false`.
+ * Existing call sites (`renderOrchestrator`, `probeStage`) import this
+ * constant. Distributed callers build their own with seeding enabled.
+ */
 declare const VIRTUAL_TIME_SHIM: string;
 /**
  * Early stub: ensures `window.__hf` exists *before* any user `<script>` in

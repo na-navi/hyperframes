@@ -59954,7 +59954,7 @@ var require_util2 = __commonJS({
       return path12;
     }
     exports.normalize = normalize2;
-    function join26(aRoot, aPath) {
+    function join31(aRoot, aPath) {
       if (aRoot === "") {
         aRoot = ".";
       }
@@ -59986,7 +59986,7 @@ var require_util2 = __commonJS({
       }
       return joined;
     }
-    exports.join = join26;
+    exports.join = join31;
     exports.isAbsolute = function(aPath) {
       return aPath.charAt(0) === "/" || urlRegexp.test(aPath);
     };
@@ -60159,7 +60159,7 @@ var require_util2 = __commonJS({
             parsed.path = parsed.path.substring(0, index + 1);
           }
         }
-        sourceURL = join26(urlGenerate(parsed), sourceURL);
+        sourceURL = join31(urlGenerate(parsed), sourceURL);
       }
       return normalize2(sourceURL);
     }
@@ -61961,7 +61961,7 @@ var require_escodegen = __commonJS({
       function noEmptySpace() {
         return space ? space : " ";
       }
-      function join26(left2, right2) {
+      function join31(left2, right2) {
         var leftSource, rightSource, leftCharCode, rightCharCode;
         leftSource = toSourceNodeWhenNeeded(left2).toString();
         if (leftSource.length === 0) {
@@ -62292,8 +62292,8 @@ var require_escodegen = __commonJS({
           } else {
             result.push(that.generateExpression(stmt.left, Precedence.Call, E_TTT));
           }
-          result = join26(result, operator);
-          result = [join26(
+          result = join31(result, operator);
+          result = [join31(
             result,
             that.generateExpression(stmt.right, Precedence.Assignment, E_TTT)
           ), ")"];
@@ -62436,11 +62436,11 @@ var require_escodegen = __commonJS({
           var result, fragment;
           result = ["class"];
           if (stmt.id) {
-            result = join26(result, this.generateExpression(stmt.id, Precedence.Sequence, E_TTT));
+            result = join31(result, this.generateExpression(stmt.id, Precedence.Sequence, E_TTT));
           }
           if (stmt.superClass) {
-            fragment = join26("extends", this.generateExpression(stmt.superClass, Precedence.Unary, E_TTT));
-            result = join26(result, fragment);
+            fragment = join31("extends", this.generateExpression(stmt.superClass, Precedence.Unary, E_TTT));
+            result = join31(result, fragment);
           }
           result.push(space);
           result.push(this.generateStatement(stmt.body, S_TFFT));
@@ -62453,9 +62453,9 @@ var require_escodegen = __commonJS({
           return escapeDirective(stmt.directive) + this.semicolon(flags);
         },
         DoWhileStatement: function(stmt, flags) {
-          var result = join26("do", this.maybeBlock(stmt.body, S_TFFF));
+          var result = join31("do", this.maybeBlock(stmt.body, S_TFFF));
           result = this.maybeBlockSuffix(stmt.body, result);
-          return join26(result, [
+          return join31(result, [
             "while" + space + "(",
             this.generateExpression(stmt.test, Precedence.Sequence, E_TTT),
             ")" + this.semicolon(flags)
@@ -62491,11 +62491,11 @@ var require_escodegen = __commonJS({
         ExportDefaultDeclaration: function(stmt, flags) {
           var result = ["export"], bodyFlags;
           bodyFlags = flags & F_SEMICOLON_OPT ? S_TFFT : S_TFFF;
-          result = join26(result, "default");
+          result = join31(result, "default");
           if (isStatement(stmt.declaration)) {
-            result = join26(result, this.generateStatement(stmt.declaration, bodyFlags));
+            result = join31(result, this.generateStatement(stmt.declaration, bodyFlags));
           } else {
-            result = join26(result, this.generateExpression(stmt.declaration, Precedence.Assignment, E_TTT) + this.semicolon(flags));
+            result = join31(result, this.generateExpression(stmt.declaration, Precedence.Assignment, E_TTT) + this.semicolon(flags));
           }
           return result;
         },
@@ -62503,15 +62503,15 @@ var require_escodegen = __commonJS({
           var result = ["export"], bodyFlags, that = this;
           bodyFlags = flags & F_SEMICOLON_OPT ? S_TFFT : S_TFFF;
           if (stmt.declaration) {
-            return join26(result, this.generateStatement(stmt.declaration, bodyFlags));
+            return join31(result, this.generateStatement(stmt.declaration, bodyFlags));
           }
           if (stmt.specifiers) {
             if (stmt.specifiers.length === 0) {
-              result = join26(result, "{" + space + "}");
+              result = join31(result, "{" + space + "}");
             } else if (stmt.specifiers[0].type === Syntax.ExportBatchSpecifier) {
-              result = join26(result, this.generateExpression(stmt.specifiers[0], Precedence.Sequence, E_TTT));
+              result = join31(result, this.generateExpression(stmt.specifiers[0], Precedence.Sequence, E_TTT));
             } else {
-              result = join26(result, "{");
+              result = join31(result, "{");
               withIndent(function(indent2) {
                 var i, iz;
                 result.push(newline);
@@ -62529,7 +62529,7 @@ var require_escodegen = __commonJS({
               result.push(base + "}");
             }
             if (stmt.source) {
-              result = join26(result, [
+              result = join31(result, [
                 "from" + space,
                 // ModuleSpecifier
                 this.generateExpression(stmt.source, Precedence.Sequence, E_TTT),
@@ -62617,7 +62617,7 @@ var require_escodegen = __commonJS({
           ];
           cursor = 0;
           if (stmt.specifiers[cursor].type === Syntax.ImportDefaultSpecifier) {
-            result = join26(result, [
+            result = join31(result, [
               this.generateExpression(stmt.specifiers[cursor], Precedence.Sequence, E_TTT)
             ]);
             ++cursor;
@@ -62627,7 +62627,7 @@ var require_escodegen = __commonJS({
               result.push(",");
             }
             if (stmt.specifiers[cursor].type === Syntax.ImportNamespaceSpecifier) {
-              result = join26(result, [
+              result = join31(result, [
                 space,
                 this.generateExpression(stmt.specifiers[cursor], Precedence.Sequence, E_TTT)
               ]);
@@ -62656,7 +62656,7 @@ var require_escodegen = __commonJS({
               }
             }
           }
-          result = join26(result, [
+          result = join31(result, [
             "from" + space,
             // ModuleSpecifier
             this.generateExpression(stmt.source, Precedence.Sequence, E_TTT),
@@ -62710,7 +62710,7 @@ var require_escodegen = __commonJS({
           return result;
         },
         ThrowStatement: function(stmt, flags) {
-          return [join26(
+          return [join31(
             "throw",
             this.generateExpression(stmt.argument, Precedence.Sequence, E_TTT)
           ), this.semicolon(flags)];
@@ -62721,7 +62721,7 @@ var require_escodegen = __commonJS({
           result = this.maybeBlockSuffix(stmt.block, result);
           if (stmt.handlers) {
             for (i = 0, iz = stmt.handlers.length; i < iz; ++i) {
-              result = join26(result, this.generateStatement(stmt.handlers[i], S_TFFF));
+              result = join31(result, this.generateStatement(stmt.handlers[i], S_TFFF));
               if (stmt.finalizer || i + 1 !== iz) {
                 result = this.maybeBlockSuffix(stmt.handlers[i].body, result);
               }
@@ -62729,7 +62729,7 @@ var require_escodegen = __commonJS({
           } else {
             guardedHandlers = stmt.guardedHandlers || [];
             for (i = 0, iz = guardedHandlers.length; i < iz; ++i) {
-              result = join26(result, this.generateStatement(guardedHandlers[i], S_TFFF));
+              result = join31(result, this.generateStatement(guardedHandlers[i], S_TFFF));
               if (stmt.finalizer || i + 1 !== iz) {
                 result = this.maybeBlockSuffix(guardedHandlers[i].body, result);
               }
@@ -62737,13 +62737,13 @@ var require_escodegen = __commonJS({
             if (stmt.handler) {
               if (Array.isArray(stmt.handler)) {
                 for (i = 0, iz = stmt.handler.length; i < iz; ++i) {
-                  result = join26(result, this.generateStatement(stmt.handler[i], S_TFFF));
+                  result = join31(result, this.generateStatement(stmt.handler[i], S_TFFF));
                   if (stmt.finalizer || i + 1 !== iz) {
                     result = this.maybeBlockSuffix(stmt.handler[i].body, result);
                   }
                 }
               } else {
-                result = join26(result, this.generateStatement(stmt.handler, S_TFFF));
+                result = join31(result, this.generateStatement(stmt.handler, S_TFFF));
                 if (stmt.finalizer) {
                   result = this.maybeBlockSuffix(stmt.handler.body, result);
                 }
@@ -62751,7 +62751,7 @@ var require_escodegen = __commonJS({
             }
           }
           if (stmt.finalizer) {
-            result = join26(result, ["finally", this.maybeBlock(stmt.finalizer, S_TFFF)]);
+            result = join31(result, ["finally", this.maybeBlock(stmt.finalizer, S_TFFF)]);
           }
           return result;
         },
@@ -62785,7 +62785,7 @@ var require_escodegen = __commonJS({
           withIndent(function() {
             if (stmt.test) {
               result = [
-                join26("case", that.generateExpression(stmt.test, Precedence.Sequence, E_TTT)),
+                join31("case", that.generateExpression(stmt.test, Precedence.Sequence, E_TTT)),
                 ":"
               ];
             } else {
@@ -62833,9 +62833,9 @@ var require_escodegen = __commonJS({
             result.push(this.maybeBlock(stmt.consequent, S_TFFF));
             result = this.maybeBlockSuffix(stmt.consequent, result);
             if (stmt.alternate.type === Syntax.IfStatement) {
-              result = join26(result, ["else ", this.generateStatement(stmt.alternate, bodyFlags)]);
+              result = join31(result, ["else ", this.generateStatement(stmt.alternate, bodyFlags)]);
             } else {
-              result = join26(result, join26("else", this.maybeBlock(stmt.alternate, bodyFlags)));
+              result = join31(result, join31("else", this.maybeBlock(stmt.alternate, bodyFlags)));
             }
           } else {
             result.push(this.maybeBlock(stmt.consequent, bodyFlags));
@@ -62936,7 +62936,7 @@ var require_escodegen = __commonJS({
         },
         ReturnStatement: function(stmt, flags) {
           if (stmt.argument) {
-            return [join26(
+            return [join31(
               "return",
               this.generateExpression(stmt.argument, Precedence.Sequence, E_TTT)
             ), this.semicolon(flags)];
@@ -63025,14 +63025,14 @@ var require_escodegen = __commonJS({
           if (leftSource.charCodeAt(leftSource.length - 1) === 47 && esutils.code.isIdentifierPartES5(expr.operator.charCodeAt(0))) {
             result = [fragment, noEmptySpace(), expr.operator];
           } else {
-            result = join26(fragment, expr.operator);
+            result = join31(fragment, expr.operator);
           }
           fragment = this.generateExpression(expr.right, rightPrecedence, flags);
           if (expr.operator === "/" && fragment.toString().charAt(0) === "/" || expr.operator.slice(-1) === "<" && fragment.toString().slice(0, 3) === "!--") {
             result.push(noEmptySpace());
             result.push(fragment);
           } else {
-            result = join26(result, fragment);
+            result = join31(result, fragment);
           }
           if (expr.operator === "in" && !(flags & F_ALLOW_IN)) {
             return ["(", result, ")"];
@@ -63072,7 +63072,7 @@ var require_escodegen = __commonJS({
           var result, length, i, iz, itemFlags;
           length = expr["arguments"].length;
           itemFlags = flags & F_ALLOW_UNPARATH_NEW && !parentheses && length === 0 ? E_TFT : E_TFF;
-          result = join26(
+          result = join31(
             "new",
             this.generateExpression(expr.callee, Precedence.New, itemFlags)
           );
@@ -63122,11 +63122,11 @@ var require_escodegen = __commonJS({
           var result, fragment, rightCharCode, leftSource, leftCharCode;
           fragment = this.generateExpression(expr.argument, Precedence.Unary, E_TTT);
           if (space === "") {
-            result = join26(expr.operator, fragment);
+            result = join31(expr.operator, fragment);
           } else {
             result = [expr.operator];
             if (expr.operator.length > 2) {
-              result = join26(result, fragment);
+              result = join31(result, fragment);
             } else {
               leftSource = toSourceNodeWhenNeeded(result).toString();
               leftCharCode = leftSource.charCodeAt(leftSource.length - 1);
@@ -63149,7 +63149,7 @@ var require_escodegen = __commonJS({
             result = "yield";
           }
           if (expr.argument) {
-            result = join26(
+            result = join31(
               result,
               this.generateExpression(expr.argument, Precedence.Yield, E_TTT)
             );
@@ -63157,7 +63157,7 @@ var require_escodegen = __commonJS({
           return parenthesize(result, Precedence.Yield, precedence);
         },
         AwaitExpression: function(expr, precedence, flags) {
-          var result = join26(
+          var result = join31(
             expr.all ? "await*" : "await",
             this.generateExpression(expr.argument, Precedence.Await, E_TTT)
           );
@@ -63240,11 +63240,11 @@ var require_escodegen = __commonJS({
           var result, fragment;
           result = ["class"];
           if (expr.id) {
-            result = join26(result, this.generateExpression(expr.id, Precedence.Sequence, E_TTT));
+            result = join31(result, this.generateExpression(expr.id, Precedence.Sequence, E_TTT));
           }
           if (expr.superClass) {
-            fragment = join26("extends", this.generateExpression(expr.superClass, Precedence.Unary, E_TTT));
-            result = join26(result, fragment);
+            fragment = join31("extends", this.generateExpression(expr.superClass, Precedence.Unary, E_TTT));
+            result = join31(result, fragment);
           }
           result.push(space);
           result.push(this.generateStatement(expr.body, S_TFFT));
@@ -63259,7 +63259,7 @@ var require_escodegen = __commonJS({
           }
           if (expr.kind === "get" || expr.kind === "set") {
             fragment = [
-              join26(expr.kind, this.generatePropertyKey(expr.key, expr.computed)),
+              join31(expr.kind, this.generatePropertyKey(expr.key, expr.computed)),
               this.generateFunctionBody(expr.value)
             ];
           } else {
@@ -63269,7 +63269,7 @@ var require_escodegen = __commonJS({
               this.generateFunctionBody(expr.value)
             ];
           }
-          return join26(result, fragment);
+          return join31(result, fragment);
         },
         Property: function(expr, precedence, flags) {
           if (expr.kind === "get" || expr.kind === "set") {
@@ -63464,7 +63464,7 @@ var require_escodegen = __commonJS({
               for (i = 0, iz = expr.blocks.length; i < iz; ++i) {
                 fragment = that.generateExpression(expr.blocks[i], Precedence.Sequence, E_TTT);
                 if (i > 0 || extra.moz.comprehensionExpressionStartsWithAssignment) {
-                  result = join26(result, fragment);
+                  result = join31(result, fragment);
                 } else {
                   result.push(fragment);
                 }
@@ -63472,13 +63472,13 @@ var require_escodegen = __commonJS({
             });
           }
           if (expr.filter) {
-            result = join26(result, "if" + space);
+            result = join31(result, "if" + space);
             fragment = this.generateExpression(expr.filter, Precedence.Sequence, E_TTT);
-            result = join26(result, ["(", fragment, ")"]);
+            result = join31(result, ["(", fragment, ")"]);
           }
           if (!extra.moz.comprehensionExpressionStartsWithAssignment) {
             fragment = this.generateExpression(expr.body, Precedence.Assignment, E_TTT);
-            result = join26(result, fragment);
+            result = join31(result, fragment);
           }
           result.push(expr.type === Syntax.GeneratorExpression ? ")" : "]");
           return result;
@@ -63494,8 +63494,8 @@ var require_escodegen = __commonJS({
           } else {
             fragment = this.generateExpression(expr.left, Precedence.Call, E_TTT);
           }
-          fragment = join26(fragment, expr.of ? "of" : "in");
-          fragment = join26(fragment, this.generateExpression(expr.right, Precedence.Sequence, E_TTT));
+          fragment = join31(fragment, expr.of ? "of" : "in");
+          fragment = join31(fragment, this.generateExpression(expr.right, Precedence.Sequence, E_TTT));
           return ["for" + space + "(", fragment, ")"];
         },
         SpreadElement: function(expr, precedence, flags) {
@@ -84797,18 +84797,18 @@ var init_cliui = __esm({
 });
 
 // ../../node_modules/.bun/escalade@3.2.0/node_modules/escalade/sync/index.mjs
-import { dirname as dirname2, resolve as resolve3 } from "path";
+import { dirname, resolve as resolve2 } from "path";
 import { readdirSync, statSync } from "fs";
 function sync_default(start, callback) {
-  let dir = resolve3(".", start);
+  let dir = resolve2(".", start);
   let tmp, stats = statSync(dir);
   if (!stats.isDirectory()) {
-    dir = dirname2(dir);
+    dir = dirname(dir);
   }
   while (true) {
     tmp = callback(dir, readdirSync(dir));
-    if (tmp) return resolve3(dir, tmp);
-    dir = dirname2(tmp = dir);
+    if (tmp) return resolve2(dir, tmp);
+    dir = dirname(tmp = dir);
     if (tmp === dir) break;
   }
 }
@@ -85773,7 +85773,7 @@ var init_yargs_parser = __esm({
 
 // ../../node_modules/.bun/yargs-parser@21.1.1/node_modules/yargs-parser/build/lib/index.js
 import { format } from "util";
-import { normalize, resolve as resolve4 } from "path";
+import { normalize, resolve as resolve3 } from "path";
 import { readFileSync as readFileSync2 } from "fs";
 var _a5, _b, _c, minNodeVersion, nodeVersion, env, parser, yargsParser, lib_default;
 var init_lib2 = __esm({
@@ -85796,7 +85796,7 @@ var init_lib2 = __esm({
       },
       format,
       normalize,
-      resolve: resolve4,
+      resolve: resolve3,
       // TODO: figure  out a  way to combine ESM and CJS coverage, such  that
       // we can exercise all the lines below:
       require: (path12) => {
@@ -85865,7 +85865,7 @@ var init_yerror = __esm({
 // ../../node_modules/.bun/y18n@5.0.8/node_modules/y18n/build/lib/platform-shims/node.js
 import { readFileSync as readFileSync3, statSync as statSync2, writeFile } from "fs";
 import { format as format2 } from "util";
-import { resolve as resolve5 } from "path";
+import { resolve as resolve4 } from "path";
 var node_default;
 var init_node = __esm({
   "../../node_modules/.bun/y18n@5.0.8/node_modules/y18n/build/lib/platform-shims/node.js"() {
@@ -85875,7 +85875,7 @@ var init_node = __esm({
         writeFile
       },
       format: format2,
-      resolve: resolve5,
+      resolve: resolve4,
       exists: (file) => {
         try {
           return statSync2(file).isFile();
@@ -86070,7 +86070,7 @@ import { notStrictEqual, strictEqual } from "assert";
 import { inspect } from "util";
 import { readFileSync as readFileSync4 } from "fs";
 import { fileURLToPath } from "url";
-import { basename, dirname as dirname3, extname, relative, resolve as resolve6 } from "path";
+import { basename, dirname as dirname2, extname, relative, resolve as resolve5 } from "path";
 var REQUIRE_ERROR, REQUIRE_DIRECTORY_ERROR, __dirname2, mainFilename, esm_default3;
 var init_esm = __esm({
   "../../node_modules/.bun/yargs@17.7.2/node_modules/yargs/lib/platform-shims/esm.mjs"() {
@@ -86108,10 +86108,10 @@ var init_esm = __esm({
       Parser: lib_default,
       path: {
         basename,
-        dirname: dirname3,
+        dirname: dirname2,
         extname,
         relative,
-        resolve: resolve6
+        resolve: resolve5
       },
       process: {
         argv: () => process.argv,
@@ -86133,7 +86133,7 @@ var init_esm = __esm({
         return [...str].length;
       },
       y18n: y18n_default({
-        directory: resolve6(__dirname2, "../../../locales"),
+        directory: resolve5(__dirname2, "../../../locales"),
         updateFiles: false
       })
     };
@@ -89917,9 +89917,9 @@ async function getConnectionTransport(options) {
       throw new Error("Could not detect required browser platform");
     }
     const { convertPuppeteerChannelToBrowsersChannel: convertPuppeteerChannelToBrowsersChannel2 } = await Promise.resolve().then(() => (init_LaunchOptions(), LaunchOptions_exports));
-    const { join: join26 } = await import("node:path");
+    const { join: join31 } = await import("node:path");
     const userDataDir = resolveDefaultUserDataDir3(Browser4.CHROME, platform, convertPuppeteerChannelToBrowsersChannel2(options.channel));
-    const portPath = join26(userDataDir, "DevToolsActivePort");
+    const portPath = join31(userDataDir, "DevToolsActivePort");
     try {
       const fileContent = await environment.value.fs.promises.readFile(portPath, "ascii");
       const [rawPort, rawPath] = fileContent.split("\n").map((line) => {
@@ -90242,7 +90242,7 @@ var init_PipeTransport = __esm({
 // ../../node_modules/.bun/puppeteer-core@24.43.1/node_modules/puppeteer-core/lib/esm/puppeteer/node/BrowserLauncher.js
 import { existsSync as existsSync2 } from "node:fs";
 import { tmpdir } from "node:os";
-import { join as join3 } from "node:path";
+import { join as join2 } from "node:path";
 var BrowserLauncher;
 var init_BrowserLauncher = __esm({
   "../../node_modules/.bun/puppeteer-core@24.43.1/node_modules/puppeteer-core/lib/esm/puppeteer/node/BrowserLauncher.js"() {
@@ -90368,7 +90368,7 @@ var init_BrowserLauncher = __esm({
           if (logs.includes("Failed to create a ProcessSingleton for your profile directory") || // On Windows we will not get logs due to the singleton process
           // handover. See
           // https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/process_singleton_win.cc;l=46;drc=fc7952f0422b5073515a205a04ec9c3a1ae81658
-          process.platform === "win32" && existsSync2(join3(launchArgs.userDataDir, "lockfile"))) {
+          process.platform === "win32" && existsSync2(join2(launchArgs.userDataDir, "lockfile"))) {
             throw new Error(`The browser is already running for ${launchArgs.userDataDir}. Use a different \`userDataDir\` or stop the running browser first.`);
           }
           if (logs.includes("Missing X server") && options.headless === false) {
@@ -90499,7 +90499,7 @@ var init_BrowserLauncher = __esm({
        * @internal
        */
       getProfilePath() {
-        return join3(this.puppeteer.configuration.temporaryDirectory ?? tmpdir(), `puppeteer_dev_${this.browser}_profile-`);
+        return join2(this.puppeteer.configuration.temporaryDirectory ?? tmpdir(), `puppeteer_dev_${this.browser}_profile-`);
       }
       /**
        * @internal
@@ -90610,8 +90610,8 @@ var init_ChromeLauncher = __esm({
       }
       launch(options = {}) {
         if (this.puppeteer.configuration.logLevel === "warn" && process.platform === "darwin" && process.arch === "x64") {
-          const cpus2 = os6.cpus();
-          if (cpus2[0]?.model.includes("Apple")) {
+          const cpus3 = os6.cpus();
+          if (cpus3[0]?.model.includes("Apple")) {
             console.warn([
               "\x1B[1m\x1B[43m\x1B[30m",
               "Degraded performance warning:\x1B[0m\x1B[33m",
@@ -91202,7 +91202,7 @@ var init_PuppeteerNode = __esm({
 import { spawn as spawn2, spawnSync as spawnSync3 } from "node:child_process";
 import fs5 from "node:fs";
 import os8 from "node:os";
-import { dirname as dirname4 } from "node:path";
+import { dirname as dirname3 } from "node:path";
 import { PassThrough } from "node:stream";
 var import_debug6, __runInitializers23, __esDecorate23, __setFunctionName6, CRF_VALUE, DEFAULT_FPS, debugFfmpeg, ScreenRecorder;
 var init_ScreenRecorder = __esm({
@@ -91321,7 +91321,7 @@ var init_ScreenRecorder = __esm({
             filters2.push(formatArgs.splice(vf, 2).at(-1) ?? "");
           }
           if (path12) {
-            fs5.mkdirSync(dirname4(path12), { recursive: overwrite });
+            fs5.mkdirSync(dirname3(path12), { recursive: overwrite });
           }
           this.#process = spawn2(
             ffmpegPath,
@@ -91751,15 +91751,15 @@ var init_puppeteer_core = __esm({
 
 // src/server.ts
 import {
-  existsSync as existsSync21,
-  mkdirSync as mkdirSync15,
+  existsSync as existsSync23,
+  mkdirSync as mkdirSync16,
   statSync as statSync10,
   mkdtempSync,
-  writeFileSync as writeFileSync8,
-  rmSync as rmSync5,
+  writeFileSync as writeFileSync9,
+  rmSync as rmSync6,
   createReadStream as createReadStream2
 } from "node:fs";
-import { resolve as resolve14, dirname as dirname12, join as join25 } from "node:path";
+import { resolve as resolve14, dirname as dirname13, join as join30 } from "node:path";
 import { tmpdir as tmpdir2 } from "node:os";
 import { parseArgs } from "node:util";
 import crypto2 from "node:crypto";
@@ -94609,19 +94609,17 @@ var serve = (options, listeningListener) => {
 
 // src/services/renderOrchestrator.ts
 import {
-  existsSync as existsSync19,
-  mkdirSync as mkdirSync14,
-  rmSync as rmSync4,
+  existsSync as existsSync21,
+  mkdirSync as mkdirSync15,
   readFileSync as readFileSync11,
   readSync,
   closeSync,
   readdirSync as readdirSync8,
+  rmSync as rmSync5,
   statSync as statSync8,
-  writeFileSync as writeFileSync7,
+  writeFileSync as writeFileSync8,
   copyFileSync as copyFileSync4,
-  appendFileSync,
-  symlinkSync,
-  cpSync
+  appendFileSync
 } from "fs";
 
 // ../../node_modules/.bun/linkedom@0.18.12/node_modules/linkedom/esm/shared/symbols.js
@@ -103845,6 +103843,458 @@ function Document5() {
 }
 setPrototypeOf(Document5, Document3).prototype = Document3.prototype;
 
+// ../engine/src/config.ts
+var DEFAULT_CONFIG = {
+  fps: 30,
+  quality: "standard",
+  format: "jpeg",
+  jpegQuality: 80,
+  concurrency: "auto",
+  coresPerWorker: 2.5,
+  minParallelFrames: 120,
+  largeRenderThreshold: 1e3,
+  disableGpu: false,
+  browserGpuMode: "software",
+  enableBrowserPool: false,
+  browserTimeout: 12e4,
+  protocolTimeout: 3e5,
+  forceScreenshot: false,
+  enableChunkedEncode: false,
+  chunkSizeFrames: 360,
+  enableStreamingEncode: true,
+  streamingEncodeMaxDurationSeconds: 240,
+  ffmpegEncodeTimeout: 6e5,
+  ffmpegProcessTimeout: 3e5,
+  ffmpegStreamingTimeout: 6e5,
+  hdr: false,
+  hdrAutoDetect: true,
+  audioGain: 1,
+  frameDataUriCacheLimit: 256,
+  frameDataUriCacheBytesLimitMb: 1500,
+  playerReadyTimeout: 45e3,
+  renderReadyTimeout: 15e3,
+  verifyRuntime: true,
+  debug: false
+};
+function resolveConfig(overrides) {
+  const env2 = (key2) => process.env[key2];
+  const envNum = (key2, fallback) => {
+    const raw2 = env2(key2);
+    if (raw2 === void 0 || raw2 === "") return fallback;
+    const n = Number(raw2);
+    return Number.isFinite(n) ? n : fallback;
+  };
+  const envBool = (key2, fallback) => {
+    const raw2 = env2(key2);
+    if (raw2 === void 0) return fallback;
+    return raw2 === "true";
+  };
+  const envBrowserGpuMode = () => {
+    const raw2 = env2("PRODUCER_BROWSER_GPU_MODE");
+    if (raw2 === "hardware" || raw2 === "software" || raw2 === "auto") return raw2;
+    return DEFAULT_CONFIG.browserGpuMode;
+  };
+  const fromEnv = {
+    concurrency: env2("PRODUCER_MAX_WORKERS") ? Number(env2("PRODUCER_MAX_WORKERS")) : void 0,
+    coresPerWorker: envNum("PRODUCER_CORES_PER_WORKER", DEFAULT_CONFIG.coresPerWorker),
+    minParallelFrames: envNum("PRODUCER_MIN_PARALLEL_FRAMES", DEFAULT_CONFIG.minParallelFrames),
+    largeRenderThreshold: envNum(
+      "PRODUCER_LARGE_RENDER_THRESHOLD",
+      DEFAULT_CONFIG.largeRenderThreshold
+    ),
+    chromePath: env2("PRODUCER_HEADLESS_SHELL_PATH"),
+    disableGpu: envBool("PRODUCER_DISABLE_GPU", DEFAULT_CONFIG.disableGpu),
+    browserGpuMode: envBrowserGpuMode(),
+    enableBrowserPool: envBool("PRODUCER_ENABLE_BROWSER_POOL", DEFAULT_CONFIG.enableBrowserPool),
+    browserTimeout: envNum("PRODUCER_PUPPETEER_LAUNCH_TIMEOUT_MS", DEFAULT_CONFIG.browserTimeout),
+    protocolTimeout: envNum(
+      "PRODUCER_PUPPETEER_PROTOCOL_TIMEOUT_MS",
+      DEFAULT_CONFIG.protocolTimeout
+    ),
+    expectedChromiumMajor: env2("PRODUCER_EXPECTED_CHROMIUM_MAJOR") ? Number(env2("PRODUCER_EXPECTED_CHROMIUM_MAJOR")) : void 0,
+    forceScreenshot: envBool("PRODUCER_FORCE_SCREENSHOT", DEFAULT_CONFIG.forceScreenshot),
+    enableChunkedEncode: envBool(
+      "PRODUCER_ENABLE_CHUNKED_ENCODE",
+      DEFAULT_CONFIG.enableChunkedEncode
+    ),
+    chunkSizeFrames: Math.max(
+      120,
+      envNum("PRODUCER_CHUNK_SIZE_FRAMES", DEFAULT_CONFIG.chunkSizeFrames)
+    ),
+    enableStreamingEncode: envBool(
+      "PRODUCER_ENABLE_STREAMING_ENCODE",
+      DEFAULT_CONFIG.enableStreamingEncode
+    ),
+    streamingEncodeMaxDurationSeconds: Math.max(
+      0,
+      envNum(
+        "PRODUCER_STREAMING_ENCODE_MAX_DURATION_SECONDS",
+        DEFAULT_CONFIG.streamingEncodeMaxDurationSeconds
+      )
+    ),
+    ffmpegEncodeTimeout: envNum("FFMPEG_ENCODE_TIMEOUT_MS", DEFAULT_CONFIG.ffmpegEncodeTimeout),
+    ffmpegProcessTimeout: envNum("FFMPEG_PROCESS_TIMEOUT_MS", DEFAULT_CONFIG.ffmpegProcessTimeout),
+    ffmpegStreamingTimeout: envNum(
+      "FFMPEG_STREAMING_TIMEOUT_MS",
+      DEFAULT_CONFIG.ffmpegStreamingTimeout
+    ),
+    hdr: (() => {
+      const raw2 = env2("PRODUCER_HDR_TRANSFER");
+      if (raw2 === "hlg" || raw2 === "pq") return { transfer: raw2 };
+      return false;
+    })(),
+    hdrAutoDetect: envBool("PRODUCER_HDR_AUTO_DETECT", DEFAULT_CONFIG.hdrAutoDetect),
+    audioGain: envNum("PRODUCER_AUDIO_GAIN", DEFAULT_CONFIG.audioGain),
+    frameDataUriCacheLimit: Math.max(
+      32,
+      envNum("PRODUCER_FRAME_DATA_URI_CACHE_LIMIT", DEFAULT_CONFIG.frameDataUriCacheLimit)
+    ),
+    frameDataUriCacheBytesLimitMb: Math.max(
+      64,
+      envNum(
+        "PRODUCER_FRAME_DATA_URI_CACHE_BYTES_MB",
+        DEFAULT_CONFIG.frameDataUriCacheBytesLimitMb
+      )
+    ),
+    playerReadyTimeout: envNum(
+      "PRODUCER_PLAYER_READY_TIMEOUT_MS",
+      DEFAULT_CONFIG.playerReadyTimeout
+    ),
+    renderReadyTimeout: envNum(
+      "PRODUCER_RENDER_READY_TIMEOUT_MS",
+      DEFAULT_CONFIG.renderReadyTimeout
+    ),
+    verifyRuntime: env2("PRODUCER_VERIFY_HYPERFRAME_RUNTIME") !== "false",
+    runtimeManifestPath: env2("PRODUCER_HYPERFRAME_MANIFEST_PATH"),
+    extractCacheDir: env2("HYPERFRAMES_EXTRACT_CACHE_DIR")
+  };
+  const cleanEnv = Object.fromEntries(Object.entries(fromEnv).filter(([, v2]) => v2 !== void 0));
+  return {
+    ...DEFAULT_CONFIG,
+    ...cleanEnv,
+    ...overrides
+  };
+}
+
+// ../engine/src/services/browserManager.ts
+import { existsSync as existsSync3, readdirSync as readdirSync2 } from "fs";
+import { join as join3 } from "path";
+import { homedir } from "os";
+var _puppeteer;
+async function getPuppeteer() {
+  if (_puppeteer) return _puppeteer;
+  try {
+    const mod = await import("puppeteer");
+    _puppeteer = mod.default;
+  } catch {
+    const mod = await Promise.resolve().then(() => (init_puppeteer_core(), puppeteer_core_exports));
+    _puppeteer = mod.default;
+  }
+  if (!_puppeteer) throw new Error("Neither puppeteer nor puppeteer-core found");
+  return _puppeteer;
+}
+function resolveHeadlessShellPath(config2) {
+  if (config2?.chromePath) {
+    return config2.chromePath;
+  }
+  if (process.env.PRODUCER_HEADLESS_SHELL_PATH) {
+    return process.env.PRODUCER_HEADLESS_SHELL_PATH;
+  }
+  const baseDir = join3(homedir(), ".cache", "puppeteer", "chrome-headless-shell");
+  if (!existsSync3(baseDir)) return void 0;
+  try {
+    const versions = readdirSync2(baseDir).sort().reverse();
+    for (const version of versions) {
+      const candidates = [
+        join3(baseDir, version, "chrome-headless-shell-linux64", "chrome-headless-shell"),
+        join3(baseDir, version, "chrome-headless-shell-mac-arm64", "chrome-headless-shell"),
+        join3(baseDir, version, "chrome-headless-shell-mac-x64", "chrome-headless-shell"),
+        join3(baseDir, version, "chrome-headless-shell-win64", "chrome-headless-shell.exe")
+      ];
+      for (const binary of candidates) {
+        if (existsSync3(binary)) return binary;
+      }
+    }
+  } catch {
+  }
+  return void 0;
+}
+var pooledBrowser = null;
+var pooledBrowserRefCount = 0;
+var pooledCaptureMode = "screenshot";
+var ENABLE_BROWSER_POOL = DEFAULT_CONFIG.enableBrowserPool;
+var BEGINFRAME_ONLY_FLAGS = /* @__PURE__ */ new Set([
+  "--deterministic-mode",
+  "--enable-begin-frame-control",
+  "--disable-new-content-rendering-timeout",
+  "--run-all-compositor-stages-before-draw",
+  "--disable-threaded-animation",
+  "--disable-threaded-scrolling",
+  "--disable-checker-imaging",
+  "--disable-image-animation-resync",
+  "--enable-surface-synchronization"
+]);
+function stripBeginFrameFlags(args) {
+  return args.filter((a2) => !BEGINFRAME_ONLY_FLAGS.has(a2));
+}
+async function probeBeginFrameSupport(browser) {
+  let page;
+  try {
+    page = await browser.newPage();
+    const client = await page.createCDPSession();
+    await client.send("HeadlessExperimental.enable");
+    const beginFrame = client.send("HeadlessExperimental.beginFrame", {
+      frameTimeTicks: 0,
+      interval: 33,
+      noDisplayUpdates: true
+    });
+    const timeout2 = new Promise(
+      (_2, reject) => setTimeout(() => reject(new Error("beginFrame probe timeout")), 2e3)
+    );
+    await Promise.race([beginFrame, timeout2]);
+    await client.detach().catch(() => {
+    });
+    return true;
+  } catch {
+    return false;
+  } finally {
+    await page?.close().catch(() => {
+    });
+  }
+}
+var _autoBrowserGpuModeCache;
+function resolveBrowserGpuMode(mode, options = {}) {
+  if (mode !== "auto") return Promise.resolve(mode);
+  if (_autoBrowserGpuModeCache) return _autoBrowserGpuModeCache;
+  _autoBrowserGpuModeCache = (async () => {
+    const platform = options.platform ?? process.platform;
+    const browserTimeout = options.browserTimeout ?? DEFAULT_CONFIG.browserTimeout;
+    const executablePath2 = options.chromePath ?? resolveHeadlessShellPath({});
+    const probeArgs = [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--disable-dev-shm-usage",
+      "--enable-webgl",
+      "--ignore-gpu-blocklist",
+      ...getBrowserGpuArgs("hardware", platform)
+    ];
+    const ppt = await getPuppeteer().catch(() => null);
+    if (!ppt) {
+      logResolvedBrowserGpuMode("software", "puppeteer unavailable");
+      return "software";
+    }
+    let probeBrowser;
+    try {
+      probeBrowser = await ppt.launch({
+        headless: true,
+        args: probeArgs,
+        defaultViewport: { width: 64, height: 64 },
+        executablePath: executablePath2,
+        timeout: browserTimeout
+      });
+      const page = await probeBrowser.newPage();
+      const hasWebGL = await page.evaluate(() => {
+        try {
+          const c = document.createElement("canvas");
+          const gl = c.getContext("webgl") || c.getContext("experimental-webgl");
+          return gl !== null;
+        } catch {
+          return false;
+        }
+      });
+      const resolved = hasWebGL ? "hardware" : "software";
+      logResolvedBrowserGpuMode(resolved, hasWebGL ? "WebGL probe succeeded" : "WebGL unavailable");
+      return resolved;
+    } catch (err) {
+      logResolvedBrowserGpuMode(
+        "software",
+        `probe failed (${err instanceof Error ? err.message : String(err)})`
+      );
+      return "software";
+    } finally {
+      await probeBrowser?.close().catch(() => {
+      });
+    }
+  })();
+  return _autoBrowserGpuModeCache;
+}
+function logResolvedBrowserGpuMode(resolved, reason) {
+  console.error(`[hyperframes] browserGpuMode auto \u2192 ${resolved} (${reason})`);
+}
+async function acquireBrowser(chromeArgs, config2) {
+  const enablePool = config2?.enableBrowserPool ?? DEFAULT_CONFIG.enableBrowserPool;
+  if (enablePool && pooledBrowser) {
+    pooledBrowserRefCount += 1;
+    return { browser: pooledBrowser, captureMode: pooledCaptureMode };
+  }
+  const headlessShell = resolveHeadlessShellPath(config2);
+  const isLinux = process.platform === "linux";
+  const forceScreenshot = config2?.forceScreenshot ?? DEFAULT_CONFIG.forceScreenshot;
+  let captureMode;
+  let executablePath2;
+  if (headlessShell && isLinux && !forceScreenshot) {
+    captureMode = "beginframe";
+    executablePath2 = headlessShell;
+  } else {
+    captureMode = "screenshot";
+    executablePath2 = headlessShell ?? void 0;
+  }
+  const ppt = await getPuppeteer();
+  const browserTimeout = config2?.browserTimeout ?? DEFAULT_CONFIG.browserTimeout;
+  const protocolTimeout = config2?.protocolTimeout ?? DEFAULT_CONFIG.protocolTimeout;
+  let browser = await ppt.launch({
+    headless: true,
+    args: chromeArgs,
+    defaultViewport: null,
+    executablePath: executablePath2,
+    timeout: browserTimeout,
+    protocolTimeout
+  });
+  if (captureMode === "beginframe") {
+    const supported = await probeBeginFrameSupport(browser).catch(() => true);
+    if (!supported) {
+      await browser.close().catch(() => {
+      });
+      console.warn(
+        "[BrowserManager] HeadlessExperimental.beginFrame unavailable in this Chromium build; falling back to screenshot mode."
+      );
+      captureMode = "screenshot";
+      browser = await ppt.launch({
+        headless: true,
+        args: stripBeginFrameFlags(chromeArgs),
+        defaultViewport: null,
+        executablePath: executablePath2,
+        timeout: browserTimeout,
+        protocolTimeout
+      });
+    }
+  }
+  if (enablePool) {
+    pooledBrowser = browser;
+    pooledBrowserRefCount = 1;
+    pooledCaptureMode = captureMode;
+  }
+  return { browser, captureMode };
+}
+async function releaseBrowser(browser, config2) {
+  const enablePool = config2?.enableBrowserPool ?? DEFAULT_CONFIG.enableBrowserPool;
+  if (!enablePool) {
+    await browser.close().catch(() => {
+    });
+    return;
+  }
+  if (pooledBrowser && pooledBrowser === browser) {
+    pooledBrowserRefCount = Math.max(0, pooledBrowserRefCount - 1);
+    if (pooledBrowserRefCount === 0) {
+      await browser.close().catch(() => {
+      });
+      pooledBrowser = null;
+    }
+    return;
+  }
+  await browser.close().catch(() => {
+  });
+}
+function forceReleaseBrowser(browser) {
+  if (pooledBrowser && pooledBrowser === browser) {
+    pooledBrowserRefCount = 0;
+    pooledBrowser = null;
+  }
+  const proc = browser.process?.();
+  if (proc && !proc.killed) {
+    try {
+      proc.kill("SIGKILL");
+    } catch {
+    }
+  }
+  try {
+    browser.disconnect();
+  } catch {
+  }
+}
+var CANVAS_DRAW_ELEMENT_FEATURE_FLAG = "--enable-features=CanvasDrawElement";
+function buildChromeArgs(options, config2) {
+  const platform = options.platform ?? process.platform;
+  const gpuDisabled = config2?.disableGpu ?? DEFAULT_CONFIG.disableGpu;
+  const browserGpuMode = gpuDisabled ? "software" : config2?.browserGpuMode ?? DEFAULT_CONFIG.browserGpuMode;
+  const chromeArgs = [
+    "--no-sandbox",
+    "--disable-setuid-sandbox",
+    "--disable-dev-shm-usage",
+    CANVAS_DRAW_ELEMENT_FEATURE_FLAG,
+    "--enable-webgl",
+    "--ignore-gpu-blocklist",
+    ...getBrowserGpuArgs(browserGpuMode, platform),
+    "--font-render-hinting=none",
+    "--force-color-profile=srgb",
+    `--window-size=${options.width},${options.height}`,
+    // Prevent Chrome from throttling background tabs/timers — critical when the
+    // page is offscreen during headless capture
+    "--disable-background-timer-throttling",
+    "--disable-backgrounding-occluded-windows",
+    "--disable-renderer-backgrounding",
+    "--disable-background-media-suspend",
+    // Reduce overhead from unused Chrome features
+    "--disable-breakpad",
+    "--disable-component-extensions-with-background-pages",
+    "--disable-default-apps",
+    "--disable-extensions",
+    "--disable-hang-monitor",
+    "--disable-ipc-flooding-protection",
+    "--disable-popup-blocking",
+    "--disable-sync",
+    "--disable-component-update",
+    "--disable-domain-reliability",
+    "--disable-print-preview",
+    "--no-pings",
+    "--no-zygote",
+    // Memory
+    "--force-gpu-mem-available-mb=4096",
+    "--disk-cache-size=268435456",
+    // Disable features that add overhead
+    "--disable-features=AudioServiceOutOfProcess,IsolateOrigins,site-per-process,Translate,BackForwardCache,IntensiveWakeUpThrottling"
+  ];
+  if (options.captureMode !== "screenshot") {
+    chromeArgs.push(
+      "--deterministic-mode",
+      "--enable-begin-frame-control",
+      "--disable-new-content-rendering-timeout",
+      "--run-all-compositor-stages-before-draw",
+      "--disable-threaded-animation",
+      "--disable-threaded-scrolling",
+      "--disable-checker-imaging",
+      "--disable-image-animation-resync",
+      "--enable-surface-synchronization"
+    );
+  }
+  if (gpuDisabled) {
+    chromeArgs.push("--disable-gpu");
+  }
+  return chromeArgs;
+}
+function getBrowserGpuArgs(mode, platform) {
+  if (mode === "software") {
+    return ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"];
+  }
+  if (mode === "auto") {
+    return ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"];
+  }
+  switch (platform) {
+    case "darwin":
+      return ["--use-gl=angle", "--use-angle=metal", "--enable-gpu-rasterization"];
+    case "win32":
+      return ["--use-gl=angle", "--use-angle=d3d11", "--enable-gpu-rasterization"];
+    case "linux":
+      return ["--use-gl=egl", "--enable-gpu-rasterization"];
+    default:
+      return ["--enable-gpu-rasterization"];
+  }
+}
+
+// ../engine/src/services/frameCapture.ts
+import { existsSync as existsSync4, mkdirSync, writeFileSync } from "fs";
+import { join as join5 } from "path";
+
 // ../core/src/core.types.ts
 function fpsToNumber(fps) {
   return fps.num / fps.den;
@@ -104608,6 +105058,52 @@ var coreRules = [
           });
         }
       }
+    }
+    return findings;
+  },
+  // pointer_events_none
+  ({ tags, styles }) => {
+    const findings = [];
+    const reported = /* @__PURE__ */ new Set();
+    for (const tag of tags) {
+      if (["script", "style", "link", "meta", "template", "noscript"].includes(tag.name)) continue;
+      const inlineStyle = readAttr(tag.raw, "style") ?? "";
+      if (!/pointer-events\s*:\s*none/i.test(inlineStyle)) continue;
+      const id = readAttr(tag.raw, "id");
+      const key2 = id ?? tag.raw;
+      if (reported.has(key2)) continue;
+      reported.add(key2);
+      findings.push({
+        code: "pointer_events_none",
+        severity: "info",
+        message: `<${tag.name}${id ? ` id="${id}"` : ""}> has \`pointer-events: none\` in its inline style. Elements with this property are harder to select in the Studio preview.`,
+        elementId: id || void 0,
+        fixHint: "If this element should be selectable in the Studio, remove `pointer-events: none` or move it to a wrapper that doesn't contain editable content.",
+        snippet: truncateSnippet(tag.raw)
+      });
+    }
+    for (const style of styles) {
+      let root;
+      try {
+        root = postcss.parse(style.content);
+      } catch {
+        continue;
+      }
+      root.walkDecls("pointer-events", (decl) => {
+        if (decl.value.trim().toLowerCase() !== "none") return;
+        const rule = decl.parent;
+        if (!rule || rule.type !== "rule") return;
+        const selector = rule.selector;
+        if (reported.has(selector)) return;
+        reported.add(selector);
+        findings.push({
+          code: "pointer_events_none",
+          severity: "info",
+          message: `\`${selector}\` sets \`pointer-events: none\`. Elements matching this selector are harder to select in the Studio preview.`,
+          selector,
+          fixHint: "If these elements should be selectable in the Studio, remove `pointer-events: none` or move it to a wrapper that doesn't contain editable content."
+        });
+      });
     }
     return findings;
   }
@@ -106555,7 +107051,7 @@ function lintHyperframeHtml(html, options = {}) {
 
 // ../core/src/compiler/rewriteSubCompPaths.ts
 import { posix } from "path";
-var { join, resolve, dirname } = posix;
+var { join: join4, resolve: resolve6, dirname: dirname4 } = posix;
 var PATH_ATTRS = ["src", "href"];
 var CSS_URL_RE = /\burl\(\s*(["']?)([^)"']+)\1\s*\)/g;
 function isAbsoluteOrSpecial(val) {
@@ -106567,22 +107063,22 @@ function needsRewrite(val) {
 function rewriteAssetPath(compSrcPath, relativePath) {
   if (isAbsoluteOrSpecial(relativePath)) return relativePath;
   if (!needsRewrite(relativePath)) return relativePath;
-  const compDir = dirname(compSrcPath);
+  const compDir = dirname4(compSrcPath);
   if (!compDir || compDir === ".") return relativePath;
-  const resolved = join(compDir, relativePath);
-  const normalized = resolve("/", resolved).slice(1);
+  const resolved = join4(compDir, relativePath);
+  const normalized = resolve6("/", resolved).slice(1);
   return normalized;
 }
 function rewriteAssetPaths(elements, compSrcPath, getAttr2, setAttr) {
-  const compDir = dirname(compSrcPath);
+  const compDir = dirname4(compSrcPath);
   if (!compDir || compDir === ".") return;
   for (const el of elements) {
     for (const attr of PATH_ATTRS) {
       const val = (getAttr2(el, attr) || "").trim();
       if (isAbsoluteOrSpecial(val)) continue;
       if (!needsRewrite(val)) continue;
-      const rewritten = join(compDir, val);
-      const normalized = resolve("/", rewritten).slice(1);
+      const rewritten = join4(compDir, val);
+      const normalized = resolve6("/", rewritten).slice(1);
       if (normalized !== val) {
         setAttr(el, attr, normalized);
       }
@@ -106629,6 +107125,9 @@ var MEDIA_VISUAL_STYLE_PROPERTIES = [
   "mask-repeat",
   "transform",
   "transform-origin",
+  "translate",
+  "rotate",
+  "scale",
   "box-sizing"
 ];
 function quantizeTimeToFrame(timeSeconds, fps) {
@@ -106645,458 +107144,6 @@ var decimalDigitRe = new RegExp("\\p{Nd}", "u");
 
 // ../../node_modules/.bun/@chenglou+pretext@0.0.5/node_modules/@chenglou/pretext/dist/measurement.js
 var emojiPresentationRe = new RegExp("\\p{Emoji_Presentation}", "u");
-
-// ../engine/src/config.ts
-var DEFAULT_CONFIG = {
-  fps: 30,
-  quality: "standard",
-  format: "jpeg",
-  jpegQuality: 80,
-  concurrency: "auto",
-  coresPerWorker: 2.5,
-  minParallelFrames: 120,
-  largeRenderThreshold: 1e3,
-  disableGpu: false,
-  browserGpuMode: "software",
-  enableBrowserPool: false,
-  browserTimeout: 12e4,
-  protocolTimeout: 3e5,
-  forceScreenshot: false,
-  enableChunkedEncode: false,
-  chunkSizeFrames: 360,
-  enableStreamingEncode: true,
-  streamingEncodeMaxDurationSeconds: 240,
-  ffmpegEncodeTimeout: 6e5,
-  ffmpegProcessTimeout: 3e5,
-  ffmpegStreamingTimeout: 6e5,
-  hdr: false,
-  hdrAutoDetect: true,
-  audioGain: 1,
-  frameDataUriCacheLimit: 256,
-  frameDataUriCacheBytesLimitMb: 1500,
-  playerReadyTimeout: 45e3,
-  renderReadyTimeout: 15e3,
-  verifyRuntime: true,
-  debug: false
-};
-function resolveConfig(overrides) {
-  const env2 = (key2) => process.env[key2];
-  const envNum = (key2, fallback) => {
-    const raw2 = env2(key2);
-    if (raw2 === void 0 || raw2 === "") return fallback;
-    const n = Number(raw2);
-    return Number.isFinite(n) ? n : fallback;
-  };
-  const envBool = (key2, fallback) => {
-    const raw2 = env2(key2);
-    if (raw2 === void 0) return fallback;
-    return raw2 === "true";
-  };
-  const envBrowserGpuMode = () => {
-    const raw2 = env2("PRODUCER_BROWSER_GPU_MODE");
-    if (raw2 === "hardware" || raw2 === "software" || raw2 === "auto") return raw2;
-    return DEFAULT_CONFIG.browserGpuMode;
-  };
-  const fromEnv = {
-    concurrency: env2("PRODUCER_MAX_WORKERS") ? Number(env2("PRODUCER_MAX_WORKERS")) : void 0,
-    coresPerWorker: envNum("PRODUCER_CORES_PER_WORKER", DEFAULT_CONFIG.coresPerWorker),
-    minParallelFrames: envNum("PRODUCER_MIN_PARALLEL_FRAMES", DEFAULT_CONFIG.minParallelFrames),
-    largeRenderThreshold: envNum(
-      "PRODUCER_LARGE_RENDER_THRESHOLD",
-      DEFAULT_CONFIG.largeRenderThreshold
-    ),
-    chromePath: env2("PRODUCER_HEADLESS_SHELL_PATH"),
-    disableGpu: envBool("PRODUCER_DISABLE_GPU", DEFAULT_CONFIG.disableGpu),
-    browserGpuMode: envBrowserGpuMode(),
-    enableBrowserPool: envBool("PRODUCER_ENABLE_BROWSER_POOL", DEFAULT_CONFIG.enableBrowserPool),
-    browserTimeout: envNum("PRODUCER_PUPPETEER_LAUNCH_TIMEOUT_MS", DEFAULT_CONFIG.browserTimeout),
-    protocolTimeout: envNum(
-      "PRODUCER_PUPPETEER_PROTOCOL_TIMEOUT_MS",
-      DEFAULT_CONFIG.protocolTimeout
-    ),
-    expectedChromiumMajor: env2("PRODUCER_EXPECTED_CHROMIUM_MAJOR") ? Number(env2("PRODUCER_EXPECTED_CHROMIUM_MAJOR")) : void 0,
-    forceScreenshot: envBool("PRODUCER_FORCE_SCREENSHOT", DEFAULT_CONFIG.forceScreenshot),
-    enableChunkedEncode: envBool(
-      "PRODUCER_ENABLE_CHUNKED_ENCODE",
-      DEFAULT_CONFIG.enableChunkedEncode
-    ),
-    chunkSizeFrames: Math.max(
-      120,
-      envNum("PRODUCER_CHUNK_SIZE_FRAMES", DEFAULT_CONFIG.chunkSizeFrames)
-    ),
-    enableStreamingEncode: envBool(
-      "PRODUCER_ENABLE_STREAMING_ENCODE",
-      DEFAULT_CONFIG.enableStreamingEncode
-    ),
-    streamingEncodeMaxDurationSeconds: Math.max(
-      0,
-      envNum(
-        "PRODUCER_STREAMING_ENCODE_MAX_DURATION_SECONDS",
-        DEFAULT_CONFIG.streamingEncodeMaxDurationSeconds
-      )
-    ),
-    ffmpegEncodeTimeout: envNum("FFMPEG_ENCODE_TIMEOUT_MS", DEFAULT_CONFIG.ffmpegEncodeTimeout),
-    ffmpegProcessTimeout: envNum("FFMPEG_PROCESS_TIMEOUT_MS", DEFAULT_CONFIG.ffmpegProcessTimeout),
-    ffmpegStreamingTimeout: envNum(
-      "FFMPEG_STREAMING_TIMEOUT_MS",
-      DEFAULT_CONFIG.ffmpegStreamingTimeout
-    ),
-    hdr: (() => {
-      const raw2 = env2("PRODUCER_HDR_TRANSFER");
-      if (raw2 === "hlg" || raw2 === "pq") return { transfer: raw2 };
-      return false;
-    })(),
-    hdrAutoDetect: envBool("PRODUCER_HDR_AUTO_DETECT", DEFAULT_CONFIG.hdrAutoDetect),
-    audioGain: envNum("PRODUCER_AUDIO_GAIN", DEFAULT_CONFIG.audioGain),
-    frameDataUriCacheLimit: Math.max(
-      32,
-      envNum("PRODUCER_FRAME_DATA_URI_CACHE_LIMIT", DEFAULT_CONFIG.frameDataUriCacheLimit)
-    ),
-    frameDataUriCacheBytesLimitMb: Math.max(
-      64,
-      envNum(
-        "PRODUCER_FRAME_DATA_URI_CACHE_BYTES_MB",
-        DEFAULT_CONFIG.frameDataUriCacheBytesLimitMb
-      )
-    ),
-    playerReadyTimeout: envNum(
-      "PRODUCER_PLAYER_READY_TIMEOUT_MS",
-      DEFAULT_CONFIG.playerReadyTimeout
-    ),
-    renderReadyTimeout: envNum(
-      "PRODUCER_RENDER_READY_TIMEOUT_MS",
-      DEFAULT_CONFIG.renderReadyTimeout
-    ),
-    verifyRuntime: env2("PRODUCER_VERIFY_HYPERFRAME_RUNTIME") !== "false",
-    runtimeManifestPath: env2("PRODUCER_HYPERFRAME_MANIFEST_PATH"),
-    extractCacheDir: env2("HYPERFRAMES_EXTRACT_CACHE_DIR")
-  };
-  const cleanEnv = Object.fromEntries(Object.entries(fromEnv).filter(([, v2]) => v2 !== void 0));
-  return {
-    ...DEFAULT_CONFIG,
-    ...cleanEnv,
-    ...overrides
-  };
-}
-
-// ../engine/src/services/browserManager.ts
-import { existsSync as existsSync3, readdirSync as readdirSync2 } from "fs";
-import { join as join4 } from "path";
-import { homedir } from "os";
-var _puppeteer;
-async function getPuppeteer() {
-  if (_puppeteer) return _puppeteer;
-  try {
-    const mod = await import("puppeteer");
-    _puppeteer = mod.default;
-  } catch {
-    const mod = await Promise.resolve().then(() => (init_puppeteer_core(), puppeteer_core_exports));
-    _puppeteer = mod.default;
-  }
-  if (!_puppeteer) throw new Error("Neither puppeteer nor puppeteer-core found");
-  return _puppeteer;
-}
-function resolveHeadlessShellPath(config2) {
-  if (config2?.chromePath) {
-    return config2.chromePath;
-  }
-  if (process.env.PRODUCER_HEADLESS_SHELL_PATH) {
-    return process.env.PRODUCER_HEADLESS_SHELL_PATH;
-  }
-  const baseDir = join4(homedir(), ".cache", "puppeteer", "chrome-headless-shell");
-  if (!existsSync3(baseDir)) return void 0;
-  try {
-    const versions = readdirSync2(baseDir).sort().reverse();
-    for (const version of versions) {
-      const candidates = [
-        join4(baseDir, version, "chrome-headless-shell-linux64", "chrome-headless-shell"),
-        join4(baseDir, version, "chrome-headless-shell-mac-arm64", "chrome-headless-shell"),
-        join4(baseDir, version, "chrome-headless-shell-mac-x64", "chrome-headless-shell"),
-        join4(baseDir, version, "chrome-headless-shell-win64", "chrome-headless-shell.exe")
-      ];
-      for (const binary of candidates) {
-        if (existsSync3(binary)) return binary;
-      }
-    }
-  } catch {
-  }
-  return void 0;
-}
-var pooledBrowser = null;
-var pooledBrowserRefCount = 0;
-var pooledCaptureMode = "screenshot";
-var ENABLE_BROWSER_POOL = DEFAULT_CONFIG.enableBrowserPool;
-var BEGINFRAME_ONLY_FLAGS = /* @__PURE__ */ new Set([
-  "--deterministic-mode",
-  "--enable-begin-frame-control",
-  "--disable-new-content-rendering-timeout",
-  "--run-all-compositor-stages-before-draw",
-  "--disable-threaded-animation",
-  "--disable-threaded-scrolling",
-  "--disable-checker-imaging",
-  "--disable-image-animation-resync",
-  "--enable-surface-synchronization"
-]);
-function stripBeginFrameFlags(args) {
-  return args.filter((a2) => !BEGINFRAME_ONLY_FLAGS.has(a2));
-}
-async function probeBeginFrameSupport(browser) {
-  let page;
-  try {
-    page = await browser.newPage();
-    const client = await page.createCDPSession();
-    await client.send("HeadlessExperimental.enable");
-    const beginFrame = client.send("HeadlessExperimental.beginFrame", {
-      frameTimeTicks: 0,
-      interval: 33,
-      noDisplayUpdates: true
-    });
-    const timeout2 = new Promise(
-      (_2, reject) => setTimeout(() => reject(new Error("beginFrame probe timeout")), 2e3)
-    );
-    await Promise.race([beginFrame, timeout2]);
-    await client.detach().catch(() => {
-    });
-    return true;
-  } catch {
-    return false;
-  } finally {
-    await page?.close().catch(() => {
-    });
-  }
-}
-var _autoBrowserGpuModeCache;
-function resolveBrowserGpuMode(mode, options = {}) {
-  if (mode !== "auto") return Promise.resolve(mode);
-  if (_autoBrowserGpuModeCache) return _autoBrowserGpuModeCache;
-  _autoBrowserGpuModeCache = (async () => {
-    const platform = options.platform ?? process.platform;
-    const browserTimeout = options.browserTimeout ?? DEFAULT_CONFIG.browserTimeout;
-    const executablePath2 = options.chromePath ?? resolveHeadlessShellPath({});
-    const probeArgs = [
-      "--no-sandbox",
-      "--disable-setuid-sandbox",
-      "--disable-dev-shm-usage",
-      "--enable-webgl",
-      "--ignore-gpu-blocklist",
-      ...getBrowserGpuArgs("hardware", platform)
-    ];
-    const ppt = await getPuppeteer().catch(() => null);
-    if (!ppt) {
-      logResolvedBrowserGpuMode("software", "puppeteer unavailable");
-      return "software";
-    }
-    let probeBrowser;
-    try {
-      probeBrowser = await ppt.launch({
-        headless: true,
-        args: probeArgs,
-        defaultViewport: { width: 64, height: 64 },
-        executablePath: executablePath2,
-        timeout: browserTimeout
-      });
-      const page = await probeBrowser.newPage();
-      const hasWebGL = await page.evaluate(() => {
-        try {
-          const c = document.createElement("canvas");
-          const gl = c.getContext("webgl") || c.getContext("experimental-webgl");
-          return gl !== null;
-        } catch {
-          return false;
-        }
-      });
-      const resolved = hasWebGL ? "hardware" : "software";
-      logResolvedBrowserGpuMode(resolved, hasWebGL ? "WebGL probe succeeded" : "WebGL unavailable");
-      return resolved;
-    } catch (err) {
-      logResolvedBrowserGpuMode(
-        "software",
-        `probe failed (${err instanceof Error ? err.message : String(err)})`
-      );
-      return "software";
-    } finally {
-      await probeBrowser?.close().catch(() => {
-      });
-    }
-  })();
-  return _autoBrowserGpuModeCache;
-}
-function logResolvedBrowserGpuMode(resolved, reason) {
-  console.error(`[hyperframes] browserGpuMode auto \u2192 ${resolved} (${reason})`);
-}
-async function acquireBrowser(chromeArgs, config2) {
-  const enablePool = config2?.enableBrowserPool ?? DEFAULT_CONFIG.enableBrowserPool;
-  if (enablePool && pooledBrowser) {
-    pooledBrowserRefCount += 1;
-    return { browser: pooledBrowser, captureMode: pooledCaptureMode };
-  }
-  const headlessShell = resolveHeadlessShellPath(config2);
-  const isLinux = process.platform === "linux";
-  const forceScreenshot = config2?.forceScreenshot ?? DEFAULT_CONFIG.forceScreenshot;
-  let captureMode;
-  let executablePath2;
-  if (headlessShell && isLinux && !forceScreenshot) {
-    captureMode = "beginframe";
-    executablePath2 = headlessShell;
-  } else {
-    captureMode = "screenshot";
-    executablePath2 = headlessShell ?? void 0;
-  }
-  const ppt = await getPuppeteer();
-  const browserTimeout = config2?.browserTimeout ?? DEFAULT_CONFIG.browserTimeout;
-  const protocolTimeout = config2?.protocolTimeout ?? DEFAULT_CONFIG.protocolTimeout;
-  let browser = await ppt.launch({
-    headless: true,
-    args: chromeArgs,
-    defaultViewport: null,
-    executablePath: executablePath2,
-    timeout: browserTimeout,
-    protocolTimeout
-  });
-  if (captureMode === "beginframe") {
-    const supported = await probeBeginFrameSupport(browser).catch(() => true);
-    if (!supported) {
-      await browser.close().catch(() => {
-      });
-      console.warn(
-        "[BrowserManager] HeadlessExperimental.beginFrame unavailable in this Chromium build; falling back to screenshot mode."
-      );
-      captureMode = "screenshot";
-      browser = await ppt.launch({
-        headless: true,
-        args: stripBeginFrameFlags(chromeArgs),
-        defaultViewport: null,
-        executablePath: executablePath2,
-        timeout: browserTimeout,
-        protocolTimeout
-      });
-    }
-  }
-  if (enablePool) {
-    pooledBrowser = browser;
-    pooledBrowserRefCount = 1;
-    pooledCaptureMode = captureMode;
-  }
-  return { browser, captureMode };
-}
-async function releaseBrowser(browser, config2) {
-  const enablePool = config2?.enableBrowserPool ?? DEFAULT_CONFIG.enableBrowserPool;
-  if (!enablePool) {
-    await browser.close().catch(() => {
-    });
-    return;
-  }
-  if (pooledBrowser && pooledBrowser === browser) {
-    pooledBrowserRefCount = Math.max(0, pooledBrowserRefCount - 1);
-    if (pooledBrowserRefCount === 0) {
-      await browser.close().catch(() => {
-      });
-      pooledBrowser = null;
-    }
-    return;
-  }
-  await browser.close().catch(() => {
-  });
-}
-function forceReleaseBrowser(browser) {
-  if (pooledBrowser && pooledBrowser === browser) {
-    pooledBrowserRefCount = 0;
-    pooledBrowser = null;
-  }
-  const proc = browser.process?.();
-  if (proc && !proc.killed) {
-    try {
-      proc.kill("SIGKILL");
-    } catch {
-    }
-  }
-  try {
-    browser.disconnect();
-  } catch {
-  }
-}
-var CANVAS_DRAW_ELEMENT_FEATURE_FLAG = "--enable-features=CanvasDrawElement";
-function buildChromeArgs(options, config2) {
-  const platform = options.platform ?? process.platform;
-  const gpuDisabled = config2?.disableGpu ?? DEFAULT_CONFIG.disableGpu;
-  const browserGpuMode = gpuDisabled ? "software" : config2?.browserGpuMode ?? DEFAULT_CONFIG.browserGpuMode;
-  const chromeArgs = [
-    "--no-sandbox",
-    "--disable-setuid-sandbox",
-    "--disable-dev-shm-usage",
-    CANVAS_DRAW_ELEMENT_FEATURE_FLAG,
-    "--enable-webgl",
-    "--ignore-gpu-blocklist",
-    ...getBrowserGpuArgs(browserGpuMode, platform),
-    "--font-render-hinting=none",
-    "--force-color-profile=srgb",
-    `--window-size=${options.width},${options.height}`,
-    // Prevent Chrome from throttling background tabs/timers — critical when the
-    // page is offscreen during headless capture
-    "--disable-background-timer-throttling",
-    "--disable-backgrounding-occluded-windows",
-    "--disable-renderer-backgrounding",
-    "--disable-background-media-suspend",
-    // Reduce overhead from unused Chrome features
-    "--disable-breakpad",
-    "--disable-component-extensions-with-background-pages",
-    "--disable-default-apps",
-    "--disable-extensions",
-    "--disable-hang-monitor",
-    "--disable-ipc-flooding-protection",
-    "--disable-popup-blocking",
-    "--disable-sync",
-    "--disable-component-update",
-    "--disable-domain-reliability",
-    "--disable-print-preview",
-    "--no-pings",
-    "--no-zygote",
-    // Memory
-    "--force-gpu-mem-available-mb=4096",
-    "--disk-cache-size=268435456",
-    // Disable features that add overhead
-    "--disable-features=AudioServiceOutOfProcess,IsolateOrigins,site-per-process,Translate,BackForwardCache,IntensiveWakeUpThrottling"
-  ];
-  if (options.captureMode !== "screenshot") {
-    chromeArgs.push(
-      "--deterministic-mode",
-      "--enable-begin-frame-control",
-      "--disable-new-content-rendering-timeout",
-      "--run-all-compositor-stages-before-draw",
-      "--disable-threaded-animation",
-      "--disable-threaded-scrolling",
-      "--disable-checker-imaging",
-      "--disable-image-animation-resync",
-      "--enable-surface-synchronization"
-    );
-  }
-  if (gpuDisabled) {
-    chromeArgs.push("--disable-gpu");
-  }
-  return chromeArgs;
-}
-function getBrowserGpuArgs(mode, platform) {
-  if (mode === "software") {
-    return ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"];
-  }
-  if (mode === "auto") {
-    return ["--use-gl=angle", "--use-angle=swiftshader", "--enable-unsafe-swiftshader"];
-  }
-  switch (platform) {
-    case "darwin":
-      return ["--use-gl=angle", "--use-angle=metal", "--enable-gpu-rasterization"];
-    case "win32":
-      return ["--use-gl=angle", "--use-angle=d3d11", "--enable-gpu-rasterization"];
-    case "linux":
-      return ["--use-gl=egl", "--enable-gpu-rasterization"];
-    default:
-      return ["--enable-gpu-rasterization"];
-  }
-}
-
-// ../engine/src/services/frameCapture.ts
-import { existsSync as existsSync4, mkdirSync, writeFileSync } from "fs";
-import { join as join5 } from "path";
 
 // ../engine/src/services/screenshotService.ts
 var cdpSessionCache = /* @__PURE__ */ new WeakMap();
@@ -107352,6 +107399,24 @@ async function syncVideoFrameVisibility(page, activeVideoIds) {
 // ../engine/src/services/frameCapture.ts
 var BROWSER_CONSOLE_BUFFER_SIZE = 200;
 var CAPTURE_SESSION_CLOSE_TIMEOUT_MS = 5e3;
+var LOCKED_WARMUP_TICKS = 60;
+var realSleep = (ms) => new Promise((resolve15) => setTimeout(resolve15, ms));
+async function driveWarmupTicks(options, state) {
+  const sleep = options.sleep ?? realSleep;
+  while (true) {
+    if (options.lockWarmupTicks) {
+      if (state.ticks >= LOCKED_WARMUP_TICKS) return;
+    } else {
+      if (!state.running) return;
+    }
+    try {
+      await options.tick(state.ticks * options.intervalMs, options.intervalMs);
+      state.ticks += 1;
+    } catch {
+    }
+    await sleep(options.intervalMs);
+  }
+}
 async function waitForCloseWithTimeout(promise) {
   let timedOut = false;
   let timer2;
@@ -107465,6 +107530,23 @@ async function pollPageExpression(page, expression, timeoutMs, intervalMs = 100)
   }
   return Boolean(await page.evaluate(expression));
 }
+async function pollVideosReady(page, skipIds, timeoutMs, intervalMs = 100) {
+  const check = async () => {
+    return Boolean(
+      await page.evaluate((skipIdList) => {
+        const skip = new Set(skipIdList);
+        const vids = Array.from(document.querySelectorAll("video")).filter((v2) => !skip.has(v2.id));
+        return vids.length === 0 || vids.every((v2) => v2.readyState >= 2);
+      }, skipIds)
+    );
+  };
+  const deadline = Date.now() + timeoutMs;
+  while (Date.now() < deadline) {
+    if (await check()) return true;
+    await new Promise((resolve15) => setTimeout(resolve15, intervalMs));
+  }
+  return check();
+}
 async function applyVideoMetadataHints(page, hints) {
   if (!hints || hints.length === 0) return;
   await page.evaluate(
@@ -107547,10 +107629,9 @@ async function initializeSession(session) {
       );
     }
     await applyVideoMetadataHints(page, session.options.videoMetadataHints);
-    const skipIdsLiteral = JSON.stringify(session.options.skipReadinessVideoIds ?? []);
-    const videosReady = await pollPageExpression(
+    const videosReady = await pollVideosReady(
       page,
-      `(() => { const skip = new Set(${skipIdsLiteral}); const vids = Array.from(document.querySelectorAll("video")).filter(v => !skip.has(v.id)); return vids.length === 0 || vids.every(v => v.readyState >= 2); })()`,
+      session.options.skipReadinessVideoIds ?? [],
       pageReadyTimeout2
     );
     if (!videosReady) {
@@ -107566,34 +107647,41 @@ async function initializeSession(session) {
     session.isInitialized = true;
     return;
   }
-  let warmupRunning = true;
-  let warmupTicks = 0;
-  let warmupFrameTime = 0;
   const warmupIntervalMs = 33;
+  const warmupState = {
+    running: true,
+    ticks: 0
+  };
+  const lockWarmupTicks = session.options.lockWarmupTicks === true;
   let warmupClient = null;
-  const warmupLoop = async () => {
+  const acquireWarmupClient = async () => {
     try {
       warmupClient = await getCdpSession(page);
       await warmupClient.send("HeadlessExperimental.enable");
     } catch {
     }
-    while (warmupRunning) {
-      if (warmupClient) {
-        try {
+  };
+  const warmupLoopPromise = (async () => {
+    await acquireWarmupClient();
+    await driveWarmupTicks(
+      {
+        intervalMs: warmupIntervalMs,
+        lockWarmupTicks,
+        tick: async (frameTimeTicks, interval) => {
+          if (!warmupClient) {
+            return;
+          }
           await warmupClient.send("HeadlessExperimental.beginFrame", {
-            frameTimeTicks: warmupFrameTime,
-            interval: warmupIntervalMs,
+            frameTimeTicks,
+            interval,
             noDisplayUpdates: true
           });
-          warmupFrameTime += warmupIntervalMs;
-          warmupTicks++;
-        } catch {
         }
-      }
-      await new Promise((r) => setTimeout(r, warmupIntervalMs));
-    }
-  };
-  warmupLoop().catch(() => {
+      },
+      warmupState
+    );
+  })();
+  warmupLoopPromise.catch(() => {
   });
   await page.goto(url, { waitUntil: "domcontentloaded", timeout: 6e4 });
   const pageReadyTimeout = session.config?.playerReadyTimeout ?? DEFAULT_CONFIG.playerReadyTimeout;
@@ -107609,25 +107697,26 @@ async function initializeSession(session) {
     `!!(window.__hf && typeof window.__hf.seek === "function" && window.__hf.duration > 0)`
   );
   if (!pageReady) {
-    warmupRunning = false;
+    warmupState.running = false;
     throw new Error(
       `[FrameCapture] window.__hf not ready after ${pageReadyTimeout}ms. Page must expose window.__hf = { duration, seek }.`
     );
   }
   await applyVideoMetadataHints(page, session.options.videoMetadataHints);
-  const beginframeSkipIdsLiteral = JSON.stringify(session.options.skipReadinessVideoIds ?? []);
-  const videoDeadline = Date.now() + (session.config?.playerReadyTimeout ?? DEFAULT_CONFIG.playerReadyTimeout);
-  while (Date.now() < videoDeadline) {
-    const videosReady = await page.evaluate(
-      `(() => { const skip = new Set(${beginframeSkipIdsLiteral}); const vids = Array.from(document.querySelectorAll("video")).filter(v => !skip.has(v.id)); return vids.length === 0 || vids.every(v => v.readyState >= 2); })()`
-    );
-    if (videosReady) break;
-    await new Promise((r) => setTimeout(r, 100));
-  }
+  await pollVideosReady(
+    page,
+    session.options.skipReadinessVideoIds ?? [],
+    session.config?.playerReadyTimeout ?? DEFAULT_CONFIG.playerReadyTimeout
+  );
   await page.evaluate(`document.fonts?.ready`);
   await waitForOptionalTailwindReady(page, pageReadyTimeout);
-  warmupRunning = false;
-  session.beginFrameTimeTicks = (warmupTicks + 10) * session.beginFrameIntervalMs;
+  warmupState.running = false;
+  if (lockWarmupTicks) {
+    await warmupLoopPromise.catch(() => {
+    });
+  }
+  const baseTickCount = lockWarmupTicks ? LOCKED_WARMUP_TICKS : warmupState.ticks;
+  session.beginFrameTimeTicks = (baseTickCount + 10) * session.beginFrameIntervalMs;
   if (session.options.format === "png") {
     await initTransparentBackground(session.page);
   }
@@ -108072,15 +108161,44 @@ function buildEncoderArgs(options, inputArgs, outputPath, gpuEncoder = null) {
       args.push("-c:v", encoderName, "-preset", preset);
       if (bitrate) args.push("-b:v", bitrate);
       else args.push("-crf", String(quality));
-      if (codec === "h264") {
+      const lockGop = options.lockGopForChunkConcat === true;
+      let gop = 0;
+      if (lockGop) {
+        if (typeof options.gopSize !== "number" || !Number.isFinite(options.gopSize) || options.gopSize <= 0) {
+          throw new Error(
+            `[chunkEncoder] lockGopForChunkConcat=true requires a positive integer gopSize (received ${String(options.gopSize)})`
+          );
+        }
+        gop = Math.floor(options.gopSize);
+        args.push(
+          "-g",
+          String(gop),
+          "-keyint_min",
+          String(gop),
+          "-sc_threshold",
+          "0",
+          "-force_key_frames",
+          `expr:eq(mod(n,${gop}),0)`
+        );
+      }
+      if (codec === "h264" || codec === "h265" && lockGop) {
         args.push("-bf", "0");
       }
       const xParamsFlag = codec === "h264" ? "-x264-params" : "-x265-params";
       const colorParams = codec === "h265" && options.hdr ? getHdrEncoderColorParams(options.hdr.transfer).x265ColorParams : "colorprim=bt709:transfer=bt709:colormatrix=bt709";
+      let gopParams = "";
+      if (lockGop) {
+        const shared = "scenecut=0:open-gop=0:repeat-headers=1";
+        gopParams = codec === "h264" ? shared : `keyint=${gop}:min-keyint=${gop}:${shared}`;
+      }
+      const joinParams = (...parts) => parts.filter((p) => p.length > 0).join(":");
       if (preset === "ultrafast") {
-        args.push(xParamsFlag, `aq-mode=3:${colorParams}`);
+        args.push(xParamsFlag, joinParams("aq-mode=3", colorParams, gopParams));
       } else {
-        args.push(xParamsFlag, `aq-mode=3:aq-strength=0.8:deblock=1,1:${colorParams}`);
+        args.push(
+          xParamsFlag,
+          joinParams("aq-mode=3", "aq-strength=0.8", "deblock=1,1", colorParams, gopParams)
+        );
       }
     }
     if (codec === "h265") {
@@ -110481,20 +110599,55 @@ async function queryElementStacking(page, nativeHdrIds) {
         if (!htmlEl) continue;
         mat = mat.translate(htmlEl.offsetLeft, htmlEl.offsetTop);
         const cs = window.getComputedStyle(htmlEl);
-        if (cs.transform && cs.transform !== "none") {
-          const origin = cs.transformOrigin.split(" ");
-          const ox = resolveLength(origin[0] ?? "0", htmlEl.offsetWidth);
-          const oy = resolveLength(origin[1] ?? "0", htmlEl.offsetHeight);
-          try {
-            const t = new DOMMatrix(cs.transform);
-            if (Number.isFinite(t.a) && Number.isFinite(t.b) && Number.isFinite(t.c) && Number.isFinite(t.d) && Number.isFinite(t.e) && Number.isFinite(t.f)) {
-              mat = mat.translate(ox, oy).multiply(t).translate(-ox, -oy);
+        const origin = cs.transformOrigin.split(" ");
+        const ox = resolveLength(origin[0] ?? "0", htmlEl.offsetWidth);
+        const oy = resolveLength(origin[1] ?? "0", htmlEl.offsetHeight);
+        const individualTransform = composeIndividualTransforms(cs);
+        const hasIndividual = individualTransform !== null;
+        const hasTransform = cs.transform && cs.transform !== "none";
+        if (hasIndividual || hasTransform) {
+          mat = mat.translate(ox, oy);
+          if (hasIndividual) mat = mat.multiply(individualTransform);
+          if (hasTransform) {
+            try {
+              const t = new DOMMatrix(cs.transform);
+              if (Number.isFinite(t.a) && Number.isFinite(t.b) && Number.isFinite(t.c) && Number.isFinite(t.d) && Number.isFinite(t.e) && Number.isFinite(t.f)) {
+                mat = mat.multiply(t);
+              }
+            } catch {
             }
-          } catch {
           }
+          mat = mat.translate(-ox, -oy);
         }
       }
       return mat.toString();
+    }
+    function composeIndividualTransforms(cs) {
+      const translate = cs.getPropertyValue("translate").trim();
+      const rotate = cs.getPropertyValue("rotate").trim();
+      const scale = cs.getPropertyValue("scale").trim();
+      const hasTranslate = translate && translate !== "none";
+      const hasRotate = rotate && rotate !== "none";
+      const hasScale = scale && scale !== "none";
+      if (!hasTranslate && !hasRotate && !hasScale) return null;
+      let m = new DOMMatrix();
+      if (hasTranslate) {
+        const parts = translate.split(/\s+/);
+        const tx = parseFloat(parts[0] ?? "0") || 0;
+        const ty = parseFloat(parts[1] ?? "0") || 0;
+        if (tx !== 0 || ty !== 0) m = m.translate(tx, ty);
+      }
+      if (hasRotate) {
+        const deg = parseFloat(rotate) || 0;
+        if (deg !== 0) m = m.rotate(deg);
+      }
+      if (hasScale) {
+        const parts = scale.split(/\s+/);
+        const sx = parseFloat(parts[0] ?? "1") || 1;
+        const sy = parseFloat(parts[1] ?? String(sx)) || sx;
+        if (sx !== 1 || sy !== 1) m = m.scale(sx, sy);
+      }
+      return m;
     }
     function resolveLength(value, basis) {
       if (value.endsWith("%")) {
@@ -110861,8 +111014,10 @@ import { copyFile, rename as rename2 } from "fs/promises";
 import { join as join11 } from "path";
 var MEMORY_PER_WORKER_MB = 256;
 var MIN_WORKERS = 1;
-var ABSOLUTE_MAX_WORKERS = 10;
-var DEFAULT_SAFE_MAX_WORKERS = 6;
+var ABSOLUTE_MAX_WORKERS = 24;
+function defaultSafeMaxWorkers() {
+  return Math.max(6, Math.min(16, Math.floor(cpus().length / 8)));
+}
 var MIN_FRAMES_PER_WORKER = 30;
 function calculateOptimalWorkers(totalFrames, requested, config2) {
   const effectiveMaxWorkers = (() => {
@@ -110870,7 +111025,7 @@ function calculateOptimalWorkers(totalFrames, requested, config2) {
     if (concurrency !== "auto") {
       return Math.max(MIN_WORKERS, Math.min(ABSOLUTE_MAX_WORKERS, Math.floor(concurrency)));
     }
-    return DEFAULT_SAFE_MAX_WORKERS;
+    return defaultSafeMaxWorkers();
   })();
   const effectiveCoresPerWorker = config2?.coresPerWorker ?? DEFAULT_CONFIG.coresPerWorker;
   const effectiveMinParallelFrames = config2?.minParallelFrames ?? DEFAULT_CONFIG.minParallelFrames;
@@ -112236,10 +112391,9 @@ var ridgedBurn = (from2, to, out, w2, h, p) => {
 TRANSITIONS["ridged-burn"] = ridgedBurn;
 
 // src/services/renderOrchestrator.ts
-import { join as join23, dirname as dirname11, resolve as resolve12, relative as relative2, isAbsolute as isAbsolute5, basename as basename3 } from "path";
+import { join as join28, dirname as dirname12, resolve as resolve12 } from "path";
 import { randomUUID } from "crypto";
-import { freemem as freemem2 } from "os";
-import { fileURLToPath as fileURLToPath3 } from "url";
+import { fileURLToPath as fileURLToPath4 } from "url";
 
 // src/services/fileServer.ts
 import { readFileSync as readFileSync7, existsSync as existsSync13, realpathSync, statSync as statSync6 } from "node:fs";
@@ -112353,7 +112507,53 @@ var MIME_TYPES = {
   ".ttf": "font/ttf",
   ".otf": "font/otf"
 };
-var VIRTUAL_TIME_SHIM = String.raw`(function() {
+function buildVirtualTimeShim(options) {
+  const seedRandomFromFrame = options.seedRandomFromFrame === true;
+  const seededRandomBlock = seedRandomFromFrame ? String.raw`
+  // Seeded Math.random / crypto.getRandomValues, keyed by virtual time.
+  // Mulberry32 — single uint32 state, deterministic, fast.
+  var rngState = 0;
+  function mulberry32() {
+    rngState |= 0; rngState = (rngState + 0x6D2B79F5) | 0;
+    var t = rngState;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  }
+  function reseedRngFromTime(ms) {
+    var ms32 = Math.max(0, Math.floor(Number(ms) || 0)) | 0;
+    // Knuth's multiplicative hash + golden-ratio offset — gives a well-
+    // distributed seed even for frame 0 (otherwise rngState=0 degenerates
+    // the PRNG's first few outputs).
+    rngState = (Math.imul(ms32, -1640531527) + 0x9E3779B9) | 0;
+  }
+  reseedRngFromTime(0);
+  try {
+    Math.random = function() { return mulberry32(); };
+  } catch (e) {}
+  if (window.crypto && typeof window.crypto.getRandomValues === "function") {
+    try {
+      var __seededGetRandomValues = function(arr) {
+        if (!arr || typeof arr.byteLength !== "number" || !arr.buffer) return arr;
+        var byteLen = arr.byteLength;
+        if (byteLen <= 0) return arr;
+        var view = new DataView(arr.buffer, arr.byteOffset, byteLen);
+        var i = 0;
+        for (; i + 4 <= byteLen; i += 4) {
+          var word = ((mulberry32() * 4294967296) >>> 0);
+          view.setUint32(i, word, true);
+        }
+        for (; i < byteLen; i++) {
+          view.setUint8(i, (mulberry32() * 256) | 0);
+        }
+        return arr;
+      };
+      window.crypto.getRandomValues = __seededGetRandomValues;
+    } catch (e) {}
+  }
+` : "";
+  const seekToTimeReseedCall = seedRandomFromFrame ? "reseedRngFromTime(safeTimeMs);\n      " : "";
+  return String.raw`(function() {
   if (window.__HF_VIRTUAL_TIME__) return;
 
   var virtualNowMs = 0;
@@ -112370,7 +112570,7 @@ var VIRTUAL_TIME_SHIM = String.raw`(function() {
   var originalCancelAnimationFrame = window.cancelAnimationFrame
     ? window.cancelAnimationFrame.bind(window)
     : null;
-
+${seededRandomBlock}
   function flushAnimationFrame() {
     if (!rafQueue.length) return;
     var current = rafQueue.slice();
@@ -112441,7 +112641,7 @@ var VIRTUAL_TIME_SHIM = String.raw`(function() {
     seekToTime: function(nextTimeMs) {
       var safeTimeMs = Math.max(0, Number(nextTimeMs) || 0);
       virtualNowMs = safeTimeMs;
-      flushAnimationFrame();
+      ${seekToTimeReseedCall}flushAnimationFrame();
       return virtualNowMs;
     },
     getTime: function() {
@@ -112449,6 +112649,8 @@ var VIRTUAL_TIME_SHIM = String.raw`(function() {
     },
   };
 })();`;
+}
+var VIRTUAL_TIME_SHIM = buildVirtualTimeShim({ seedRandomFromFrame: false });
 var RENDER_SEEK_MODE = process.env.PRODUCER_RUNTIME_RENDER_SEEK_MODE === "strict-boundary" ? "strict-boundary" : "preview-phase";
 var RENDER_SEEK_DIAGNOSTICS = process.env.PRODUCER_DEBUG_SEEK_DIAGNOSTICS === "true";
 var RENDER_SEEK_STEP = Math.max(
@@ -112753,6 +112955,10 @@ function createConsoleLogger(level = "info") {
 }
 var defaultLogger = createConsoleLogger("info");
 
+// src/services/render/shared.ts
+import { copyFileSync as copyFileSync2, cpSync, existsSync as existsSync14, mkdirSync as mkdirSync9, symlinkSync, writeFileSync as writeFileSync4 } from "node:fs";
+import { basename as basename3, dirname as dirname9, isAbsolute as isAbsolute4, join as join14, relative as relative2, resolve as resolve10 } from "node:path";
+
 // src/utils/paths.ts
 import {
   basename as basename2,
@@ -112791,8 +112997,6 @@ function resolveRenderPaths(projectDir, outputPath, rendersDir = DEFAULT_RENDERS
 }
 
 // src/services/render/shared.ts
-import { copyFileSync as copyFileSync2, mkdirSync as mkdirSync9, writeFileSync as writeFileSync4 } from "node:fs";
-import { dirname as dirname9, join as join14, resolve as resolve10 } from "node:path";
 var BROWSER_MEDIA_EPSILON = 1e-4;
 function projectBrowserEndToCompositionTimeline(existingStart, browserStart, browserEnd) {
   return browserEnd + (existingStart - browserStart);
@@ -112872,13 +113076,15 @@ function writeCompiledArtifacts(compiled, workDir, includeSummary) {
     writeFileSync4(join14(compileDir, "summary.json"), JSON.stringify(summary, null, 2), "utf-8");
   }
 }
-function applyRenderModeHints(cfg, compiled, log = defaultLogger) {
-  if (cfg.forceScreenshot || !compiled.renderModeHints.recommendScreenshot) return;
-  cfg.forceScreenshot = true;
+function applyRenderModeHints(alreadyForced, compiled, log = defaultLogger) {
+  if (alreadyForced || !compiled.renderModeHints.recommendScreenshot) {
+    return { forceScreenshot: alreadyForced, autoSelected: false };
+  }
   log.warn("Auto-selected screenshot capture mode for render compatibility", {
     reasonCodes: compiled.renderModeHints.reasons.map((reason) => reason.code),
     reasons: compiled.renderModeHints.reasons.map((reason) => reason.message)
   });
+  return { forceScreenshot: true, autoSelected: true };
 }
 function updateJobStatus(job, status, stage, progress, onProgress) {
   job.status = status;
@@ -112887,18 +113093,582 @@ function updateJobStatus(job, status, stage, progress, onProgress) {
   if (status === "failed" || status === "complete") job.completedAt = /* @__PURE__ */ new Date();
   if (onProgress) onProgress(job, stage);
 }
+function createCompiledFrameSrcResolver(compiledDir) {
+  const compiledRoot = resolve10(compiledDir);
+  return (framePath) => {
+    const resolvedFramePath = resolve10(framePath);
+    if (!isPathInside2(resolvedFramePath, compiledRoot)) return null;
+    const relativePath = relative2(compiledRoot, resolvedFramePath);
+    if (!relativePath || relativePath.startsWith("..") || isAbsolute4(relativePath)) {
+      return null;
+    }
+    return `/${relativePath.split(/[\\/]+/).map((segment) => encodeURIComponent(segment)).join("/")}`;
+  };
+}
+var materializePathModule = {
+  resolve: resolve10,
+  join: join14,
+  dirname: dirname9,
+  basename: basename3,
+  relative: relative2,
+  isAbsolute: isAbsolute4
+};
+var materializeFileSystem = {
+  existsSync: existsSync14,
+  mkdirSync: mkdirSync9,
+  symlinkSync,
+  cpSync
+};
+function createMemorySampler(intervalMs = 250) {
+  let peakRss = 0;
+  let peakHeap = 0;
+  const sample = () => {
+    try {
+      const m = process.memoryUsage();
+      if (m.rss > peakRss) peakRss = m.rss;
+      if (m.heapUsed > peakHeap) peakHeap = m.heapUsed;
+    } catch {
+    }
+  };
+  sample();
+  const interval = setInterval(sample, intervalMs);
+  interval.unref();
+  let stopped = false;
+  return {
+    // Resampling at read time means callers see the value at the
+    // moment of inspection, not the last 250ms tick — important for
+    // the success-path perf summary which captures peaks just before
+    // returning.
+    peakRssBytes: () => {
+      sample();
+      return peakRss;
+    },
+    peakHeapUsedBytes: () => {
+      sample();
+      return peakHeap;
+    },
+    stop: () => {
+      if (stopped) return;
+      stopped = true;
+      sample();
+      clearInterval(interval);
+    }
+  };
+}
+function materializeExtractedFramesForCompiledDir(extracted, compiledDir, options = {}) {
+  const pathModule = options.pathModule ?? materializePathModule;
+  const fileSystem = options.fileSystem ?? materializeFileSystem;
+  const resolvedCompiledDir = pathModule.resolve(compiledDir);
+  const compiledFrameRoot = pathModule.join(resolvedCompiledDir, "__hyperframes_video_frames");
+  for (const ext of extracted) {
+    const resolvedOut = pathModule.resolve(ext.outputDir);
+    if (isPathInside2(resolvedOut, resolvedCompiledDir, { pathModule })) continue;
+    const linkPath = pathModule.join(compiledFrameRoot, ext.videoId);
+    if (!fileSystem.existsSync(linkPath)) {
+      fileSystem.mkdirSync(pathModule.dirname(linkPath), { recursive: true });
+      if (options.materializeSymlinks) {
+        fileSystem.cpSync(resolvedOut, linkPath, { recursive: true });
+      } else {
+        fileSystem.symlinkSync(resolvedOut, linkPath);
+      }
+    }
+    const remapped = /* @__PURE__ */ new Map();
+    for (const [idx, framePath] of ext.framePaths) {
+      remapped.set(idx, pathModule.join(linkPath, pathModule.basename(framePath)));
+    }
+    ext.framePaths = remapped;
+    ext.outputDir = linkPath;
+  }
+}
+
+// src/services/render/cleanup.ts
+import { rmSync as rmSync3 } from "node:fs";
+import { freemem as freemem2 } from "node:os";
+async function safeCleanup(label, fn, log = defaultLogger) {
+  try {
+    await fn();
+  } catch (err) {
+    log.debug(`Cleanup failed (${label})`, {
+      error: err instanceof Error ? err.message : String(err)
+    });
+  }
+}
+async function cleanupRenderResources(input2) {
+  const { fileServer, probeSession, workDir, debug: debug6, log, label } = input2;
+  if (fileServer) {
+    const fs8 = fileServer;
+    await safeCleanup(
+      `close file server (${label})`,
+      () => {
+        fs8.close();
+      },
+      log
+    );
+  }
+  if (probeSession) {
+    const session = probeSession;
+    await safeCleanup(`close probe session (${label})`, () => closeCaptureSession(session), log);
+  }
+  if (!debug6) {
+    await safeCleanup(
+      `remove workDir (${label})`,
+      () => rmSync3(workDir, { recursive: true, force: true }),
+      log
+    );
+  }
+}
+function buildRenderErrorDetails(input2) {
+  const errorMessage = input2.error instanceof Error ? input2.error.message : String(input2.error);
+  const errorStack = input2.error instanceof Error ? input2.error.stack : void 0;
+  return {
+    message: errorMessage,
+    stack: errorStack,
+    elapsedMs: Date.now() - input2.pipelineStartMs,
+    freeMemoryMB: Math.round(freemem2() / (1024 * 1024)),
+    browserConsoleTail: input2.lastBrowserConsole.length > 0 ? input2.lastBrowserConsole.slice(-30) : void 0,
+    perfStages: Object.keys(input2.perfStages).length > 0 ? { ...input2.perfStages } : void 0,
+    hdrDiagnostics: input2.hdrDiagnostics.videoExtractionFailures > 0 || input2.hdrDiagnostics.imageDecodeFailures > 0 ? { ...input2.hdrDiagnostics } : void 0
+  };
+}
+
+// src/services/render/hdrMode.ts
+function resolveEffectiveHdrMode(input2) {
+  const hdrMode = input2.hdrMode ?? "auto";
+  const videoColorSpaces = (input2.extractionResult?.extracted ?? []).map(
+    (ext) => ext.metadata.colorSpace
+  );
+  const allColorSpaces = [...videoColorSpaces, ...input2.imageColorSpaces];
+  const info = allColorSpaces.length > 0 ? analyzeCompositionHdr(allColorSpaces) : null;
+  let effectiveHdr;
+  let forcedHdrWithoutSources = false;
+  if (hdrMode === "force-sdr") {
+    effectiveHdr = void 0;
+  } else if (hdrMode === "force-hdr") {
+    if (info?.hasHdr && info.dominantTransfer) {
+      effectiveHdr = { transfer: info.dominantTransfer };
+    } else {
+      effectiveHdr = { transfer: "hlg" };
+      forcedHdrWithoutSources = true;
+    }
+  } else if (info?.hasHdr && info.dominantTransfer) {
+    effectiveHdr = { transfer: info.dominantTransfer };
+  }
+  if (effectiveHdr && input2.outputFormat !== "mp4") {
+    const hdrSourceReason = forcedHdrWithoutSources ? "HDR was forced without detected HDR sources" : "HDR source detected";
+    input2.log.warn(
+      `[Render] ${hdrSourceReason}, but format is "${input2.outputFormat}" \u2014 falling back to SDR. HDR + alpha is not supported. Use --format mp4 for HDR10 output.`
+    );
+    effectiveHdr = void 0;
+  }
+  if (forcedHdrWithoutSources) {
+    input2.log.warn(
+      "[Render] HDR forced by --hdr flag, but no HDR sources were detected \u2014 defaulting to HLG. SDR-only compositions may look perceptually wrong on HDR displays."
+    );
+  }
+  if (effectiveHdr) {
+    let reason;
+    if (hdrMode === "force-hdr") {
+      reason = forcedHdrWithoutSources ? "forced by --hdr flag (no HDR sources detected \u2014 defaulting to HLG)" : "forced by --hdr flag";
+    } else {
+      reason = "auto-detected from source(s)";
+    }
+    input2.log.info(
+      `[Render] HDR ${reason} \u2014 output: ${effectiveHdr.transfer.toUpperCase()} (BT.2020, 10-bit H.265)`
+    );
+  } else if (hdrMode === "force-sdr") {
+    input2.log.info("[Render] SDR forced by --sdr flag");
+  } else {
+    input2.log.info("[Render] No HDR sources detected \u2014 rendering SDR");
+  }
+  return effectiveHdr;
+}
+
+// src/services/render/hdrPerf.ts
+function createHdrPerfCollector() {
+  return {
+    frames: 0,
+    normalFrames: 0,
+    transitionFrames: 0,
+    domLayerCaptures: 0,
+    hdrVideoLayerBlits: 0,
+    hdrImageLayerBlits: 0,
+    timings: {
+      frameSeekMs: 0,
+      frameInjectMs: 0,
+      stackingQueryMs: 0,
+      canvasClearMs: 0,
+      normalCompositeMs: 0,
+      transitionCompositeMs: 0,
+      encoderWriteMs: 0,
+      hdrVideoReadDecodeMs: 0,
+      hdrVideoTransferMs: 0,
+      hdrVideoBlitMs: 0,
+      hdrImageTransferMs: 0,
+      hdrImageBlitMs: 0,
+      domLayerSeekMs: 0,
+      domLayerInjectMs: 0,
+      domMaskApplyMs: 0,
+      domScreenshotMs: 0,
+      domMaskRemoveMs: 0,
+      domPngDecodeMs: 0,
+      domBlitMs: 0
+    }
+  };
+}
+function addHdrTiming(perf, key2, startMs) {
+  if (!perf) return;
+  perf.timings[key2] += Date.now() - startMs;
+}
+function averageTiming(totalMs, count) {
+  return count > 0 ? Math.round(totalMs / count * 100) / 100 : 0;
+}
+function finalizeHdrPerf(perf) {
+  const avgMs = {};
+  const perFrameKeys = [
+    "frameSeekMs",
+    "frameInjectMs",
+    "stackingQueryMs",
+    "canvasClearMs",
+    "encoderWriteMs"
+  ];
+  for (const key2 of perFrameKeys) avgMs[key2] = averageTiming(perf.timings[key2], perf.frames);
+  avgMs.normalCompositeMs = averageTiming(perf.timings.normalCompositeMs, perf.normalFrames);
+  avgMs.transitionCompositeMs = averageTiming(
+    perf.timings.transitionCompositeMs,
+    perf.transitionFrames
+  );
+  const perDomLayerKeys = [
+    "domLayerSeekMs",
+    "domLayerInjectMs",
+    "domMaskApplyMs",
+    "domScreenshotMs",
+    "domMaskRemoveMs",
+    "domPngDecodeMs",
+    "domBlitMs"
+  ];
+  for (const key2 of perDomLayerKeys) {
+    avgMs[key2] = averageTiming(perf.timings[key2], perf.domLayerCaptures);
+  }
+  const perHdrVideoKeys = [
+    "hdrVideoReadDecodeMs",
+    "hdrVideoTransferMs",
+    "hdrVideoBlitMs"
+  ];
+  for (const key2 of perHdrVideoKeys) {
+    avgMs[key2] = averageTiming(perf.timings[key2], perf.hdrVideoLayerBlits);
+  }
+  const perHdrImageKeys = ["hdrImageTransferMs", "hdrImageBlitMs"];
+  for (const key2 of perHdrImageKeys) {
+    avgMs[key2] = averageTiming(perf.timings[key2], perf.hdrImageLayerBlits);
+  }
+  return {
+    frames: perf.frames,
+    normalFrames: perf.normalFrames,
+    transitionFrames: perf.transitionFrames,
+    domLayerCaptures: perf.domLayerCaptures,
+    hdrVideoLayerBlits: perf.hdrVideoLayerBlits,
+    hdrImageLayerBlits: perf.hdrImageLayerBlits,
+    timings: { ...perf.timings },
+    avgMs
+  };
+}
+
+// src/services/render/perfSummary.ts
+function buildRenderPerfSummary(input2) {
+  return {
+    renderId: input2.job.id,
+    totalElapsedMs: input2.totalElapsedMs,
+    // RenderPerfSummary surfaces fps as a decimal because it lands in JSON
+    // payloads (CLI telemetry, regression-harness reports) where a single
+    // number is friendlier than `{num,den}`. Callers needing the rational
+    // back can read `job.config.fps`.
+    fps: fpsToNumber(input2.job.config.fps),
+    quality: input2.job.config.quality,
+    workers: input2.workerCount,
+    chunkedEncode: input2.enableChunkedEncode,
+    chunkSizeFrames: input2.enableChunkedEncode ? input2.chunkedEncodeSize : null,
+    compositionDurationSeconds: input2.compositionDurationSeconds,
+    totalFrames: input2.totalFrames,
+    resolution: { width: input2.outputWidth, height: input2.outputHeight },
+    videoCount: input2.videoCount,
+    audioCount: input2.audioCount,
+    stages: input2.perfStages,
+    videoExtractBreakdown: input2.videoExtractBreakdown,
+    tmpPeakBytes: input2.tmpPeakBytes,
+    captureCalibration: input2.captureCalibration ? {
+      sampledFrames: input2.captureCalibration.samples.map((sample) => sample.frameIndex),
+      p95Ms: input2.captureCalibration.estimate.p95Ms,
+      multiplier: input2.captureCalibration.estimate.multiplier,
+      reasons: input2.captureCalibration.estimate.reasons
+    } : void 0,
+    captureAttempts: input2.captureAttempts.length > 0 ? input2.captureAttempts : void 0,
+    hdrDiagnostics: input2.hdrDiagnostics.videoExtractionFailures > 0 || input2.hdrDiagnostics.imageDecodeFailures > 0 ? { ...input2.hdrDiagnostics } : void 0,
+    hdrPerf: input2.hdrPerf ? finalizeHdrPerf(input2.hdrPerf) : void 0,
+    captureAvgMs: input2.totalFrames > 0 ? Math.round((input2.perfStages.captureMs ?? 0) / input2.totalFrames) : void 0,
+    peakRssMb: Math.round(input2.peakRssBytes / (1024 * 1024)),
+    peakHeapUsedMb: Math.round(input2.peakHeapUsedBytes / (1024 * 1024))
+  };
+}
+
+// src/services/render/captureCost.ts
+import { join as join15 } from "node:path";
+var CAPTURE_CALIBRATION_TARGET_MS = 600;
+var MAX_MEASURED_CAPTURE_COST_MULTIPLIER = 8;
+var CAPTURE_CALIBRATION_PROTOCOL_TIMEOUT_MS = 3e4;
+function estimateCaptureCostMultiplier(compiled) {
+  let multiplier = 1;
+  const reasons = [];
+  if (compiled.hasShaderTransitions) {
+    multiplier += 2;
+    reasons.push("shader-transitions");
+  }
+  const reasonCodes = new Set(compiled.renderModeHints.reasons.map((reason) => reason.code));
+  if (reasonCodes.has("requestAnimationFrame")) {
+    multiplier += 1;
+    reasons.push("requestAnimationFrame");
+  }
+  if (reasonCodes.has("iframe")) {
+    multiplier += 0.5;
+    reasons.push("iframe");
+  }
+  return {
+    multiplier: Math.round(multiplier * 100) / 100,
+    reasons
+  };
+}
+function combineCaptureCostEstimates(staticCost, measuredCost) {
+  if (!measuredCost || measuredCost.multiplier <= 1) return staticCost;
+  if (staticCost.multiplier >= measuredCost.multiplier) {
+    return {
+      multiplier: staticCost.multiplier,
+      reasons: [...staticCost.reasons, ...measuredCost.reasons],
+      p95Ms: measuredCost.p95Ms
+    };
+  }
+  return {
+    multiplier: measuredCost.multiplier,
+    reasons: [...measuredCost.reasons, ...staticCost.reasons],
+    p95Ms: measuredCost.p95Ms
+  };
+}
+function resolveRenderWorkerCount(totalFrames, requestedWorkers, cfg, compiled, log = defaultLogger, measuredCaptureCost) {
+  const captureCost = combineCaptureCostEstimates(
+    estimateCaptureCostMultiplier(compiled),
+    measuredCaptureCost
+  );
+  const workerCount = calculateOptimalWorkers(totalFrames, requestedWorkers, {
+    ...cfg,
+    captureCostMultiplier: captureCost.multiplier
+  });
+  if (requestedWorkers !== void 0 || captureCost.multiplier <= 1) {
+    return workerCount;
+  }
+  const baselineWorkers = calculateOptimalWorkers(totalFrames, void 0, cfg);
+  if (workerCount < baselineWorkers) {
+    log.warn(
+      "[Render] Reduced auto worker count for high-cost capture workload to avoid Chrome compositor starvation.",
+      {
+        from: baselineWorkers,
+        to: workerCount,
+        costMultiplier: captureCost.multiplier,
+        reasons: captureCost.reasons
+      }
+    );
+  }
+  return workerCount;
+}
+function createCaptureCalibrationConfig(cfg) {
+  return {
+    ...cfg,
+    protocolTimeout: Math.min(cfg.protocolTimeout, CAPTURE_CALIBRATION_PROTOCOL_TIMEOUT_MS)
+  };
+}
+function estimateMeasuredCaptureCostMultiplier(samples) {
+  if (samples.length === 0) {
+    return { multiplier: 1, reasons: [] };
+  }
+  const sorted = [...samples].sort((a2, b2) => a2.captureTimeMs - b2.captureTimeMs);
+  const p95Index = Math.max(0, Math.ceil(sorted.length * 0.95) - 1);
+  const p95Sample = sorted[p95Index] ?? sorted[sorted.length - 1];
+  if (!p95Sample) {
+    return { multiplier: 1, reasons: [] };
+  }
+  const p95Ms = Math.round(p95Sample.captureTimeMs);
+  const multiplier = Math.min(
+    MAX_MEASURED_CAPTURE_COST_MULTIPLIER,
+    Math.max(1, Math.round(p95Ms / CAPTURE_CALIBRATION_TARGET_MS * 100) / 100)
+  );
+  return {
+    multiplier,
+    reasons: multiplier > 1 ? [`calibration-p95=${p95Ms}ms`] : [],
+    p95Ms
+  };
+}
+function selectCaptureCalibrationFrames(totalFrames) {
+  if (totalFrames <= 0) return [];
+  const lastFrame = totalFrames - 1;
+  const candidates = [
+    0,
+    Math.floor(totalFrames * 0.25),
+    Math.floor(totalFrames * 0.5),
+    Math.floor(totalFrames * 0.75),
+    lastFrame
+  ];
+  return Array.from(
+    new Set(candidates.map((frame) => Math.max(0, Math.min(lastFrame, frame))))
+  ).sort((a2, b2) => a2 - b2);
+}
+async function measureCaptureCostFromSession(session, totalFrames, fps) {
+  const sampledFrames = selectCaptureCalibrationFrames(totalFrames);
+  const samples = [];
+  for (const frameIndex of sampledFrames) {
+    const time = frameIndex / fps;
+    const startedAt = Date.now();
+    const result = await captureFrameToBuffer(session, frameIndex, time);
+    samples.push({
+      frameIndex,
+      captureTimeMs: result.captureTimeMs || Date.now() - startedAt
+    });
+  }
+  return {
+    estimate: estimateMeasuredCaptureCostMultiplier(samples),
+    samples
+  };
+}
+function logCaptureCalibrationResult(calibration, log) {
+  if (calibration.estimate.multiplier > 1) {
+    log.warn("[Render] Measured slow frame capture during auto-worker calibration.", {
+      multiplier: calibration.estimate.multiplier,
+      p95Ms: calibration.estimate.p95Ms,
+      sampledFrames: calibration.samples.map((sample) => sample.frameIndex)
+    });
+  } else {
+    log.debug("[Render] Auto-worker calibration kept baseline capture cost.", {
+      p95Ms: calibration.estimate.p95Ms,
+      sampledFrames: calibration.samples.map((sample) => sample.frameIndex)
+    });
+  }
+}
+function createFailedCaptureCalibrationEstimate(reason) {
+  return {
+    estimate: {
+      multiplier: MAX_MEASURED_CAPTURE_COST_MULTIPLIER,
+      reasons: [reason]
+    },
+    samples: []
+  };
+}
+async function runCaptureCalibration(input2) {
+  const {
+    cfg,
+    fileServer,
+    workDir,
+    log,
+    job,
+    totalFrames,
+    buildCaptureOptions,
+    createRenderVideoFrameInjector,
+    assertNotAborted
+  } = input2;
+  let probeSession = input2.probeSession;
+  let forceScreenshot = input2.forceScreenshot;
+  let lastBrowserConsole = [];
+  const fps = fpsToNumber(job.config.fps);
+  const sessionRef = { current: null };
+  const runOneCalibration = async (sessionDir, sessionCfg) => {
+    const session = await createCaptureSession(
+      fileServer.url,
+      sessionDir,
+      buildCaptureOptions(),
+      createRenderVideoFrameInjector(),
+      sessionCfg
+    );
+    sessionRef.current = session;
+    if (!session.isInitialized) {
+      await initializeSession(session);
+    }
+    assertNotAborted();
+    const result = await measureCaptureCostFromSession(session, totalFrames, fps);
+    logCaptureCalibrationResult(result, log);
+    return result;
+  };
+  const calibrationCfg = createCaptureCalibrationConfig({ ...cfg, forceScreenshot });
+  let calibration;
+  try {
+    calibration = await runOneCalibration(join15(workDir, "capture-calibration"), calibrationCfg);
+  } catch (error) {
+    const shouldFallback = !forceScreenshot && shouldFallbackToScreenshotAfterCalibrationError(error);
+    if (!shouldFallback) {
+      calibration = createFailedCaptureCalibrationEstimate("calibration-failed");
+      log.warn("[Render] Auto-worker calibration failed; using conservative worker budget.", {
+        protocolTimeout: calibrationCfg.protocolTimeout,
+        error: error instanceof Error ? error.message : String(error)
+      });
+    } else {
+      forceScreenshot = true;
+      if (probeSession) {
+        lastBrowserConsole = probeSession.browserConsoleBuffer;
+        await closeCaptureSession(probeSession).catch(() => {
+        });
+        probeSession = null;
+      }
+      if (sessionRef.current) {
+        lastBrowserConsole = sessionRef.current.browserConsoleBuffer;
+        await closeCaptureSession(sessionRef.current).catch(() => {
+        });
+        sessionRef.current = null;
+      }
+      log.warn(
+        "[Render] BeginFrame auto-worker calibration timed out; retrying calibration in screenshot capture mode.",
+        {
+          protocolTimeout: calibrationCfg.protocolTimeout,
+          error: error instanceof Error ? error.message : String(error)
+        }
+      );
+      const screenshotCfg = createCaptureCalibrationConfig({ ...cfg, forceScreenshot: true });
+      try {
+        calibration = await runOneCalibration(
+          join15(workDir, "capture-calibration-screenshot"),
+          screenshotCfg
+        );
+      } catch (fallbackError) {
+        calibration = createFailedCaptureCalibrationEstimate("calibration-screenshot-failed");
+        log.warn(
+          "[Render] Screenshot auto-worker calibration failed after BeginFrame fallback; using conservative worker budget.",
+          {
+            protocolTimeout: screenshotCfg.protocolTimeout,
+            error: fallbackError instanceof Error ? fallbackError.message : String(fallbackError)
+          }
+        );
+      }
+    }
+  } finally {
+    if (sessionRef.current) {
+      lastBrowserConsole = sessionRef.current.browserConsoleBuffer;
+      await closeCaptureSession(sessionRef.current).catch(() => {
+      });
+    }
+  }
+  return { calibration, forceScreenshot, probeSession, lastBrowserConsole };
+}
+function shouldFallbackToScreenshotAfterCalibrationError(error) {
+  const message = error instanceof Error ? error.message : String(error);
+  return /HeadlessExperimental\.beginFrame timed out|beginFrame probe timeout|Another frame is pending|Frame still pending|Protocol error.*HeadlessExperimental\.beginFrame|Runtime\.callFunctionOn timed out|Runtime\.evaluate timed out/i.test(
+    message
+  );
+}
 
 // src/services/render/stages/compileStage.ts
-import { join as join17 } from "node:path";
+import { join as join18 } from "node:path";
 
 // src/services/htmlCompiler.ts
-import { readFileSync as readFileSync9, existsSync as existsSync15, mkdirSync as mkdirSync11 } from "fs";
-import { join as join16, dirname as dirname10, resolve as resolve11 } from "path";
+import { readFileSync as readFileSync9, existsSync as existsSync16, mkdirSync as mkdirSync11 } from "fs";
+import { join as join17, dirname as dirname10, resolve as resolve11 } from "path";
 
 // src/services/deterministicFonts.ts
-import { existsSync as existsSync14, mkdirSync as mkdirSync10, readFileSync as readFileSync8, writeFileSync as writeFileSync5 } from "node:fs";
+import { existsSync as existsSync15, mkdirSync as mkdirSync10, readFileSync as readFileSync8, writeFileSync as writeFileSync5 } from "node:fs";
 import { homedir as homedir2 } from "node:os";
-import { join as join15 } from "node:path";
+import { join as join16 } from "node:path";
 
 // src/services/fontData.generated.ts
 var EMBEDDED_FONT_DATA = /* @__PURE__ */ new Map([
@@ -112963,6 +113733,21 @@ var GENERIC_FAMILIES = /* @__PURE__ */ new Set([
   "-apple-system",
   "blinkmacsystemfont"
 ]);
+function parseFontFamilyValue(value) {
+  return value.split(",").map((piece) => piece.trim().replace(/^['"]/, "").replace(/['"]$/, "").trim()).filter((piece) => piece.length > 0);
+}
+function* iterateFontFamilyDeclarations(html) {
+  const sources = [
+    [/font-family\s*:\s*([^;}{]+)[;}]?/gi, "font-family"],
+    [/data-font-family=["']([^"']+)["']/gi, "data-font-family"]
+  ];
+  for (const [regex, surface] of sources) {
+    for (const match2 of html.matchAll(regex)) {
+      const declaration = match2[1] ?? "";
+      yield { surface, declaration, families: parseFontFamilyValue(declaration) };
+    }
+  }
+}
 var CANONICAL_FONTS = {
   inter: {
     packageName: "@fontsource/inter",
@@ -113097,25 +113882,12 @@ function extractExistingFontFaces(html) {
 }
 function extractRequestedFontFamilies(html) {
   const requested = /* @__PURE__ */ new Map();
-  const addFamilyList = (value) => {
-    for (const family of value.split(",")) {
-      const originalCase = family.trim().replace(/^['"]|['"]$/g, "").trim();
+  for (const { families } of iterateFontFamilyDeclarations(html)) {
+    for (const originalCase of families) {
       const normalized = originalCase.toLowerCase();
-      if (!normalized || GENERIC_FAMILIES.has(normalized)) {
-        continue;
-      }
-      if (!requested.has(normalized)) {
-        requested.set(normalized, originalCase);
-      }
+      if (!normalized || GENERIC_FAMILIES.has(normalized)) continue;
+      if (!requested.has(normalized)) requested.set(normalized, originalCase);
     }
-  };
-  const fontFamilyRegex = /font-family\s*:\s*([^;}{]+)[;}]?/gi;
-  for (const match2 of html.matchAll(fontFamilyRegex)) {
-    addFamilyList(match2[1] || "");
-  }
-  const dataFontFamilyRegex = /data-font-family=["']([^"']+)["']/gi;
-  for (const match2 of html.matchAll(dataFontFamilyRegex)) {
-    addFamilyList(match2[1] || "");
   }
   return requested;
 }
@@ -113130,7 +113902,7 @@ function buildFontFaceRule(familyName, src, weight, style) {
     "}"
   ].join("\n");
 }
-async function buildFontFaceCss(requestedFamilies) {
+async function buildFontFaceCss(requestedFamilies, options) {
   const rules = [];
   const unresolved = [];
   for (const [normalizedFamily, originalCaseFamily] of requestedFamilies) {
@@ -113145,7 +113917,7 @@ async function buildFontFaceCss(requestedFamilies) {
       }
       continue;
     }
-    const googleFaces = await fetchGoogleFont(originalCaseFamily);
+    const googleFaces = await fetchGoogleFont(originalCaseFamily, options);
     if (googleFaces.length > 0) {
       for (const face of googleFaces) {
         rules.push(buildFontFaceRule(originalCaseFamily, face.dataUri, face.weight, face.style));
@@ -113176,35 +113948,61 @@ function warnUnresolvedFonts(unresolved) {
   Docs: https://hyperframes.heygen.com/docs/fonts`
   );
 }
-var GOOGLE_FONTS_CACHE_DIR = join15(homedir2(), ".cache", "hyperframes", "fonts");
+var GOOGLE_FONTS_CACHE_DIR = join16(homedir2(), ".cache", "hyperframes", "fonts");
 var WOFF2_USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 function fontSlug(familyName) {
   return familyName.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
 }
 function fontCacheDir(slug) {
-  const dir = join15(GOOGLE_FONTS_CACHE_DIR, slug);
-  if (!existsSync14(dir)) {
+  const dir = join16(GOOGLE_FONTS_CACHE_DIR, slug);
+  if (!existsSync15(dir)) {
     mkdirSync10(dir, { recursive: true });
   }
   return dir;
 }
 function cachedWoff2Path(slug, weight, style) {
-  return join15(fontCacheDir(slug), `${weight}-${style}.woff2`);
+  return join16(fontCacheDir(slug), `${weight}-${style}.woff2`);
 }
-async function fetchGoogleFont(familyName) {
+var FONT_FETCH_FAILED = "FONT_FETCH_FAILED";
+var FontFetchError = class extends Error {
+  code = FONT_FETCH_FAILED;
+  familyName;
+  url;
+  cause;
+  constructor(familyName, url, message, cause) {
+    super(message);
+    this.name = "FontFetchError";
+    this.familyName = familyName;
+    this.url = url;
+    this.cause = cause;
+  }
+};
+function fontFetchError(familyName, url, what, cause) {
+  const reason = "status" in cause ? `returned HTTP ${cause.status}` : `failed: ${cause.error.message}`;
+  const message = `[deterministicFonts] ${what} fetch for ${JSON.stringify(familyName)} ${reason}. Distributed renders require deterministic fonts; system-font fallback would produce non-byte-identical output.`;
+  return new FontFetchError(familyName, url, message, "error" in cause ? cause.error : void 0);
+}
+async function fetchGoogleFont(familyName, options) {
   const slug = fontSlug(familyName);
   const encodedFamily = encodeURIComponent(familyName);
   const url = `https://fonts.googleapis.com/css2?family=${encodedFamily}:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700`;
   let cssText;
   try {
-    const res = await fetch(url, {
+    const res = await options.fetchImpl(url, {
       headers: { "User-Agent": WOFF2_USER_AGENT }
     });
     if (!res.ok) {
+      if (options.failClosedFontFetch) {
+        throw fontFetchError(familyName, url, "Google Fonts CSS", { status: res.status });
+      }
       return [];
     }
     cssText = await res.text();
-  } catch {
+  } catch (err) {
+    if (err instanceof FontFetchError) throw err;
+    if (options.failClosedFontFetch) {
+      throw fontFetchError(familyName, url, "Google Fonts CSS", { error: err });
+    }
     return [];
   }
   const faceRegex = /@font-face\s*\{[^}]*font-style:\s*(normal|italic)[^}]*font-weight:\s*(\d+)[^}]*src:\s*url\(([^)]+)\)\s*format\(['"]woff2['"]\)[^}]*\}/gi;
@@ -113215,13 +114013,23 @@ async function fetchGoogleFont(familyName) {
     const woff2Url = match2[3] || "";
     if (!woff2Url) continue;
     const cachePath = cachedWoff2Path(slug, weight, style);
-    if (!existsSync14(cachePath)) {
+    if (!existsSync15(cachePath)) {
+      const woff2What = `Google Fonts woff2 (${weight}/${style})`;
       try {
-        const fontRes = await fetch(woff2Url);
-        if (!fontRes.ok) continue;
+        const fontRes = await options.fetchImpl(woff2Url);
+        if (!fontRes.ok) {
+          if (options.failClosedFontFetch) {
+            throw fontFetchError(familyName, woff2Url, woff2What, { status: fontRes.status });
+          }
+          continue;
+        }
         const buffer = Buffer.from(await fontRes.arrayBuffer());
         writeFileSync5(cachePath, buffer);
-      } catch {
+      } catch (err) {
+        if (err instanceof FontFetchError) throw err;
+        if (options.failClosedFontFetch) {
+          throw fontFetchError(familyName, woff2Url, woff2What, { error: err });
+        }
         continue;
       }
     }
@@ -113236,7 +114044,10 @@ async function fetchGoogleFont(familyName) {
   }
   return faces;
 }
-async function injectDeterministicFontFaces(html) {
+async function injectDeterministicFontFaces(html, options = {}) {
+  const failClosedFontFetch = options.failClosedFontFetch === true;
+  const fetchImpl = options.fetchImpl ?? fetch;
+  const fetchOptions = { failClosedFontFetch, fetchImpl };
   const existingFaces = extractExistingFontFaces(html);
   const requestedFamilies = extractRequestedFontFamilies(html);
   const pendingFamilies = /* @__PURE__ */ new Map();
@@ -113248,7 +114059,7 @@ async function injectDeterministicFontFaces(html) {
   if (pendingFamilies.size === 0) {
     return html;
   }
-  const { css, unresolved } = await buildFontFaceCss(pendingFamilies);
+  const { css, unresolved } = await buildFontFaceCss(pendingFamilies, fetchOptions);
   if (!css) {
     if (unresolved.length > 0) {
       warnUnresolvedFonts(unresolved);
@@ -113271,6 +114082,182 @@ async function injectDeterministicFontFaces(html) {
     warnUnresolvedFonts(unresolved);
   }
   return document2.toString();
+}
+
+// ../core/src/studio-api/helpers/manualEditsRenderScript.ts
+function createStudioPositionSeekReapplyScript() {
+  return `(${studioPositionSeekReapplyRuntime.toString()})();`;
+}
+function studioPositionSeekReapplyRuntime() {
+  const OFFSET_X_PROP = "--hf-studio-offset-x";
+  const OFFSET_Y_PROP = "--hf-studio-offset-y";
+  const ROTATION_PROP = "--hf-studio-rotation";
+  const PATH_OFFSET_ATTR = "data-hf-studio-path-offset";
+  const ROTATION_ATTR = "data-hf-studio-rotation";
+  const ORIGINAL_TRANSLATE_ATTR = "data-hf-studio-original-translate";
+  const ORIGINAL_ROTATE_ATTR = "data-hf-studio-original-rotate";
+  const WRAPPED_PROP = "__hfStudioPositionSeekReapplyWrapped";
+  if (!document.querySelector("[" + PATH_OFFSET_ATTR + '="true"]') && !document.querySelector("[" + ROTATION_ATTR + '="true"]'))
+    return;
+  const splitTopLevelWhitespace = (value) => {
+    const parts = [];
+    let depth = 0;
+    let current = "";
+    for (const char of value.trim()) {
+      if (char === "(") depth += 1;
+      if (char === ")") depth = Math.max(0, depth - 1);
+      if (/\s/.test(char) && depth === 0) {
+        if (current) parts.push(current);
+        current = "";
+      } else {
+        current += char;
+      }
+    }
+    if (current) parts.push(current);
+    return parts;
+  };
+  const composeTranslate = (element, x2, y) => {
+    const original = element.getAttribute(ORIGINAL_TRANSLATE_ATTR)?.trim();
+    if (!original || original === "none") return x2 + " " + y;
+    const parts = splitTopLevelWhitespace(original);
+    if (parts.length === 1) return "calc(" + parts[0] + " + " + x2 + ") " + y;
+    if (parts.length >= 2) {
+      const z2 = parts.length >= 3 ? " " + parts[2] : "";
+      return "calc(" + parts[0] + " + " + x2 + ") calc(" + parts[1] + " + " + y + ")" + z2;
+    }
+    return x2 + " " + y;
+  };
+  const isSimpleRotateAngle = (value) => /^-?(?:\d+(?:\.\d+)?|\.\d+)(?:deg|rad|turn|grad)$/.test(value.trim());
+  const composeRotation = (element, rotationValue) => {
+    const original = element.getAttribute(ORIGINAL_ROTATE_ATTR)?.trim();
+    if (!original || original === "none" || !isSimpleRotateAngle(original)) return rotationValue;
+    return "calc(" + original + " + " + rotationValue + ")";
+  };
+  const reapplyAll = () => {
+    const offsetEls = document.querySelectorAll("[" + PATH_OFFSET_ATTR + '="true"]');
+    for (let i = 0; i < offsetEls.length; i++) {
+      const el = offsetEls[i];
+      if (!(el instanceof HTMLElement)) continue;
+      const x2 = el.style.getPropertyValue(OFFSET_X_PROP);
+      const y = el.style.getPropertyValue(OFFSET_Y_PROP);
+      if (x2 || y) {
+        el.style.setProperty(
+          "translate",
+          composeTranslate(
+            el,
+            "var(" + OFFSET_X_PROP + ", 0px)",
+            "var(" + OFFSET_Y_PROP + ", 0px)"
+          )
+        );
+      }
+    }
+    const rotEls = document.querySelectorAll("[" + ROTATION_ATTR + '="true"]');
+    for (let i = 0; i < rotEls.length; i++) {
+      const el = rotEls[i];
+      if (!(el instanceof HTMLElement)) continue;
+      const rot = el.style.getPropertyValue(ROTATION_PROP);
+      if (rot) {
+        el.style.setProperty("rotate", composeRotation(el, "var(" + ROTATION_PROP + ", 0deg)"));
+      }
+    }
+  };
+  const runtimeWindow = window;
+  const isWrapped = (fn) => Boolean(fn[WRAPPED_PROP]);
+  const markWrapped = (fn) => {
+    try {
+      Object.defineProperty(fn, WRAPPED_PROP, {
+        configurable: false,
+        enumerable: false,
+        value: true
+      });
+    } catch {
+      try {
+        fn[WRAPPED_PROP] = true;
+      } catch {
+      }
+    }
+  };
+  const wrapFn = (get, set) => {
+    const fn = get();
+    if (typeof fn !== "function") return false;
+    const seek = fn;
+    if (isWrapped(seek)) {
+      reapplyAll();
+      return true;
+    }
+    const wrapped = function(time) {
+      const result = seek.call(this, time);
+      reapplyAll();
+      return result;
+    };
+    markWrapped(wrapped);
+    set(wrapped);
+    reapplyAll();
+    return true;
+  };
+  const wrapSeekFunctions = () => {
+    const a2 = wrapFn(
+      () => runtimeWindow.__hf?.["seek"],
+      (fn) => {
+        if (runtimeWindow.__hf) runtimeWindow.__hf["seek"] = fn;
+      }
+    );
+    const b2 = wrapFn(
+      () => runtimeWindow.__player?.["renderSeek"],
+      (fn) => {
+        if (runtimeWindow.__player) runtimeWindow.__player["renderSeek"] = fn;
+      }
+    );
+    return a2 || b2;
+  };
+  const installSeekTrap = (obj, key2, getter, setter) => {
+    if (!obj) return;
+    try {
+      let current = obj[key2];
+      Object.defineProperty(obj, key2, {
+        configurable: true,
+        enumerable: true,
+        get() {
+          return current;
+        },
+        set(value) {
+          current = value;
+          if (typeof value === "function" && !isWrapped(value)) {
+            wrapFn(getter, setter);
+          }
+        }
+      });
+    } catch {
+    }
+  };
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", () => reapplyAll(), { once: true });
+  } else {
+    reapplyAll();
+  }
+  wrapSeekFunctions();
+  installSeekTrap(
+    runtimeWindow.__hf,
+    "seek",
+    () => runtimeWindow.__hf?.["seek"],
+    (fn) => {
+      if (runtimeWindow.__hf) runtimeWindow.__hf["seek"] = fn;
+    }
+  );
+  installSeekTrap(
+    runtimeWindow.__player,
+    "renderSeek",
+    () => runtimeWindow.__player?.["renderSeek"],
+    (fn) => {
+      if (runtimeWindow.__player) runtimeWindow.__player["renderSeek"] = fn;
+    }
+  );
+  let remaining = 120;
+  const interval = setInterval(() => {
+    wrapSeekFunctions();
+    remaining -= 1;
+    if (remaining <= 0) clearInterval(interval);
+  }, 50);
 }
 
 // src/services/htmlCompiler.ts
@@ -113338,16 +114325,16 @@ function detectShaderTransitionUsage(html) {
 async function resolveMediaDuration(src, mediaStart, baseDir, downloadDir, tagName19) {
   let filePath = src;
   if (isHttpUrl(src)) {
-    if (!existsSync15(downloadDir)) mkdirSync11(downloadDir, { recursive: true });
+    if (!existsSync16(downloadDir)) mkdirSync11(downloadDir, { recursive: true });
     try {
       filePath = await downloadToTemp(src, downloadDir);
     } catch {
       return { duration: 0, resolvedPath: src };
     }
   } else if (!filePath.startsWith("/")) {
-    filePath = join16(baseDir, filePath);
+    filePath = join17(baseDir, filePath);
   }
-  if (!existsSync15(filePath)) {
+  if (!existsSync16(filePath)) {
     return { duration: 0, resolvedPath: filePath };
   }
   let metadata;
@@ -113425,7 +114412,7 @@ async function parseSubCompositions(html, projectDir, downloadDir, parentOffset 
     if (visited.has(filePath)) {
       continue;
     }
-    if (!existsSync15(filePath)) {
+    if (!existsSync16(filePath)) {
       continue;
     }
     const rawSubHtml = readFileSync9(filePath, "utf-8");
@@ -113614,7 +114601,7 @@ function inlineSubCompositions(html, subCompositions, projectDir) {
     let compHtml = subCompositions.get(srcPath) || null;
     if (!compHtml) {
       const filePath = resolve11(projectDir, srcPath);
-      if (existsSync15(filePath)) {
+      if (existsSync16(filePath)) {
         compHtml = readFileSync9(filePath, "utf-8");
       }
     }
@@ -113816,7 +114803,7 @@ function collectExternalAssets(html, projectDir) {
     if (isPathInside2(absPath, absProjectDir)) {
       return null;
     }
-    if (!existsSync15(absPath)) return null;
+    if (!existsSync16(absPath)) return null;
     const safeKey = toExternalAssetKey(absPath);
     externalAssets.set(safeKey, absPath);
     return safeKey;
@@ -113860,7 +114847,7 @@ function collectExternalAssets(html, projectDir) {
     externalAssets
   };
 }
-async function compileForRender(projectDir, htmlPath, downloadDir) {
+async function compileForRender(projectDir, htmlPath, downloadDir, options = {}) {
   const rawHtml = readFileSync9(htmlPath, "utf-8");
   const { html: compiledHtml, unresolvedCompositions } = await compileHtmlFile(
     rawHtml,
@@ -113882,10 +114869,17 @@ async function compileForRender(projectDir, htmlPath, downloadDir) {
   const renderModeHints = detectRenderModeHints(sanitizedHtml);
   const hasShaderTransitions = detectShaderTransitionUsage(sanitizedHtml);
   const coalescedHtml = await injectDeterministicFontFaces(
-    coalesceHeadStylesAndBodyScripts(promoteCssImportsToLinkTags(sanitizedHtml))
+    coalesceHeadStylesAndBodyScripts(promoteCssImportsToLinkTags(sanitizedHtml)),
+    { failClosedFontFetch: options.failClosedFontFetch === true }
   );
   const assembledHtml = await inlineExternalScripts(coalescedHtml);
-  const { html, externalAssets } = collectExternalAssets(assembledHtml, projectDir);
+  const { html: htmlWithAssets, externalAssets } = collectExternalAssets(assembledHtml, projectDir);
+  const HF_POSITION_ATTRS = ['data-hf-studio-path-offset="true"', 'data-hf-studio-rotation="true"'];
+  const hasPositionEdits = HF_POSITION_ATTRS.some((attr) => htmlWithAssets.includes(attr));
+  const html = hasPositionEdits ? htmlWithAssets.replace(
+    /<\/body>/i,
+    `<script>${createStudioPositionSeekReapplyScript()}</script></body>`
+  ) : htmlWithAssets;
   const mainVideos = parseVideoElements(html);
   const mainAudios = parseAudioElements(html);
   const mainImages = parseImageElements(html);
@@ -114038,12 +115032,27 @@ async function recompileWithResolutions(compiled, resolutions, projectDir, downl
 
 // src/services/render/stages/compileStage.ts
 async function runCompileStage(input2) {
-  const { projectDir, workDir, htmlPath, entryFile, job, cfg, needsAlpha, log, assertNotAborted } = input2;
+  const {
+    projectDir,
+    workDir,
+    htmlPath,
+    entryFile,
+    job,
+    cfg,
+    needsAlpha,
+    log,
+    assertNotAborted,
+    failClosedFontFetch
+  } = input2;
   const compileStart = Date.now();
-  const compiled = await compileForRender(projectDir, htmlPath, join17(workDir, "downloads"));
+  const compiled = await compileForRender(projectDir, htmlPath, join18(workDir, "downloads"), {
+    failClosedFontFetch: failClosedFontFetch === true
+  });
   assertNotAborted();
   const compileOnlyMs = Date.now() - compileStart;
-  applyRenderModeHints(cfg, compiled, log);
+  const callerForced = cfg.forceScreenshot || needsAlpha;
+  const { forceScreenshot } = applyRenderModeHints(callerForced, compiled, log);
+  cfg.forceScreenshot = forceScreenshot;
   writeCompiledArtifacts(compiled, workDir, Boolean(job.config.debug));
   log.info("Compiled composition metadata", {
     entryFile,
@@ -114082,11 +115091,19 @@ async function runCompileStage(input2) {
       deviceScaleFactor
     });
   }
-  return { compiled, composition, deviceScaleFactor, outputWidth, outputHeight, compileOnlyMs };
+  return {
+    compiled,
+    composition,
+    deviceScaleFactor,
+    outputWidth,
+    outputHeight,
+    compileOnlyMs,
+    forceScreenshot
+  };
 }
 
 // src/services/render/stages/probeStage.ts
-import { join as join18 } from "node:path";
+import { join as join19 } from "node:path";
 async function runProbeStage(input2) {
   const {
     projectDir,
@@ -114114,7 +115131,7 @@ async function runProbeStage(input2) {
       reasons.push(`${compiled.unresolvedCompositions.length} unresolved composition(s)`);
     fileServer = await createFileServer2({
       projectDir,
-      compiledDir: join18(workDir, "compiled"),
+      compiledDir: join19(workDir, "compiled"),
       port: 0,
       preHeadScripts: [VIRTUAL_TIME_SHIM]
     });
@@ -114129,7 +115146,7 @@ async function runProbeStage(input2) {
     };
     probeSession = await createCaptureSession(
       fileServer.url,
-      join18(workDir, "probe"),
+      join19(workDir, "probe"),
       captureOpts,
       null,
       cfg
@@ -114161,7 +115178,7 @@ async function runProbeStage(input2) {
           compiled,
           resolutions,
           projectDir,
-          join18(workDir, "downloads")
+          join19(workDir, "downloads")
         );
         assertNotAborted();
         composition.videos = compiled.videos;
@@ -114322,8 +115339,8 @@ async function runProbeStage(input2) {
 }
 
 // src/services/render/stages/extractVideosStage.ts
-import { existsSync as existsSync16 } from "node:fs";
-import { isAbsolute as isAbsolute4, join as join19 } from "node:path";
+import { existsSync as existsSync17 } from "node:fs";
+import { isAbsolute as isAbsolute5, join as join20 } from "node:path";
 async function runExtractVideosStage(input2) {
   const {
     projectDir,
@@ -114345,8 +115362,8 @@ async function runExtractVideosStage(input2) {
   if (job.config.hdrMode !== "force-sdr" && composition.videos.length > 0) {
     await Promise.all(
       composition.videos.map(async (v2) => {
-        const videoPath = isAbsolute4(v2.src) ? v2.src : resolveProjectRelativeSrc(v2.src, projectDir, compiledDir);
-        if (!existsSync16(videoPath)) return;
+        const videoPath = isAbsolute5(v2.src) ? v2.src : resolveProjectRelativeSrc(v2.src, projectDir, compiledDir);
+        if (!existsSync17(videoPath)) return;
         const meta = await extractMediaMetadata(videoPath);
         if (isHdrColorSpace(meta.colorSpace)) {
           nativeHdrVideoIds.add(v2.id);
@@ -114364,10 +115381,10 @@ async function runExtractVideosStage(input2) {
       composition.images.map(async (img) => {
         let imgPath = img.src;
         if (!imgPath.startsWith("/")) {
-          const fromCompiled = existsSync16(join19(compiledDir, imgPath)) ? join19(compiledDir, imgPath) : join19(projectDir, imgPath);
+          const fromCompiled = existsSync17(join20(compiledDir, imgPath)) ? join20(compiledDir, imgPath) : join20(projectDir, imgPath);
           imgPath = fromCompiled;
         }
-        if (!existsSync16(imgPath)) return null;
+        if (!existsSync17(imgPath)) return null;
         const meta = await extractMediaMetadata(imgPath);
         if (isHdrColorSpace(meta.colorSpace)) {
           nativeHdrImageIds.add(img.id);
@@ -114389,7 +115406,7 @@ async function runExtractVideosStage(input2) {
       // output framerate exact.
       {
         fps: fpsToNumber(job.config.fps),
-        outputDir: join19(compiledDir, "__hyperframes_video_frames")
+        outputDir: join20(compiledDir, "__hyperframes_video_frames")
       },
       abortSignal,
       { extractCacheDir: cfg.extractCacheDir },
@@ -114444,17 +115461,17 @@ async function runExtractVideosStage(input2) {
 }
 
 // src/services/render/stages/audioStage.ts
-import { join as join20 } from "node:path";
+import { join as join21 } from "node:path";
 async function runAudioStage(input2) {
   const { projectDir, workDir, compiledDir, duration, audios, abortSignal, assertNotAborted } = input2;
   const stage3Start = Date.now();
-  const audioOutputPath = join20(workDir, "audio.aac");
+  const audioOutputPath = join21(workDir, "audio.aac");
   let hasAudio = false;
   if (audios.length > 0) {
     const audioResult = await processCompositionAudio(
       audios,
       projectDir,
-      join20(workDir, "audio-work"),
+      join21(workDir, "audio-work"),
       audioOutputPath,
       duration,
       abortSignal,
@@ -114477,6 +115494,7 @@ async function runCaptureStage(input2) {
     job,
     totalFrames,
     cfg,
+    forceScreenshot,
     log,
     captureAttempts,
     buildCaptureOptions,
@@ -114484,10 +115502,24 @@ async function runCaptureStage(input2) {
     abortSignal,
     assertNotAborted,
     onProgress,
-    needsAlpha
+    needsAlpha,
+    frameRange
   } = input2;
   let { workerCount, probeSession } = input2;
   let lastBrowserConsole = [];
+  const captureCfg = cfg.forceScreenshot === forceScreenshot ? cfg : { ...cfg, forceScreenshot };
+  if (frameRange !== void 0 && workerCount > 1) {
+    throw new Error(
+      `[captureStage] frameRange capture requires workerCount === 1 (received workerCount=${workerCount}). Distributed chunk workers fan out at the activity layer; reduce workerCount to 1 when passing frameRange.`
+    );
+  }
+  if (frameRange !== void 0) {
+    if (!Number.isFinite(frameRange.startFrame) || !Number.isFinite(frameRange.endFrame) || frameRange.startFrame < 0 || frameRange.endFrame <= frameRange.startFrame) {
+      throw new Error(
+        `[captureStage] invalid frameRange: ${JSON.stringify(frameRange)}. Expected non-negative startFrame strictly less than endFrame.`
+      );
+    }
+  }
   if (workerCount > 1) {
     const attempts = await executeDiskCaptureWithAdaptiveRetry({
       serverUrl: fileServer.url,
@@ -114514,7 +115546,7 @@ async function runCaptureStage(input2) {
           );
         }
       },
-      cfg,
+      cfg: captureCfg,
       log
     });
     captureAttempts.push(...attempts);
@@ -114534,7 +115566,7 @@ async function runCaptureStage(input2) {
       framesDir,
       buildCaptureOptions(),
       videoInjector,
-      cfg
+      captureCfg
     );
     if (probeSession) {
       prepareCaptureSessionForReuse(session, framesDir, videoInjector);
@@ -114546,17 +115578,21 @@ async function runCaptureStage(input2) {
       }
       assertNotAborted();
       lastBrowserConsole = session.browserConsoleBuffer;
-      for (let i = 0; i < totalFrames; i++) {
+      const rangeStart = frameRange?.startFrame ?? 0;
+      const rangeEnd = frameRange?.endFrame ?? totalFrames;
+      const rangeFrames = rangeEnd - rangeStart;
+      for (let i = 0; i < rangeFrames; i++) {
         assertNotAborted();
-        const time = i * job.config.fps.den / job.config.fps.num;
+        const absoluteIdx = rangeStart + i;
+        const time = absoluteIdx * job.config.fps.den / job.config.fps.num;
         await captureFrame(session, i, time);
         job.framesRendered = i + 1;
-        const frameProgress = (i + 1) / totalFrames;
+        const frameProgress = (i + 1) / rangeFrames;
         const progress = 25 + frameProgress * 45;
         updateJobStatus(
           job,
           "rendering",
-          `Capturing frame ${i + 1}/${totalFrames}`,
+          `Capturing frame ${i + 1}/${rangeFrames}`,
           Math.round(progress),
           onProgress
         );
@@ -114579,6 +115615,7 @@ async function runCaptureStreamingStage(input2) {
     job,
     totalFrames,
     cfg,
+    forceScreenshot,
     log,
     outputFormat,
     streamingEncoderOptions,
@@ -114590,6 +115627,7 @@ async function runCaptureStreamingStage(input2) {
   } = input2;
   let { workerCount, probeSession } = input2;
   let lastBrowserConsole = [];
+  const captureCfg = cfg.forceScreenshot === forceScreenshot ? cfg : { ...cfg, forceScreenshot };
   let streamingEncoder = null;
   let streamingEncoderClosed = false;
   try {
@@ -114648,7 +115686,7 @@ async function runCaptureStreamingStage(input2) {
           }
         },
         onFrameBuffer,
-        cfg
+        captureCfg
       );
       if (probeSession) {
         lastBrowserConsole = probeSession.browserConsoleBuffer;
@@ -114662,7 +115700,7 @@ async function runCaptureStreamingStage(input2) {
         framesDir,
         buildCaptureOptions(),
         videoInjector,
-        cfg
+        captureCfg
       );
       if (probeSession) {
         prepareCaptureSessionForReuse(session, framesDir, videoInjector);
@@ -114724,16 +115762,8 @@ async function runCaptureStreamingStage(input2) {
 }
 
 // src/services/render/stages/captureHdrStage.ts
-import {
-  existsSync as existsSync17,
-  mkdirSync as mkdirSync12,
-  openSync,
-  readFileSync as readFileSync10,
-  rmSync as rmSync3,
-  statSync as statSync7,
-  writeFileSync as writeFileSync6
-} from "node:fs";
-import { join as join21 } from "node:path";
+import { existsSync as existsSync19, mkdirSync as mkdirSync13 } from "node:fs";
+import { join as join26 } from "node:path";
 
 // src/services/hdrImageTransferCache.ts
 var DEFAULT_MAX_BYTES = 200 * 1024 * 1024;
@@ -114794,11 +115824,979 @@ function createHdrImageTransferCache(options = {}) {
   };
 }
 
+// src/services/render/stages/captureHdrResources.ts
+import { mkdirSync as mkdirSync12, openSync, readFileSync as readFileSync10, statSync as statSync7 } from "node:fs";
+import { join as join22 } from "node:path";
+function planHdrResources(args) {
+  const { composition, nativeHdrVideoIds, nativeHdrImageIds, projectDir, compiledDir } = args;
+  const hdrVideoIds = composition.videos.filter((v2) => nativeHdrVideoIds.has(v2.id)).map((v2) => v2.id);
+  const hdrVideoSrcPaths = /* @__PURE__ */ new Map();
+  for (const v2 of composition.videos) {
+    if (!hdrVideoIds.includes(v2.id)) continue;
+    let srcPath = v2.src;
+    if (!srcPath.startsWith("/")) {
+      const fromCompiled = join22(compiledDir, srcPath);
+      srcPath = args.existsSync(fromCompiled) ? fromCompiled : join22(projectDir, srcPath);
+    }
+    hdrVideoSrcPaths.set(v2.id, srcPath);
+  }
+  const hdrVideoStartTimes = /* @__PURE__ */ new Map();
+  for (const v2 of composition.videos) {
+    if (hdrVideoIds.includes(v2.id)) hdrVideoStartTimes.set(v2.id, v2.start);
+  }
+  const hdrImageStartTimes = /* @__PURE__ */ new Map();
+  for (const img of composition.images) {
+    if (nativeHdrImageIds.has(img.id)) hdrImageStartTimes.set(img.id, img.start);
+  }
+  return {
+    hdrVideoIds,
+    hdrVideoSrcPaths,
+    hdrVideoStartTimes,
+    hdrImageStartTimes,
+    hdrExtractionDims: /* @__PURE__ */ new Map(),
+    hdrImageFitInfo: /* @__PURE__ */ new Map()
+  };
+}
+async function probeHdrExtractionDims(args) {
+  const { domSession, nativeHdrIds, nativeHdrImageIds, composition, prep } = args;
+  const uniqueStartTimes = [
+    .../* @__PURE__ */ new Set([...prep.hdrVideoStartTimes.values(), ...prep.hdrImageStartTimes.values()])
+  ].sort((a2, b2) => a2 - b2);
+  for (const seekTime of uniqueStartTimes) {
+    await domSession.page.evaluate((t) => {
+      if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
+    }, seekTime);
+    if (domSession.onBeforeCapture) {
+      await domSession.onBeforeCapture(domSession.page, seekTime);
+    }
+    const stacking = await queryElementStacking(domSession.page, nativeHdrIds);
+    for (const el of stacking) {
+      if (el.isHdr && el.layoutWidth > 0 && el.layoutHeight > 0 && !prep.hdrExtractionDims.has(el.id)) {
+        prep.hdrExtractionDims.set(el.id, { width: el.layoutWidth, height: el.layoutHeight });
+      }
+      if (el.isHdr && nativeHdrImageIds.has(el.id) && !prep.hdrImageFitInfo.has(el.id)) {
+        prep.hdrImageFitInfo.set(el.id, { fit: el.objectFit, position: el.objectPosition });
+      }
+    }
+  }
+  for (const [imageId, startTime] of prep.hdrImageStartTimes) {
+    if (prep.hdrExtractionDims.has(imageId)) continue;
+    const img = composition.images.find((i) => i.id === imageId);
+    if (!img) continue;
+    const duration = img.end - img.start;
+    const retryTime = startTime + Math.min(0.5, duration * 0.1);
+    await domSession.page.evaluate((t) => {
+      if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
+    }, retryTime);
+    if (domSession.onBeforeCapture) {
+      await domSession.onBeforeCapture(domSession.page, retryTime);
+    }
+    const retryStacking = await queryElementStacking(domSession.page, nativeHdrIds);
+    for (const el of retryStacking) {
+      if (el.id === imageId && el.isHdr && el.layoutWidth > 0 && el.layoutHeight > 0) {
+        prep.hdrExtractionDims.set(el.id, { width: el.layoutWidth, height: el.layoutHeight });
+        if (!prep.hdrImageFitInfo.has(el.id)) {
+          prep.hdrImageFitInfo.set(el.id, { fit: el.objectFit, position: el.objectPosition });
+        }
+        break;
+      }
+    }
+  }
+}
+async function extractHdrVideoFrames(args) {
+  const { job, log, framesDir, composition, prep, width, height, abortSignal, hdrDiagnostics } = args;
+  const out = /* @__PURE__ */ new Map();
+  for (const [videoId, srcPath] of prep.hdrVideoSrcPaths) {
+    const video = composition.videos.find((v2) => v2.id === videoId);
+    if (!video) continue;
+    const frameDir = join22(framesDir, `hdr_${videoId}`);
+    mkdirSync12(frameDir, { recursive: true });
+    const duration = video.end - video.start;
+    const dims = prep.hdrExtractionDims.get(videoId) ?? { width, height };
+    const rawPath = join22(frameDir, "frames.rgb48le");
+    const ffmpegArgs = [
+      "-ss",
+      String(video.mediaStart),
+      "-i",
+      srcPath,
+      "-t",
+      String(duration),
+      "-r",
+      fpsToFfmpegArg(job.config.fps),
+      "-vf",
+      `scale=${dims.width}:${dims.height}:force_original_aspect_ratio=increase,crop=${dims.width}:${dims.height}`,
+      "-pix_fmt",
+      "rgb48le",
+      "-f",
+      "rawvideo",
+      "-y",
+      rawPath
+    ];
+    const result = await runFfmpeg(ffmpegArgs, { signal: abortSignal });
+    if (!result.success) {
+      hdrDiagnostics.videoExtractionFailures += 1;
+      log.error("HDR frame pre-extraction failed; aborting render", {
+        videoId,
+        srcPath,
+        stderr: result.stderr.slice(-400)
+      });
+      throw new Error(
+        `HDR frame extraction failed for video "${videoId}". Aborting render to avoid shipping black HDR layers.`
+      );
+    }
+    const frameSize = dims.width * dims.height * 6;
+    const frameCount = Math.floor(statSync7(rawPath).size / frameSize);
+    if (frameCount < 1) {
+      hdrDiagnostics.videoExtractionFailures += 1;
+      throw new Error(
+        `HDR frame extraction produced no frames for video "${videoId}". Aborting render to avoid shipping black HDR layers.`
+      );
+    }
+    out.set(videoId, {
+      dir: frameDir,
+      rawPath,
+      fd: openSync(rawPath, "r"),
+      width: dims.width,
+      height: dims.height,
+      frameSize,
+      frameCount,
+      scratch: Buffer.allocUnsafe(frameSize)
+    });
+  }
+  return out;
+}
+function decodeHdrImageBuffers(args) {
+  const { log, hdrImageSrcPaths, prep, hdrDiagnostics } = args;
+  const out = /* @__PURE__ */ new Map();
+  for (const [imageId, srcPath] of hdrImageSrcPaths) {
+    try {
+      const decoded = decodePngToRgb48le(readFileSync10(srcPath));
+      const layout2 = prep.hdrExtractionDims.get(imageId);
+      const fitInfo = prep.hdrImageFitInfo.get(imageId);
+      if (layout2 && (layout2.width !== decoded.width || layout2.height !== decoded.height)) {
+        const fit = normalizeObjectFit(fitInfo?.fit);
+        const resampled = resampleRgb48leObjectFit(
+          decoded.data,
+          decoded.width,
+          decoded.height,
+          layout2.width,
+          layout2.height,
+          fit,
+          fitInfo?.position
+        );
+        out.set(imageId, { data: resampled, width: layout2.width, height: layout2.height });
+      } else {
+        out.set(imageId, {
+          data: Buffer.from(decoded.data),
+          width: decoded.width,
+          height: decoded.height
+        });
+      }
+    } catch (err) {
+      hdrDiagnostics.imageDecodeFailures += 1;
+      log.error("HDR image decode failed; aborting render", {
+        imageId,
+        srcPath,
+        error: err instanceof Error ? err.message : String(err)
+      });
+      throw new Error(
+        `HDR image decode failed for image "${imageId}". Aborting render to avoid shipping missing HDR image layers.`
+      );
+    }
+  }
+  return out;
+}
+
+// src/services/render/stages/captureHdrFrameShared.ts
+import { rmSync as rmSync4 } from "node:fs";
+function shouldUseHybridLayeredPath(args) {
+  if (args.hasHdrContent) return false;
+  if (args.workerCount <= 1) return false;
+  if (args.totalFrames <= 0) return false;
+  if (args.transitionFramesCount >= args.totalFrames) return false;
+  return true;
+}
+function distributeLayeredHybridFrameRanges(totalFrames, workerCount) {
+  const safeWorkers = Math.max(1, workerCount);
+  const safeFrames = Math.max(0, totalFrames);
+  const framesPerWorker = Math.max(1, Math.ceil(safeFrames / safeWorkers));
+  const ranges = [];
+  for (let w2 = 0; w2 < safeWorkers; w2++) {
+    const start = Math.min(safeFrames, w2 * framesPerWorker);
+    const end = Math.min(safeFrames, start + framesPerWorker);
+    ranges.push({ start, end });
+  }
+  return ranges;
+}
+function partitionTransitionFrames(transitionRanges, totalFrames) {
+  const frames = /* @__PURE__ */ new Set();
+  if (totalFrames <= 0) return frames;
+  for (const range of transitionRanges) {
+    const start = Math.max(0, range.startFrame);
+    const end = Math.min(totalFrames - 1, range.endFrame);
+    for (let i = start; i <= end; i++) frames.add(i);
+  }
+  return frames;
+}
+async function captureSceneIntoBuffer(a2) {
+  const {
+    session,
+    sceneBuf,
+    sceneIds,
+    stackingInfo,
+    time,
+    width,
+    height,
+    nativeHdrIds,
+    nativeHdrImageIds,
+    beforeCaptureHook,
+    hdrCompositeCtx,
+    compositeTransfer,
+    hdrTargetTransfer,
+    hdrPerf,
+    log,
+    frameIdx
+  } = a2;
+  let timingStart = Date.now();
+  await session.page.evaluate((t) => {
+    if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
+  }, time);
+  addHdrTiming(hdrPerf, "domLayerSeekMs", timingStart);
+  if (beforeCaptureHook) {
+    timingStart = Date.now();
+    await beforeCaptureHook(session.page, time);
+    addHdrTiming(hdrPerf, "domLayerInjectMs", timingStart);
+  }
+  for (const el of stackingInfo) {
+    if (!el.isHdr || !sceneIds.has(el.id)) continue;
+    if (nativeHdrImageIds.has(el.id)) {
+      blitHdrImageLayer(
+        sceneBuf,
+        el,
+        hdrCompositeCtx.hdrImageBuffers,
+        hdrCompositeCtx.hdrImageTransferCache,
+        width,
+        height,
+        log,
+        hdrCompositeCtx.imageTransfers.get(el.id),
+        hdrTargetTransfer,
+        hdrPerf
+      );
+    } else {
+      blitHdrVideoLayer(
+        sceneBuf,
+        el,
+        time,
+        hdrCompositeCtx.fps,
+        hdrCompositeCtx.hdrVideoFrameSources,
+        hdrCompositeCtx.hdrVideoStartTimes,
+        width,
+        height,
+        log,
+        hdrCompositeCtx.videoTransfers.get(el.id),
+        hdrTargetTransfer,
+        hdrPerf
+      );
+    }
+  }
+  const showIds = Array.from(sceneIds);
+  const hideIds = stackingInfo.map((e) => e.id).filter((id) => !sceneIds.has(id) || nativeHdrIds.has(id));
+  if (hdrPerf) hdrPerf.domLayerCaptures += 1;
+  timingStart = Date.now();
+  await applyDomLayerMask(session.page, showIds, hideIds);
+  addHdrTiming(hdrPerf, "domMaskApplyMs", timingStart);
+  timingStart = Date.now();
+  const domPng = await captureAlphaPng(session.page, width, height);
+  addHdrTiming(hdrPerf, "domScreenshotMs", timingStart);
+  timingStart = Date.now();
+  await removeDomLayerMask(session.page, hideIds);
+  addHdrTiming(hdrPerf, "domMaskRemoveMs", timingStart);
+  try {
+    timingStart = Date.now();
+    const { data: domRgba } = decodePng(domPng);
+    addHdrTiming(hdrPerf, "domPngDecodeMs", timingStart);
+    timingStart = Date.now();
+    blitRgba8OverRgb48le(domRgba, sceneBuf, width, height, compositeTransfer);
+    addHdrTiming(hdrPerf, "domBlitMs", timingStart);
+  } catch (err) {
+    log.warn("DOM layer decode/blit failed; skipping overlay for transition scene", {
+      frameIndex: frameIdx,
+      sceneIds: Array.from(sceneIds),
+      error: err instanceof Error ? err.message : String(err)
+    });
+  }
+}
+async function captureTransitionFrameOnWorker(a2) {
+  const {
+    session,
+    frameIdx,
+    time,
+    transition,
+    buffers,
+    nativeHdrIds,
+    nativeHdrImageIds,
+    sceneElements,
+    hdrCompositeCtx,
+    width,
+    height,
+    compositeTransfer,
+    hdrTargetTransfer,
+    hdrPerf,
+    log
+  } = a2;
+  const beforeCaptureHook = session.onBeforeCapture;
+  if (hdrPerf) {
+    hdrPerf.frames += 1;
+    hdrPerf.transitionFrames += 1;
+  }
+  let timingStart = Date.now();
+  await session.page.evaluate((t) => {
+    if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
+  }, time);
+  addHdrTiming(hdrPerf, "frameSeekMs", timingStart);
+  if (beforeCaptureHook) {
+    timingStart = Date.now();
+    await beforeCaptureHook(session.page, time);
+    addHdrTiming(hdrPerf, "frameInjectMs", timingStart);
+  }
+  timingStart = Date.now();
+  const stackingInfo = await queryElementStacking(session.page, nativeHdrIds);
+  addHdrTiming(hdrPerf, "stackingQueryMs", timingStart);
+  const sceneAIds = new Set(sceneElements[transition.fromScene] ?? []);
+  const sceneBIds = new Set(sceneElements[transition.toScene] ?? []);
+  buffers.bufferA.fill(0);
+  buffers.bufferB.fill(0);
+  for (const [sceneBuf, sceneIds] of [
+    [buffers.bufferA, sceneAIds],
+    [buffers.bufferB, sceneBIds]
+  ]) {
+    await captureSceneIntoBuffer({
+      session,
+      sceneBuf,
+      sceneIds,
+      stackingInfo,
+      time,
+      width,
+      height,
+      nativeHdrIds,
+      nativeHdrImageIds,
+      beforeCaptureHook,
+      hdrCompositeCtx,
+      compositeTransfer,
+      hdrTargetTransfer,
+      hdrPerf,
+      log,
+      frameIdx
+    });
+  }
+}
+function cleanupEndedHdrVideos(args) {
+  if (process.env.KEEP_TEMP === "1") return;
+  const {
+    time,
+    activeTransition,
+    hdrVideoEndTimes,
+    cleanedUpVideos,
+    hdrVideoFrameSources,
+    sceneElements,
+    log
+  } = args;
+  for (const [videoId, endTime] of hdrVideoEndTimes) {
+    if (time > endTime && !cleanedUpVideos.has(videoId)) {
+      const stillNeeded = activeTransition && (sceneElements[activeTransition.fromScene]?.includes(videoId) || sceneElements[activeTransition.toScene]?.includes(videoId));
+      if (!stillNeeded) {
+        const frameSource = hdrVideoFrameSources.get(videoId);
+        if (frameSource) {
+          closeHdrVideoFrameSource(frameSource, log);
+          try {
+            rmSync4(frameSource.dir, { recursive: true, force: true });
+          } catch (err) {
+            log.warn("Failed to clean up HDR raw frame directory", {
+              videoId,
+              frameDir: frameSource.dir,
+              rawPath: frameSource.rawPath,
+              error: err instanceof Error ? err.message : String(err)
+            });
+          }
+          hdrVideoFrameSources.delete(videoId);
+        }
+        cleanedUpVideos.add(videoId);
+      }
+    }
+  }
+}
+
+// src/services/render/stages/captureHdrSequentialLoop.ts
+import { writeFileSync as writeFileSync6 } from "node:fs";
+import { join as join23 } from "node:path";
+async function runSequentialLayeredFrameLoop(input2) {
+  const {
+    job,
+    log,
+    width,
+    height,
+    totalFrames,
+    nativeHdrIds,
+    nativeHdrImageIds,
+    hdrCompositeCtx,
+    hdrPerf,
+    hdrEncoder,
+    domSession,
+    transitionRanges,
+    sceneElements,
+    compositeTransfer,
+    hdrTargetTransfer,
+    hdrVideoEndTimes,
+    cleanedUpVideos,
+    hdrVideoFrameSources,
+    debugDumpEnabled,
+    debugDumpDir,
+    assertNotAborted,
+    onProgress
+  } = input2;
+  const beforeCaptureHook = domSession.onBeforeCapture;
+  const bufSize = width * height * 6;
+  const hasTransitions = transitionRanges.length > 0;
+  const transitionBuffers = hasTransitions ? {
+    bufferA: Buffer.alloc(bufSize),
+    bufferB: Buffer.alloc(bufSize),
+    output: Buffer.alloc(bufSize)
+  } : null;
+  const normalCanvas = Buffer.alloc(bufSize);
+  for (let i = 0; i < totalFrames; i++) {
+    assertNotAborted();
+    const time = i * job.config.fps.den / job.config.fps.num;
+    if (hdrPerf) hdrPerf.frames += 1;
+    let timingStart = Date.now();
+    await domSession.page.evaluate((t) => {
+      if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
+    }, time);
+    addHdrTiming(hdrPerf, "frameSeekMs", timingStart);
+    if (beforeCaptureHook) {
+      timingStart = Date.now();
+      await beforeCaptureHook(domSession.page, time);
+      addHdrTiming(hdrPerf, "frameInjectMs", timingStart);
+    }
+    timingStart = Date.now();
+    const stackingInfo = await queryElementStacking(domSession.page, nativeHdrIds);
+    addHdrTiming(hdrPerf, "stackingQueryMs", timingStart);
+    const activeTransition = transitionRanges.find((t) => i >= t.startFrame && i <= t.endFrame);
+    if (i % 30 === 0 && (log.isLevelEnabled?.("debug") ?? true)) {
+      const hdrEl = stackingInfo.find((e) => e.isHdr);
+      log.debug("[Render] HDR layer composite frame", {
+        frame: i,
+        time: time.toFixed(2),
+        hdrElement: hdrEl ? { z: hdrEl.zIndex, visible: hdrEl.visible, width: hdrEl.width } : null,
+        stackingCount: stackingInfo.length,
+        activeTransition: activeTransition?.shader
+      });
+    }
+    if (activeTransition && transitionBuffers) {
+      if (hdrPerf) hdrPerf.transitionFrames += 1;
+      const transitionTimingStart = Date.now();
+      const progress = activeTransition.endFrame === activeTransition.startFrame ? 1 : (i - activeTransition.startFrame) / (activeTransition.endFrame - activeTransition.startFrame);
+      const sceneAIds = new Set(sceneElements[activeTransition.fromScene] ?? []);
+      const sceneBIds = new Set(sceneElements[activeTransition.toScene] ?? []);
+      timingStart = Date.now();
+      transitionBuffers.bufferA.fill(0);
+      transitionBuffers.bufferB.fill(0);
+      addHdrTiming(hdrPerf, "canvasClearMs", timingStart);
+      for (const [sceneBuf, sceneIds] of [
+        [transitionBuffers.bufferA, sceneAIds],
+        [transitionBuffers.bufferB, sceneBIds]
+      ]) {
+        assertNotAborted();
+        await captureSceneIntoBuffer({
+          session: domSession,
+          sceneBuf,
+          sceneIds,
+          stackingInfo,
+          time,
+          width,
+          height,
+          nativeHdrIds,
+          nativeHdrImageIds,
+          beforeCaptureHook,
+          hdrCompositeCtx,
+          compositeTransfer,
+          hdrTargetTransfer,
+          hdrPerf,
+          log,
+          frameIdx: i
+        });
+      }
+      const transitionFn = TRANSITIONS[activeTransition.shader] ?? crossfade;
+      transitionFn(
+        transitionBuffers.bufferA,
+        transitionBuffers.bufferB,
+        transitionBuffers.output,
+        width,
+        height,
+        progress
+      );
+      addHdrTiming(hdrPerf, "transitionCompositeMs", transitionTimingStart);
+      timingStart = Date.now();
+      hdrEncoder.writeFrame(transitionBuffers.output);
+      addHdrTiming(hdrPerf, "encoderWriteMs", timingStart);
+    } else {
+      if (hdrPerf) hdrPerf.normalFrames += 1;
+      timingStart = Date.now();
+      normalCanvas.fill(0);
+      addHdrTiming(hdrPerf, "canvasClearMs", timingStart);
+      timingStart = Date.now();
+      await compositeHdrFrame(hdrCompositeCtx, normalCanvas, time, stackingInfo, void 0, i);
+      addHdrTiming(hdrPerf, "normalCompositeMs", timingStart);
+      if (debugDumpEnabled && debugDumpDir && i % 30 === 0) {
+        writeFileSync6(
+          join23(debugDumpDir, `frame_${String(i).padStart(4, "0")}_final_rgb48le.bin`),
+          normalCanvas
+        );
+      }
+      timingStart = Date.now();
+      hdrEncoder.writeFrame(normalCanvas);
+      addHdrTiming(hdrPerf, "encoderWriteMs", timingStart);
+    }
+    cleanupEndedHdrVideos({
+      time,
+      activeTransition,
+      hdrVideoEndTimes,
+      cleanedUpVideos,
+      hdrVideoFrameSources,
+      sceneElements,
+      log
+    });
+    job.framesRendered = i + 1;
+    if ((i + 1) % 10 === 0 || i + 1 === totalFrames) {
+      const frameProgress = (i + 1) / totalFrames;
+      updateJobStatus(
+        job,
+        "rendering",
+        `Layered composite frame ${i + 1}/${job.totalFrames}`,
+        Math.round(25 + frameProgress * 55),
+        onProgress
+      );
+    }
+  }
+}
+
+// src/services/render/stages/captureHdrHybridLoop.ts
+import { writeFileSync as writeFileSync7 } from "node:fs";
+import { join as join25 } from "node:path";
+
+// src/services/shaderTransitionWorkerPool.ts
+import { Worker } from "node:worker_threads";
+import { fileURLToPath as fileURLToPath3, pathToFileURL } from "node:url";
+import { dirname as dirname11, join as join24 } from "node:path";
+import { createRequire } from "node:module";
+import { existsSync as existsSync18 } from "node:fs";
+import { cpus as cpus2 } from "node:os";
+function resolveWorkerEntry(explicit) {
+  if (explicit && explicit.length > 0) {
+    return { path: explicit, isTs: explicit.endsWith(".ts") };
+  }
+  const override = process.env.HF_SHADER_WORKER_ENTRY;
+  if (override && override.length > 0) {
+    const isTs = override.endsWith(".ts");
+    return { path: override, isTs };
+  }
+  const moduleDir = dirname11(fileURLToPath3(import.meta.url));
+  const jsPath = join24(moduleDir, "shaderTransitionWorker.js");
+  if (existsSync18(jsPath)) return { path: jsPath, isTs: false };
+  const tsPath = join24(moduleDir, "shaderTransitionWorker.ts");
+  return { path: tsPath, isTs: true };
+}
+function buildExecArgv(entryIsTs) {
+  const inherited = [...process.execArgv];
+  if (!entryIsTs) return inherited;
+  const hasLoader = inherited.some(
+    (a2) => a2.includes("tsx/esm") || a2.includes("ts-node/esm") || a2.includes("--import")
+  );
+  if (hasLoader) return inherited;
+  try {
+    const require2 = createRequire(import.meta.url);
+    const tsxEsm = require2.resolve("tsx/esm");
+    inherited.push("--import", pathToFileURL(tsxEsm).href);
+  } catch {
+  }
+  return inherited;
+}
+async function createShaderTransitionWorkerPool(opts) {
+  const cpuCount = Math.max(1, cpus2().length);
+  const size = Math.max(1, Math.min(opts.size, cpuCount));
+  const log = opts.log ?? {};
+  const { path: entry, isTs: entryIsTs } = resolveWorkerEntry(opts.workerEntryPath);
+  const slots = [];
+  const queue = [];
+  let terminated = false;
+  const traceEnabled = process.env.HF_SHADER_POOL_TRACE === "1";
+  let nextTaskId = 0;
+  const execArgv = buildExecArgv(entryIsTs);
+  const dispatchNext = (slot) => {
+    if (terminated || slot.busy) return;
+    const task = queue.shift();
+    if (!task) return;
+    slot.busy = true;
+    slot.current = task;
+    if (traceEnabled) {
+      const slotIdx = slots.indexOf(slot);
+      const waitMs = task.enqueuedAtMs ? Date.now() - task.enqueuedAtMs : 0;
+      const busyCount = slots.filter((s) => s.busy).length;
+      log.info?.("[shaderPool] dispatch", {
+        task: task.traceId,
+        slot: slotIdx,
+        shader: task.req.shader,
+        waitMs,
+        busyCount,
+        queueDepth: queue.length
+      });
+    }
+    const { bufferA, bufferB, output: output2, shader, width, height, progress } = task.req;
+    const abA = bufferA.buffer;
+    const abB = bufferB.buffer;
+    const abOut = output2.buffer;
+    try {
+      slot.worker.postMessage(
+        {
+          shader,
+          bufferA: abA,
+          bufferB: abB,
+          output: abOut,
+          width,
+          height,
+          progress
+        },
+        [abA, abB, abOut]
+      );
+    } catch (err) {
+      slot.busy = false;
+      slot.current = null;
+      task.reject(err instanceof Error ? err : new Error(String(err)));
+    }
+  };
+  const onWorkerMessage = (slot, reply) => {
+    const task = slot.current;
+    slot.current = null;
+    slot.busy = false;
+    if (!task) {
+      dispatchNext(slot);
+      return;
+    }
+    if (!reply.ok) {
+      task.reject(new Error(reply.error ?? "shader-blend worker failed"));
+    } else {
+      task.resolve({
+        bufferA: Buffer.from(reply.bufferA),
+        bufferB: Buffer.from(reply.bufferB),
+        output: Buffer.from(reply.output)
+      });
+    }
+    dispatchNext(slot);
+  };
+  const onWorkerError = (slot, err) => {
+    const task = slot.current;
+    slot.current = null;
+    slot.busy = false;
+    if (task) {
+      task.reject(new Error(`shader-blend worker crashed mid-task: ${err.message}; buffers lost`));
+    }
+    log.warn?.("[shaderTransitionWorkerPool] worker errored", { err: err.message });
+  };
+  const onWorkerExit = (slot, code) => {
+    if (terminated) return;
+    if (slot.current) {
+      slot.current.reject(new Error(`shader-blend worker exited (code=${code}) mid-task`));
+      slot.current = null;
+      slot.busy = false;
+    }
+    log.warn?.("[shaderTransitionWorkerPool] worker exited unexpectedly", { code });
+  };
+  try {
+    for (let i = 0; i < size; i++) {
+      const worker = new Worker(entry, { execArgv });
+      const slot = { worker, busy: false, current: null };
+      worker.on("message", (msg) => onWorkerMessage(slot, msg));
+      worker.on(
+        "error",
+        (err) => onWorkerError(slot, err instanceof Error ? err : new Error(String(err)))
+      );
+      worker.on("exit", (code) => onWorkerExit(slot, code));
+      slots.push(slot);
+    }
+  } catch (err) {
+    terminated = true;
+    await Promise.all(slots.map((s) => s.worker.terminate().catch(() => void 0)));
+    throw err;
+  }
+  log.info?.("[shaderTransitionWorkerPool] spawned", { size, entry });
+  return {
+    size,
+    async run(req) {
+      if (terminated) {
+        throw new Error("shader-blend pool already terminated");
+      }
+      return new Promise((resolve15, reject) => {
+        const task = traceEnabled ? { req, resolve: resolve15, reject, enqueuedAtMs: Date.now(), traceId: ++nextTaskId } : { req, resolve: resolve15, reject };
+        const idle = slots.find((s) => !s.busy);
+        if (idle) {
+          queue.unshift(task);
+          dispatchNext(idle);
+        } else {
+          queue.push(task);
+        }
+      });
+    },
+    async terminate() {
+      if (terminated) return;
+      terminated = true;
+      while (queue.length > 0) {
+        const t = queue.shift();
+        if (t) t.reject(new Error("shader-blend pool terminated before task ran"));
+      }
+      for (const slot of slots) {
+        const t = slot.current;
+        if (t) {
+          slot.current = null;
+          slot.busy = false;
+          t.reject(new Error("shader-blend pool terminated mid-task"));
+        }
+      }
+      await Promise.all(slots.map((s) => s.worker.terminate().catch(() => void 0)));
+      log.info?.("[shaderTransitionWorkerPool] terminated", { size });
+    }
+  };
+}
+
+// src/services/render/stages/captureHdrHybridLoop.ts
+async function runHybridLayeredFrameLoop(input2) {
+  const {
+    job,
+    cfg,
+    log,
+    width,
+    height,
+    totalFrames,
+    nativeHdrIds,
+    nativeHdrImageIds,
+    hdrCompositeCtx,
+    hdrPerf,
+    hdrEncoder,
+    domSession,
+    fileServer,
+    buildCaptureOptions,
+    createRenderVideoFrameInjector,
+    transitionRanges,
+    sceneElements,
+    compositeTransfer,
+    hdrTargetTransfer,
+    workerCount,
+    debugDumpEnabled,
+    debugDumpDir,
+    assertNotAborted,
+    onProgress
+  } = input2;
+  const transitionFramesSet = partitionTransitionFrames(transitionRanges, totalFrames);
+  const hasTransitions = transitionRanges.length > 0;
+  const bufSize = width * height * 6;
+  const workerSessions = [];
+  let shaderPool = null;
+  try {
+    for (let w2 = 0; w2 < workerCount - 1; w2++) {
+      const s = await createCaptureSession(
+        fileServer.url,
+        input2.framesDir,
+        buildCaptureOptions(),
+        createRenderVideoFrameInjector(),
+        cfg
+      );
+      await initializeSession(s);
+      await initTransparentBackground(s.page);
+      workerSessions.push(s);
+    }
+    const sessions = [domSession, ...workerSessions];
+    const activeWorkerCount = sessions.length;
+    if (hasTransitions) {
+      try {
+        shaderPool = await createShaderTransitionWorkerPool({ size: activeWorkerCount, log });
+      } catch (err) {
+        log.warn(
+          "[Render] Failed to spawn shader-blend worker pool; falling back to inline shader blend",
+          { error: err instanceof Error ? err.message : String(err) }
+        );
+        shaderPool = null;
+      }
+    }
+    const workerCanvases = sessions.map(() => Buffer.alloc(bufSize));
+    const DEFAULT_TRANSITION_RING_DEPTH = 4;
+    const TRANSITION_RING_DEPTH = Math.max(
+      1,
+      Number(process.env.HF_TRANSITION_RING_DEPTH ?? String(DEFAULT_TRANSITION_RING_DEPTH))
+    );
+    const workerTransitionRings = sessions.map(() => {
+      if (!hasTransitions) return null;
+      const ring = [];
+      for (let k = 0; k < TRANSITION_RING_DEPTH; k++) {
+        ring.push({
+          bufferA: Buffer.alloc(bufSize),
+          bufferB: Buffer.alloc(bufSize),
+          output: Buffer.alloc(bufSize)
+        });
+      }
+      return ring;
+    });
+    const workerRanges = distributeLayeredHybridFrameRanges(totalFrames, activeWorkerCount);
+    let framesWritten = 0;
+    const reorderBuffer = createFrameReorderBuffer(0, totalFrames);
+    const writeEncoded = async (frameIdx, buf) => {
+      await reorderBuffer.waitForFrame(frameIdx);
+      const writeStart = Date.now();
+      hdrEncoder.writeFrame(buf);
+      addHdrTiming(hdrPerf, "encoderWriteMs", writeStart);
+      reorderBuffer.advanceTo(frameIdx + 1);
+      framesWritten += 1;
+      job.framesRendered = framesWritten;
+      if (framesWritten % 10 === 0 || framesWritten === totalFrames) {
+        const frameProgress = framesWritten / totalFrames;
+        updateJobStatus(
+          job,
+          "rendering",
+          `Layered composite frame ${framesWritten}/${job.totalFrames}`,
+          Math.round(25 + frameProgress * 55),
+          onProgress
+        );
+      }
+    };
+    const poolRef = shaderPool;
+    const workerTaskOf = async (w2) => {
+      const session = sessions[w2];
+      const canvas = workerCanvases[w2];
+      const range = workerRanges[w2];
+      const ring = workerTransitionRings[w2];
+      if (!session || !canvas || !range) return;
+      const ringInFlight = ring ? ring.map(() => null) : [];
+      let nextRingIdx = 0;
+      for (let i = range.start; i < range.end; i++) {
+        assertNotAborted();
+        const time = i * job.config.fps.den / job.config.fps.num;
+        const activeTransition = transitionFramesSet.has(i) ? transitionRanges.find((t) => i >= t.startFrame && i <= t.endFrame) : void 0;
+        if (activeTransition && ring) {
+          const slot = nextRingIdx;
+          nextRingIdx = (nextRingIdx + 1) % TRANSITION_RING_DEPTH;
+          const prev = ringInFlight[slot];
+          if (prev) await prev;
+          const buffers = ring[slot];
+          if (!buffers) continue;
+          await captureTransitionFrameOnWorker({
+            session,
+            frameIdx: i,
+            time,
+            transition: activeTransition,
+            buffers,
+            nativeHdrIds,
+            nativeHdrImageIds,
+            sceneElements,
+            hdrCompositeCtx,
+            width,
+            height,
+            compositeTransfer,
+            hdrTargetTransfer,
+            hdrPerf,
+            log
+          });
+          const progress = activeTransition.endFrame === activeTransition.startFrame ? 1 : (i - activeTransition.startFrame) / (activeTransition.endFrame - activeTransition.startFrame);
+          const frameIdx = i;
+          const dispatch2 = (async () => {
+            if (poolRef) {
+              const blendStart = Date.now();
+              const result = await poolRef.run({
+                shader: activeTransition.shader,
+                bufferA: buffers.bufferA,
+                bufferB: buffers.bufferB,
+                output: buffers.output,
+                width,
+                height,
+                progress
+              });
+              buffers.bufferA = result.bufferA;
+              buffers.bufferB = result.bufferB;
+              buffers.output = result.output;
+              addHdrTiming(hdrPerf, "transitionCompositeMs", blendStart);
+            } else {
+              const transitionFn = TRANSITIONS[activeTransition.shader] ?? crossfade;
+              const blendStart = Date.now();
+              transitionFn(
+                buffers.bufferA,
+                buffers.bufferB,
+                buffers.output,
+                width,
+                height,
+                progress
+              );
+              addHdrTiming(hdrPerf, "transitionCompositeMs", blendStart);
+            }
+            await writeEncoded(frameIdx, buffers.output);
+          })();
+          ringInFlight[slot] = dispatch2.catch((err) => {
+            throw err instanceof Error ? err : new Error(String(err));
+          });
+        } else {
+          const beforeCaptureHook = session.onBeforeCapture;
+          let timingStart = Date.now();
+          await session.page.evaluate((t) => {
+            if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
+          }, time);
+          addHdrTiming(hdrPerf, "frameSeekMs", timingStart);
+          if (beforeCaptureHook) {
+            timingStart = Date.now();
+            await beforeCaptureHook(session.page, time);
+            addHdrTiming(hdrPerf, "frameInjectMs", timingStart);
+          }
+          timingStart = Date.now();
+          const stackingInfo = await queryElementStacking(session.page, nativeHdrIds);
+          addHdrTiming(hdrPerf, "stackingQueryMs", timingStart);
+          canvas.fill(0);
+          const wctx = { ...hdrCompositeCtx, domSession: session };
+          timingStart = Date.now();
+          await compositeHdrFrame(wctx, canvas, time, stackingInfo, void 0, i);
+          addHdrTiming(hdrPerf, "normalCompositeMs", timingStart);
+          if (debugDumpEnabled && debugDumpDir && i % 30 === 0) {
+            writeFileSync7(
+              join25(debugDumpDir, `frame_${String(i).padStart(4, "0")}_final_rgb48le.bin`),
+              canvas
+            );
+          }
+          await writeEncoded(i, canvas);
+        }
+      }
+      for (const pending of ringInFlight) {
+        if (pending) await pending;
+      }
+    };
+    await Promise.all(sessions.map((_2, w2) => workerTaskOf(w2)));
+    await reorderBuffer.waitForAllDone();
+  } finally {
+    for (const s of workerSessions) {
+      await closeCaptureSession(s).catch((err) => {
+        log.warn("Hybrid worker session close failed", {
+          err: err instanceof Error ? err.message : String(err)
+        });
+      });
+    }
+    if (shaderPool) {
+      await shaderPool.terminate().catch((err) => {
+        log.warn("Shader-blend worker pool terminate failed", {
+          err: err instanceof Error ? err.message : String(err)
+        });
+      });
+    }
+  }
+}
+
 // src/services/render/stages/captureHdrStage.ts
 async function runCaptureHdrStage(input2) {
   const {
     job,
     cfg,
+    forceScreenshot,
     log,
     projectDir,
     compiledDir,
@@ -114822,39 +116820,41 @@ async function runCaptureHdrStage(input2) {
     buildCaptureOptions,
     createRenderVideoFrameInjector,
     hdrDiagnostics,
+    workerCount,
     abortSignal,
     assertNotAborted,
     onProgress
   } = input2;
+  if (!forceScreenshot) {
+    throw new Error(
+      "captureHdrStage requires forceScreenshot=true; the layered composite path uses captureAlphaPng which hangs under --enable-begin-frame-control."
+    );
+  }
   const stageStart = Date.now();
   let lastBrowserConsole = [];
-  let hdrPerf;
   let captureDurationMs = 0;
   let encodeMs = 0;
   const nativeHdrIds = /* @__PURE__ */ new Set([...nativeHdrVideoIds, ...nativeHdrImageIds]);
   log.info(
     hasHdrContent ? "[Render] HDR layered composite: z-ordered DOM + native HDR video/image layers" : "[Render] Shader transition composite: z-ordered SDR DOM layers"
   );
-  hdrPerf = createHdrPerfCollector();
-  cfg.forceScreenshot = true;
-  const hdrVideoIds = composition.videos.filter((v2) => nativeHdrVideoIds.has(v2.id)).map((v2) => v2.id);
-  const hdrVideoSrcPaths = /* @__PURE__ */ new Map();
-  for (const v2 of composition.videos) {
-    if (!hdrVideoIds.includes(v2.id)) continue;
-    let srcPath = v2.src;
-    if (!srcPath.startsWith("/")) {
-      const fromCompiled = join21(compiledDir, srcPath);
-      srcPath = existsSync17(fromCompiled) ? fromCompiled : join21(projectDir, srcPath);
-    }
-    hdrVideoSrcPaths.set(v2.id, srcPath);
-  }
+  const hdrPerf = createHdrPerfCollector();
+  const hdrCfg = { ...cfg, forceScreenshot: true };
   if (!fileServer) throw new Error("fileServer must be initialized before HDR compositing");
+  const prep = planHdrResources({
+    composition,
+    nativeHdrVideoIds,
+    nativeHdrImageIds,
+    projectDir,
+    compiledDir,
+    existsSync: existsSync19
+  });
   const domSession = await createCaptureSession(
     fileServer.url,
     framesDir,
     buildCaptureOptions(),
     createRenderVideoFrameInjector(),
-    cfg
+    hdrCfg
   );
   let hdrEncoder = null;
   let hdrEncoderClosed = false;
@@ -114917,179 +116917,42 @@ async function runCaptureHdrStage(input2) {
       { ffmpegStreamingTimeout: 36e5 }
     );
     assertNotAborted();
-    const hdrExtractionDims = /* @__PURE__ */ new Map();
-    const hdrImageFitInfo = /* @__PURE__ */ new Map();
-    const hdrVideoStartTimes = /* @__PURE__ */ new Map();
-    for (const v2 of composition.videos) {
-      if (hdrVideoIds.includes(v2.id)) {
-        hdrVideoStartTimes.set(v2.id, v2.start);
-      }
-    }
-    const hdrImageStartTimes = /* @__PURE__ */ new Map();
-    for (const img of composition.images) {
-      if (nativeHdrImageIds.has(img.id)) {
-        hdrImageStartTimes.set(img.id, img.start);
-      }
-    }
-    const uniqueStartTimes = [
-      .../* @__PURE__ */ new Set([...hdrVideoStartTimes.values(), ...hdrImageStartTimes.values()])
-    ].sort((a2, b2) => a2 - b2);
-    for (const seekTime of uniqueStartTimes) {
-      await domSession.page.evaluate((t) => {
-        if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
-      }, seekTime);
-      if (domSession.onBeforeCapture) {
-        await domSession.onBeforeCapture(domSession.page, seekTime);
-      }
-      const stacking = await queryElementStacking(domSession.page, nativeHdrIds);
-      for (const el of stacking) {
-        if (el.isHdr && el.layoutWidth > 0 && el.layoutHeight > 0 && !hdrExtractionDims.has(el.id)) {
-          hdrExtractionDims.set(el.id, { width: el.layoutWidth, height: el.layoutHeight });
-        }
-        if (el.isHdr && nativeHdrImageIds.has(el.id) && !hdrImageFitInfo.has(el.id)) {
-          hdrImageFitInfo.set(el.id, {
-            fit: el.objectFit,
-            position: el.objectPosition
-          });
-        }
-      }
-    }
-    for (const [imageId, startTime] of hdrImageStartTimes) {
-      if (hdrExtractionDims.has(imageId)) continue;
-      const img = composition.images.find((i) => i.id === imageId);
-      if (!img) continue;
-      const duration = img.end - img.start;
-      const retryTime = startTime + Math.min(0.5, duration * 0.1);
-      await domSession.page.evaluate((t) => {
-        if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
-      }, retryTime);
-      if (domSession.onBeforeCapture) {
-        await domSession.onBeforeCapture(domSession.page, retryTime);
-      }
-      const retryStacking = await queryElementStacking(domSession.page, nativeHdrIds);
-      for (const el of retryStacking) {
-        if (el.id === imageId && el.isHdr && el.layoutWidth > 0 && el.layoutHeight > 0) {
-          hdrExtractionDims.set(el.id, { width: el.layoutWidth, height: el.layoutHeight });
-          if (!hdrImageFitInfo.has(el.id)) {
-            hdrImageFitInfo.set(el.id, { fit: el.objectFit, position: el.objectPosition });
-          }
-          break;
-        }
-      }
-    }
-    for (const [videoId, srcPath] of hdrVideoSrcPaths) {
-      const video = composition.videos.find((v2) => v2.id === videoId);
-      if (!video) continue;
-      const frameDir = join21(framesDir, `hdr_${videoId}`);
-      mkdirSync12(frameDir, { recursive: true });
-      const duration = video.end - video.start;
-      const dims = hdrExtractionDims.get(videoId) ?? { width, height };
-      const rawPath = join21(frameDir, "frames.rgb48le");
-      const ffmpegArgs = [
-        "-ss",
-        String(video.mediaStart),
-        "-i",
-        srcPath,
-        "-t",
-        String(duration),
-        "-r",
-        // Pass the rational form to FFmpeg so NTSC stays exact end-to-end.
-        fpsToFfmpegArg(job.config.fps),
-        "-vf",
-        `scale=${dims.width}:${dims.height}:force_original_aspect_ratio=increase,crop=${dims.width}:${dims.height}`,
-        "-pix_fmt",
-        "rgb48le",
-        "-f",
-        "rawvideo",
-        "-y",
-        rawPath
-      ];
-      const result = await runFfmpeg(ffmpegArgs, { signal: abortSignal });
-      if (!result.success) {
-        hdrDiagnostics.videoExtractionFailures += 1;
-        log.error("HDR frame pre-extraction failed; aborting render", {
-          videoId,
-          srcPath,
-          stderr: result.stderr.slice(-400)
-        });
-        throw new Error(
-          `HDR frame extraction failed for video "${videoId}". Aborting render to avoid shipping black HDR layers.`
-        );
-      }
-      const frameSize = dims.width * dims.height * 6;
-      const frameCount = Math.floor(statSync7(rawPath).size / frameSize);
-      if (frameCount < 1) {
-        hdrDiagnostics.videoExtractionFailures += 1;
-        throw new Error(
-          `HDR frame extraction produced no frames for video "${videoId}". Aborting render to avoid shipping black HDR layers.`
-        );
-      }
-      hdrVideoFrameSources.set(videoId, {
-        dir: frameDir,
-        rawPath,
-        fd: openSync(rawPath, "r"),
-        width: dims.width,
-        height: dims.height,
-        frameSize,
-        frameCount,
-        scratch: Buffer.allocUnsafe(frameSize)
-      });
-    }
-    const hdrImageBuffers = /* @__PURE__ */ new Map();
-    for (const [imageId, srcPath] of hdrImageSrcPaths) {
-      try {
-        const decoded = decodePngToRgb48le(readFileSync10(srcPath));
-        const layout2 = hdrExtractionDims.get(imageId);
-        const fitInfo = hdrImageFitInfo.get(imageId);
-        if (layout2 && (layout2.width !== decoded.width || layout2.height !== decoded.height)) {
-          const fit = normalizeObjectFit(fitInfo?.fit);
-          const resampled = resampleRgb48leObjectFit(
-            decoded.data,
-            decoded.width,
-            decoded.height,
-            layout2.width,
-            layout2.height,
-            fit,
-            fitInfo?.position
-          );
-          hdrImageBuffers.set(imageId, {
-            data: resampled,
-            width: layout2.width,
-            height: layout2.height
-          });
-        } else {
-          hdrImageBuffers.set(imageId, {
-            data: Buffer.from(decoded.data),
-            width: decoded.width,
-            height: decoded.height
-          });
-        }
-      } catch (err) {
-        hdrDiagnostics.imageDecodeFailures += 1;
-        log.error("HDR image decode failed; aborting render", {
-          imageId,
-          srcPath,
-          error: err instanceof Error ? err.message : String(err)
-        });
-        throw new Error(
-          `HDR image decode failed for image "${imageId}". Aborting render to avoid shipping missing HDR image layers.`
-        );
-      }
-    }
+    await probeHdrExtractionDims({
+      domSession,
+      nativeHdrIds,
+      nativeHdrImageIds,
+      composition,
+      prep
+    });
+    const extracted = await extractHdrVideoFrames({
+      job,
+      log,
+      framesDir,
+      composition,
+      prep,
+      width,
+      height,
+      abortSignal,
+      hdrDiagnostics
+    });
+    for (const [id, source2] of extracted) hdrVideoFrameSources.set(id, source2);
+    const hdrImageBuffers = decodeHdrImageBuffers({
+      log,
+      hdrImageSrcPaths,
+      prep,
+      hdrDiagnostics
+    });
     assertNotAborted();
     try {
-      const beforeCaptureHook = domSession.onBeforeCapture;
       const cleanedUpVideos = /* @__PURE__ */ new Set();
       const hdrVideoEndTimes = /* @__PURE__ */ new Map();
       for (const v2 of composition.videos) {
-        if (hdrVideoFrameSources.has(v2.id)) {
-          hdrVideoEndTimes.set(v2.id, v2.end);
-        }
+        if (hdrVideoFrameSources.has(v2.id)) hdrVideoEndTimes.set(v2.id, v2.end);
       }
       const debugDumpEnabled = process.env.KEEP_TEMP === "1";
-      const debugDumpDir = debugDumpEnabled ? join21(framesDir, "debug-composite") : null;
-      if (debugDumpDir && !existsSync17(debugDumpDir)) {
-        mkdirSync12(debugDumpDir, { recursive: true });
+      const debugDumpDir = debugDumpEnabled ? join26(framesDir, "debug-composite") : null;
+      if (debugDumpDir && !existsSync19(debugDumpDir)) {
+        mkdirSync13(debugDumpDir, { recursive: true });
       }
       const compositeTransfer = resolveCompositeTransfer(hasHdrContent, effectiveHdr);
       const hdrTargetTransfer = compositeTransfer === "srgb" ? void 0 : compositeTransfer;
@@ -115100,7 +116963,7 @@ async function runCaptureHdrStage(input2) {
       const hdrCompositeCtx = {
         log,
         domSession,
-        beforeCaptureHook,
+        beforeCaptureHook: domSession.onBeforeCapture,
         width,
         height,
         fps: fpsToNumber(job.config.fps),
@@ -115109,192 +116972,83 @@ async function runCaptureHdrStage(input2) {
         hdrImageBuffers,
         hdrImageTransferCache,
         hdrVideoFrameSources,
-        hdrVideoStartTimes,
+        hdrVideoStartTimes: prep.hdrVideoStartTimes,
         imageTransfers,
         videoTransfers,
         debugDumpEnabled,
         debugDumpDir,
         hdrPerf
       };
-      const bufSize = width * height * 6;
-      const hasTransitions = transitionRanges.length > 0;
-      const transBufferA = hasTransitions ? Buffer.alloc(bufSize) : null;
-      const transBufferB = hasTransitions ? Buffer.alloc(bufSize) : null;
-      const transOutput = hasTransitions ? Buffer.alloc(bufSize) : null;
-      const normalCanvas = Buffer.alloc(bufSize);
-      for (let i = 0; i < totalFrames; i++) {
-        assertNotAborted();
-        const time = i * job.config.fps.den / job.config.fps.num;
-        if (hdrPerf) hdrPerf.frames += 1;
-        let timingStart = Date.now();
-        await domSession.page.evaluate((t) => {
-          if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
-        }, time);
-        addHdrTiming(hdrPerf, "frameSeekMs", timingStart);
-        if (beforeCaptureHook) {
-          timingStart = Date.now();
-          await beforeCaptureHook(domSession.page, time);
-          addHdrTiming(hdrPerf, "frameInjectMs", timingStart);
-        }
-        timingStart = Date.now();
-        const stackingInfo = await queryElementStacking(domSession.page, nativeHdrIds);
-        addHdrTiming(hdrPerf, "stackingQueryMs", timingStart);
-        const activeTransition = transitionRanges.find((t) => i >= t.startFrame && i <= t.endFrame);
-        if (i % 30 === 0 && (log.isLevelEnabled?.("debug") ?? true)) {
-          const hdrEl = stackingInfo.find((e) => e.isHdr);
-          log.debug("[Render] HDR layer composite frame", {
-            frame: i,
-            time: time.toFixed(2),
-            hdrElement: hdrEl ? { z: hdrEl.zIndex, visible: hdrEl.visible, width: hdrEl.width } : null,
-            stackingCount: stackingInfo.length,
-            activeTransition: activeTransition?.shader
-          });
-        }
-        if (activeTransition && transBufferA && transBufferB && transOutput) {
-          if (hdrPerf) hdrPerf.transitionFrames += 1;
-          const transitionTimingStart = Date.now();
-          const progress = activeTransition.endFrame === activeTransition.startFrame ? 1 : (i - activeTransition.startFrame) / (activeTransition.endFrame - activeTransition.startFrame);
-          const sceneAIds = new Set(sceneElements[activeTransition.fromScene] ?? []);
-          const sceneBIds = new Set(sceneElements[activeTransition.toScene] ?? []);
-          timingStart = Date.now();
-          transBufferA.fill(0);
-          transBufferB.fill(0);
-          addHdrTiming(hdrPerf, "canvasClearMs", timingStart);
-          for (const [sceneBuf, sceneIds] of [
-            [transBufferA, sceneAIds],
-            [transBufferB, sceneBIds]
-          ]) {
-            assertNotAborted();
-            timingStart = Date.now();
-            await domSession.page.evaluate((t) => {
-              if (window.__hf && typeof window.__hf.seek === "function") window.__hf.seek(t);
-            }, time);
-            addHdrTiming(hdrPerf, "domLayerSeekMs", timingStart);
-            if (beforeCaptureHook) {
-              timingStart = Date.now();
-              await beforeCaptureHook(domSession.page, time);
-              addHdrTiming(hdrPerf, "domLayerInjectMs", timingStart);
-            }
-            for (const el of stackingInfo) {
-              if (!el.isHdr || !sceneIds.has(el.id)) continue;
-              if (nativeHdrImageIds.has(el.id)) {
-                blitHdrImageLayer(
-                  sceneBuf,
-                  el,
-                  hdrImageBuffers,
-                  hdrImageTransferCache,
-                  width,
-                  height,
-                  log,
-                  imageTransfers.get(el.id),
-                  hdrTargetTransfer,
-                  hdrPerf
-                );
-              } else {
-                blitHdrVideoLayer(
-                  sceneBuf,
-                  el,
-                  time,
-                  fpsToNumber(job.config.fps),
-                  hdrVideoFrameSources,
-                  hdrVideoStartTimes,
-                  width,
-                  height,
-                  log,
-                  videoTransfers.get(el.id),
-                  hdrTargetTransfer,
-                  hdrPerf
-                );
-              }
-            }
-            const showIds = Array.from(sceneIds);
-            const hideIds = stackingInfo.map((e) => e.id).filter((id) => !sceneIds.has(id) || nativeHdrIds.has(id));
-            if (hdrPerf) hdrPerf.domLayerCaptures += 1;
-            timingStart = Date.now();
-            await applyDomLayerMask(domSession.page, showIds, hideIds);
-            addHdrTiming(hdrPerf, "domMaskApplyMs", timingStart);
-            timingStart = Date.now();
-            const domPng = await captureAlphaPng(domSession.page, width, height);
-            addHdrTiming(hdrPerf, "domScreenshotMs", timingStart);
-            timingStart = Date.now();
-            await removeDomLayerMask(domSession.page, hideIds);
-            addHdrTiming(hdrPerf, "domMaskRemoveMs", timingStart);
-            try {
-              timingStart = Date.now();
-              const { data: domRgba } = decodePng(domPng);
-              addHdrTiming(hdrPerf, "domPngDecodeMs", timingStart);
-              timingStart = Date.now();
-              blitRgba8OverRgb48le(domRgba, sceneBuf, width, height, compositeTransfer);
-              addHdrTiming(hdrPerf, "domBlitMs", timingStart);
-            } catch (err) {
-              log.warn("DOM layer decode/blit failed; skipping overlay for transition scene", {
-                frameIndex: i,
-                sceneIds: Array.from(sceneIds),
-                error: err instanceof Error ? err.message : String(err)
-              });
-            }
-          }
-          const transitionFn = TRANSITIONS[activeTransition.shader] ?? crossfade;
-          transitionFn(transBufferA, transBufferB, transOutput, width, height, progress);
-          addHdrTiming(hdrPerf, "transitionCompositeMs", transitionTimingStart);
-          timingStart = Date.now();
-          hdrEncoder.writeFrame(transOutput);
-          addHdrTiming(hdrPerf, "encoderWriteMs", timingStart);
-        } else {
-          if (hdrPerf) hdrPerf.normalFrames += 1;
-          timingStart = Date.now();
-          normalCanvas.fill(0);
-          addHdrTiming(hdrPerf, "canvasClearMs", timingStart);
-          timingStart = Date.now();
-          await compositeHdrFrame(hdrCompositeCtx, normalCanvas, time, stackingInfo, void 0, i);
-          addHdrTiming(hdrPerf, "normalCompositeMs", timingStart);
-          if (debugDumpEnabled && debugDumpDir && i % 30 === 0) {
-            const previewPath = join21(
-              debugDumpDir,
-              `frame_${String(i).padStart(4, "0")}_final_rgb48le.bin`
-            );
-            writeFileSync6(previewPath, normalCanvas);
-          }
-          timingStart = Date.now();
-          hdrEncoder.writeFrame(normalCanvas);
-          addHdrTiming(hdrPerf, "encoderWriteMs", timingStart);
-        }
-        if (process.env.KEEP_TEMP !== "1") {
-          for (const [videoId, endTime] of hdrVideoEndTimes) {
-            if (time > endTime && !cleanedUpVideos.has(videoId)) {
-              const stillNeeded = activeTransition && (sceneElements[activeTransition.fromScene]?.includes(videoId) || sceneElements[activeTransition.toScene]?.includes(videoId));
-              if (!stillNeeded) {
-                const frameSource = hdrVideoFrameSources.get(videoId);
-                if (frameSource) {
-                  closeHdrVideoFrameSource(frameSource, log);
-                  try {
-                    rmSync3(frameSource.dir, { recursive: true, force: true });
-                  } catch (err) {
-                    log.warn("Failed to clean up HDR raw frame directory", {
-                      videoId,
-                      frameDir: frameSource.dir,
-                      rawPath: frameSource.rawPath,
-                      error: err instanceof Error ? err.message : String(err)
-                    });
-                  }
-                  hdrVideoFrameSources.delete(videoId);
-                }
-                cleanedUpVideos.add(videoId);
-              }
-            }
-          }
-        }
-        job.framesRendered = i + 1;
-        if ((i + 1) % 10 === 0 || i + 1 === totalFrames) {
-          const frameProgress = (i + 1) / totalFrames;
-          updateJobStatus(
-            job,
-            "rendering",
-            `Layered composite frame ${i + 1}/${job.totalFrames}`,
-            Math.round(25 + frameProgress * 55),
-            onProgress
-          );
-        }
+      const effectiveWorkerCount = workerCount !== void 0 ? Math.max(1, workerCount) : calculateOptimalWorkers(totalFrames, job.config.workers, hdrCfg);
+      const transitionFrameCount = partitionTransitionFrames(transitionRanges, totalFrames).size;
+      const useHybrid = shouldUseHybridLayeredPath({
+        hasHdrContent,
+        transitionFramesCount: transitionFrameCount,
+        totalFrames,
+        workerCount: effectiveWorkerCount
+      });
+      if (transitionRanges.length > 0) {
+        log.info("[Render] Layered hybrid dispatch decision", {
+          hybridEnabled: useHybrid,
+          hasHdrContent,
+          workerCount: effectiveWorkerCount,
+          transitionFrameCount,
+          totalFrames
+        });
+      }
+      if (useHybrid) {
+        await runHybridLayeredFrameLoop({
+          job,
+          cfg: hdrCfg,
+          log,
+          framesDir,
+          width,
+          height,
+          totalFrames,
+          nativeHdrIds,
+          nativeHdrImageIds,
+          hdrCompositeCtx,
+          hdrPerf,
+          hdrEncoder,
+          domSession,
+          fileServer,
+          buildCaptureOptions,
+          createRenderVideoFrameInjector,
+          transitionRanges,
+          sceneElements,
+          compositeTransfer,
+          hdrTargetTransfer,
+          workerCount: effectiveWorkerCount,
+          debugDumpEnabled,
+          debugDumpDir,
+          assertNotAborted,
+          onProgress
+        });
+      } else {
+        await runSequentialLayeredFrameLoop({
+          job,
+          log,
+          width,
+          height,
+          totalFrames,
+          nativeHdrIds,
+          nativeHdrImageIds,
+          hdrCompositeCtx,
+          hdrPerf,
+          hdrEncoder,
+          domSession,
+          transitionRanges,
+          sceneElements,
+          compositeTransfer,
+          hdrTargetTransfer,
+          hdrVideoEndTimes,
+          cleanedUpVideos,
+          hdrVideoFrameSources,
+          debugDumpEnabled,
+          debugDumpDir,
+          assertNotAborted,
+          onProgress
+        });
       }
     } finally {
       lastBrowserConsole = domSession.browserConsoleBuffer;
@@ -115340,8 +117094,8 @@ async function runCaptureHdrStage(input2) {
 }
 
 // src/services/render/stages/encodeStage.ts
-import { copyFileSync as copyFileSync3, existsSync as existsSync18, mkdirSync as mkdirSync13, readdirSync as readdirSync7 } from "node:fs";
-import { join as join22 } from "node:path";
+import { copyFileSync as copyFileSync3, existsSync as existsSync20, mkdirSync as mkdirSync14, readdirSync as readdirSync7 } from "node:fs";
+import { join as join27 } from "node:path";
 async function runEncodeStage(input2) {
   const {
     job,
@@ -115367,7 +117121,7 @@ async function runEncodeStage(input2) {
   const stage5Start = Date.now();
   if (isPngSequence) {
     updateJobStatus(job, "encoding", "Writing PNG sequence", 75, onProgress);
-    if (!existsSync18(outputPath)) mkdirSync13(outputPath, { recursive: true });
+    if (!existsSync20(outputPath)) mkdirSync14(outputPath, { recursive: true });
     const captured = readdirSync7(framesDir).filter((name) => name.endsWith(".png")).sort();
     if (captured.length === 0) {
       throw new Error(
@@ -115375,11 +117129,11 @@ async function runEncodeStage(input2) {
       );
     }
     captured.forEach((name, i) => {
-      const dst = join22(outputPath, `frame_${String(i + 1).padStart(6, "0")}.png`);
-      copyFileSync3(join22(framesDir, name), dst);
+      const dst = join27(outputPath, `frame_${String(i + 1).padStart(6, "0")}.png`);
+      copyFileSync3(join27(framesDir, name), dst);
     });
-    if (hasAudio && existsSync18(audioOutputPath)) {
-      copyFileSync3(audioOutputPath, join22(outputPath, "audio.aac"));
+    if (hasAudio && audioOutputPath && existsSync20(audioOutputPath)) {
+      copyFileSync3(audioOutputPath, join27(outputPath, "audio.aac"));
       log.info(`[Render] png-sequence: audio.aac sidecar written to ${outputPath}/audio.aac`);
     }
     return { encodeMs: Date.now() - stage5Start };
@@ -115397,7 +117151,12 @@ async function runEncodeStage(input2) {
     bitrate: effectiveBitrate,
     pixelFormat: preset.pixelFormat,
     useGpu: job.config.useGpu,
-    hdr: preset.hdr
+    hdr: preset.hdr,
+    // Distributed chunk renders pass these so the encoder writes closed-GOP
+    // keyframes that survive `-f concat -c copy` at assemble time. In-process
+    // renders leave both undefined → preserves the existing open-GOP output.
+    lockGopForChunkConcat: input2.lockGopForChunkConcat === true,
+    gopSize: input2.gopSize
   };
   const encodeResult = enableChunkedEncode ? await encodeFramesChunkedConcat(
     framesDir,
@@ -115450,15 +117209,6 @@ async function runAssembleStage(input2) {
 }
 
 // src/services/renderOrchestrator.ts
-async function safeCleanup(label, fn, log = defaultLogger) {
-  try {
-    await fn();
-  } catch (err) {
-    log.debug(`Cleanup failed (${label})`, {
-      error: err instanceof Error ? err.message : String(err)
-    });
-  }
-}
 function sampleDirectoryBytes(dir) {
   let total = 0;
   const stack = [dir];
@@ -115472,7 +117222,7 @@ function sampleDirectoryBytes(dir) {
       continue;
     }
     for (const name of entries2) {
-      const full = join23(current, name);
+      const full = join28(current, name);
       try {
         const st = statSync8(full);
         if (st.isDirectory()) {
@@ -115500,94 +117250,6 @@ function countNonZeroRgb48(buf) {
       n++;
   }
   return n;
-}
-function createHdrPerfCollector() {
-  return {
-    frames: 0,
-    normalFrames: 0,
-    transitionFrames: 0,
-    domLayerCaptures: 0,
-    hdrVideoLayerBlits: 0,
-    hdrImageLayerBlits: 0,
-    timings: {
-      frameSeekMs: 0,
-      frameInjectMs: 0,
-      stackingQueryMs: 0,
-      canvasClearMs: 0,
-      normalCompositeMs: 0,
-      transitionCompositeMs: 0,
-      encoderWriteMs: 0,
-      hdrVideoReadDecodeMs: 0,
-      hdrVideoTransferMs: 0,
-      hdrVideoBlitMs: 0,
-      hdrImageTransferMs: 0,
-      hdrImageBlitMs: 0,
-      domLayerSeekMs: 0,
-      domLayerInjectMs: 0,
-      domMaskApplyMs: 0,
-      domScreenshotMs: 0,
-      domMaskRemoveMs: 0,
-      domPngDecodeMs: 0,
-      domBlitMs: 0
-    }
-  };
-}
-function addHdrTiming(perf, key2, startMs) {
-  if (!perf) return;
-  perf.timings[key2] += Date.now() - startMs;
-}
-function averageTiming(totalMs, count) {
-  return count > 0 ? Math.round(totalMs / count * 100) / 100 : 0;
-}
-function finalizeHdrPerf(perf) {
-  const avgMs = {};
-  const perFrameKeys = [
-    "frameSeekMs",
-    "frameInjectMs",
-    "stackingQueryMs",
-    "canvasClearMs",
-    "encoderWriteMs"
-  ];
-  for (const key2 of perFrameKeys) avgMs[key2] = averageTiming(perf.timings[key2], perf.frames);
-  avgMs.normalCompositeMs = averageTiming(perf.timings.normalCompositeMs, perf.normalFrames);
-  avgMs.transitionCompositeMs = averageTiming(
-    perf.timings.transitionCompositeMs,
-    perf.transitionFrames
-  );
-  const perDomLayerKeys = [
-    "domLayerSeekMs",
-    "domLayerInjectMs",
-    "domMaskApplyMs",
-    "domScreenshotMs",
-    "domMaskRemoveMs",
-    "domPngDecodeMs",
-    "domBlitMs"
-  ];
-  for (const key2 of perDomLayerKeys) {
-    avgMs[key2] = averageTiming(perf.timings[key2], perf.domLayerCaptures);
-  }
-  const perHdrVideoKeys = [
-    "hdrVideoReadDecodeMs",
-    "hdrVideoTransferMs",
-    "hdrVideoBlitMs"
-  ];
-  for (const key2 of perHdrVideoKeys) {
-    avgMs[key2] = averageTiming(perf.timings[key2], perf.hdrVideoLayerBlits);
-  }
-  const perHdrImageKeys = ["hdrImageTransferMs", "hdrImageBlitMs"];
-  for (const key2 of perHdrImageKeys) {
-    avgMs[key2] = averageTiming(perf.timings[key2], perf.hdrImageLayerBlits);
-  }
-  return {
-    frames: perf.frames,
-    normalFrames: perf.normalFrames,
-    transitionFrames: perf.transitionFrames,
-    domLayerCaptures: perf.domLayerCaptures,
-    hdrVideoLayerBlits: perf.hdrVideoLayerBlits,
-    hdrImageLayerBlits: perf.hdrImageLayerBlits,
-    timings: { ...perf.timings },
-    avgMs
-  };
 }
 var RenderCancelledError = class extends Error {
   reason;
@@ -115632,57 +117294,6 @@ function installDebugLogger(logPath, log = defaultLogger) {
     console.warn = origWarn;
   };
 }
-function createCompiledFrameSrcResolver(compiledDir) {
-  const compiledRoot = resolve12(compiledDir);
-  return (framePath) => {
-    const resolvedFramePath = resolve12(framePath);
-    if (!isPathInside2(resolvedFramePath, compiledRoot)) return null;
-    const relativePath = relative2(compiledRoot, resolvedFramePath);
-    if (!relativePath || relativePath.startsWith("..") || isAbsolute5(relativePath)) {
-      return null;
-    }
-    return `/${relativePath.split(/[\\/]+/).map((segment) => encodeURIComponent(segment)).join("/")}`;
-  };
-}
-var materializePathModule = {
-  resolve: resolve12,
-  join: join23,
-  dirname: dirname11,
-  basename: basename3,
-  relative: relative2,
-  isAbsolute: isAbsolute5
-};
-var materializeFileSystem = {
-  existsSync: existsSync19,
-  mkdirSync: mkdirSync14,
-  symlinkSync,
-  cpSync
-};
-function materializeExtractedFramesForCompiledDir(extracted, compiledDir, options = {}) {
-  const pathModule = options.pathModule ?? materializePathModule;
-  const fileSystem = options.fileSystem ?? materializeFileSystem;
-  const resolvedCompiledDir = pathModule.resolve(compiledDir);
-  const compiledFrameRoot = pathModule.join(resolvedCompiledDir, "__hyperframes_video_frames");
-  for (const ext of extracted) {
-    const resolvedOut = pathModule.resolve(ext.outputDir);
-    if (isPathInside2(resolvedOut, resolvedCompiledDir, { pathModule })) continue;
-    const linkPath = pathModule.join(compiledFrameRoot, ext.videoId);
-    if (!fileSystem.existsSync(linkPath)) {
-      fileSystem.mkdirSync(pathModule.dirname(linkPath), { recursive: true });
-      if (options.materializeSymlinks) {
-        fileSystem.cpSync(resolvedOut, linkPath, { recursive: true });
-      } else {
-        fileSystem.symlinkSync(resolvedOut, linkPath);
-      }
-    }
-    const remapped = /* @__PURE__ */ new Map();
-    for (const [idx, framePath] of ext.framePaths) {
-      remapped.set(idx, pathModule.join(linkPath, pathModule.basename(framePath)));
-    }
-    ext.framePaths = remapped;
-    ext.outputDir = linkPath;
-  }
-}
 function collectVideoReadinessSkipIds(nativeHdrVideoIds, extractedVideos) {
   return Array.from(
     /* @__PURE__ */ new Set([
@@ -115701,118 +117312,12 @@ function collectVideoMetadataHints(extractedVideos) {
     height: video.metadata.height
   })).sort((a2, b2) => a2.id.localeCompare(b2.id));
 }
-function resolveRenderWorkerCount(totalFrames, requestedWorkers, cfg, compiled, log = defaultLogger, measuredCaptureCost) {
-  const captureCost = combineCaptureCostEstimates(
-    estimateCaptureCostMultiplier(compiled),
-    measuredCaptureCost
-  );
-  const workerCount = calculateOptimalWorkers(totalFrames, requestedWorkers, {
-    ...cfg,
-    captureCostMultiplier: captureCost.multiplier
-  });
-  if (requestedWorkers !== void 0 || captureCost.multiplier <= 1) {
-    return workerCount;
-  }
-  const baselineWorkers = calculateOptimalWorkers(totalFrames, void 0, cfg);
-  if (workerCount < baselineWorkers) {
-    log.warn(
-      "[Render] Reduced auto worker count for high-cost capture workload to avoid Chrome compositor starvation.",
-      {
-        from: baselineWorkers,
-        to: workerCount,
-        costMultiplier: captureCost.multiplier,
-        reasons: captureCost.reasons
-      }
-    );
-  }
-  return workerCount;
-}
-function estimateCaptureCostMultiplier(compiled) {
-  let multiplier = 1;
-  const reasons = [];
-  if (compiled.hasShaderTransitions) {
-    multiplier += 2;
-    reasons.push("shader-transitions");
-  }
-  const reasonCodes = new Set(compiled.renderModeHints.reasons.map((reason) => reason.code));
-  if (reasonCodes.has("requestAnimationFrame")) {
-    multiplier += 1;
-    reasons.push("requestAnimationFrame");
-  }
-  if (reasonCodes.has("iframe")) {
-    multiplier += 0.5;
-    reasons.push("iframe");
-  }
-  return {
-    multiplier: Math.round(multiplier * 100) / 100,
-    reasons
-  };
-}
-function combineCaptureCostEstimates(staticCost, measuredCost) {
-  if (!measuredCost || measuredCost.multiplier <= 1) return staticCost;
-  if (staticCost.multiplier >= measuredCost.multiplier) {
-    return {
-      multiplier: staticCost.multiplier,
-      reasons: [...staticCost.reasons, ...measuredCost.reasons],
-      p95Ms: measuredCost.p95Ms
-    };
-  }
-  return {
-    multiplier: measuredCost.multiplier,
-    reasons: [...measuredCost.reasons, ...staticCost.reasons],
-    p95Ms: measuredCost.p95Ms
-  };
-}
-var CAPTURE_CALIBRATION_TARGET_MS = 600;
-var MAX_MEASURED_CAPTURE_COST_MULTIPLIER = 8;
-var CAPTURE_CALIBRATION_PROTOCOL_TIMEOUT_MS = 3e4;
-function createCaptureCalibrationConfig(cfg) {
-  return {
-    ...cfg,
-    protocolTimeout: Math.min(cfg.protocolTimeout, CAPTURE_CALIBRATION_PROTOCOL_TIMEOUT_MS)
-  };
-}
-function estimateMeasuredCaptureCostMultiplier(samples) {
-  if (samples.length === 0) {
-    return { multiplier: 1, reasons: [] };
-  }
-  const sorted = [...samples].sort((a2, b2) => a2.captureTimeMs - b2.captureTimeMs);
-  const p95Index = Math.max(0, Math.ceil(sorted.length * 0.95) - 1);
-  const p95Sample = sorted[p95Index] ?? sorted[sorted.length - 1];
-  if (!p95Sample) {
-    return { multiplier: 1, reasons: [] };
-  }
-  const p95Ms = Math.round(p95Sample.captureTimeMs);
-  const multiplier = Math.min(
-    MAX_MEASURED_CAPTURE_COST_MULTIPLIER,
-    Math.max(1, Math.round(p95Ms / CAPTURE_CALIBRATION_TARGET_MS * 100) / 100)
-  );
-  return {
-    multiplier,
-    reasons: multiplier > 1 ? [`calibration-p95=${p95Ms}ms`] : [],
-    p95Ms
-  };
-}
-function selectCaptureCalibrationFrames(totalFrames) {
-  if (totalFrames <= 0) return [];
-  const lastFrame = totalFrames - 1;
-  const candidates = [
-    0,
-    Math.floor(totalFrames * 0.25),
-    Math.floor(totalFrames * 0.5),
-    Math.floor(totalFrames * 0.75),
-    lastFrame
-  ];
-  return Array.from(
-    new Set(candidates.map((frame) => Math.max(0, Math.min(lastFrame, frame))))
-  ).sort((a2, b2) => a2 - b2);
-}
 function findMissingFrameRanges(totalFrames, framesDir, frameExt) {
   const ranges = [];
   let rangeStart = null;
   for (let frameIndex = 0; frameIndex < totalFrames; frameIndex++) {
-    const framePath = join23(framesDir, `frame_${String(frameIndex).padStart(6, "0")}.${frameExt}`);
-    const missing = !existsSync19(framePath);
+    const framePath = join28(framesDir, `frame_${String(frameIndex).padStart(6, "0")}.${frameExt}`);
+    const missing = !existsSync21(framePath);
     if (missing && rangeStart === null) {
       rangeStart = frameIndex;
     } else if (!missing && rangeStart !== null) {
@@ -115834,7 +117339,7 @@ function buildMissingFrameRetryBatches(ranges, maxWorkers, workDir, attempt) {
       workerId,
       startFrame: range.startFrame,
       endFrame: range.endFrame,
-      outputDir: join23(workDir, `retry-${attempt}-batch-${batchIndex}-worker-${workerId}`)
+      outputDir: join28(workDir, `retry-${attempt}-batch-${batchIndex}-worker-${workerId}`)
     }));
     batches.push(batch);
   }
@@ -115849,62 +117354,16 @@ function isRecoverableParallelCaptureError(error) {
     message
   );
 }
-function shouldFallbackToScreenshotAfterCalibrationError(error) {
-  const message = error instanceof Error ? error.message : String(error);
-  return /HeadlessExperimental\.beginFrame timed out|beginFrame probe timeout|Another frame is pending|Frame still pending|Protocol error.*HeadlessExperimental\.beginFrame|Runtime\.callFunctionOn timed out|Runtime\.evaluate timed out/i.test(
-    message
-  );
-}
 function countCapturedFrames(totalFrames, framesDir, frameExt) {
   let captured = 0;
   for (let frameIndex = 0; frameIndex < totalFrames; frameIndex++) {
-    const framePath = join23(framesDir, `frame_${String(frameIndex).padStart(6, "0")}.${frameExt}`);
-    if (existsSync19(framePath)) captured++;
+    const framePath = join28(framesDir, `frame_${String(frameIndex).padStart(6, "0")}.${frameExt}`);
+    if (existsSync21(framePath)) captured++;
   }
   return captured;
 }
 function countFrameRanges(ranges) {
   return ranges.reduce((sum, range) => sum + (range.endFrame - range.startFrame), 0);
-}
-async function measureCaptureCostFromSession(session, totalFrames, fps) {
-  const sampledFrames = selectCaptureCalibrationFrames(totalFrames);
-  const samples = [];
-  for (const frameIndex of sampledFrames) {
-    const time = frameIndex / fps;
-    const startedAt = Date.now();
-    const result = await captureFrameToBuffer(session, frameIndex, time);
-    samples.push({
-      frameIndex,
-      captureTimeMs: result.captureTimeMs || Date.now() - startedAt
-    });
-  }
-  return {
-    estimate: estimateMeasuredCaptureCostMultiplier(samples),
-    samples
-  };
-}
-function logCaptureCalibrationResult(calibration, log) {
-  if (calibration.estimate.multiplier > 1) {
-    log.warn("[Render] Measured slow frame capture during auto-worker calibration.", {
-      multiplier: calibration.estimate.multiplier,
-      p95Ms: calibration.estimate.p95Ms,
-      sampledFrames: calibration.samples.map((sample) => sample.frameIndex)
-    });
-  } else {
-    log.debug("[Render] Auto-worker calibration kept baseline capture cost.", {
-      p95Ms: calibration.estimate.p95Ms,
-      sampledFrames: calibration.samples.map((sample) => sample.frameIndex)
-    });
-  }
-}
-function createFailedCaptureCalibrationEstimate(reason) {
-  return {
-    estimate: {
-      multiplier: MAX_MEASURED_CAPTURE_COST_MULTIPLIER,
-      reasons: [reason]
-    },
-    samples: []
-  };
 }
 async function executeDiskCaptureWithAdaptiveRetry(options) {
   const attempts = [];
@@ -115919,7 +117378,7 @@ async function executeDiskCaptureWithAdaptiveRetry(options) {
       frameCount,
       reason: attempt === 0 ? "initial" : "retry"
     });
-    const attemptWorkDir = join23(options.workDir, `capture-attempt-${attempt}`);
+    const attemptWorkDir = join28(options.workDir, `capture-attempt-${attempt}`);
     const batches = missingRanges ? buildMissingFrameRetryBatches(missingRanges, currentWorkers, attemptWorkDir, attempt) : [distributeFrames(options.totalFrames, currentWorkers, attemptWorkDir)];
     try {
       for (const tasks of batches) {
@@ -116343,8 +117802,8 @@ async function compositeHdrFrame(ctx, canvas, time, fullStacking, elementFilter,
         if (shouldLog && debugDumpDir) {
           const after2 = countNonZeroRgb48(canvas);
           const dumpName = `frame_${String(debugFrameIndex).padStart(4, "0")}_layer_${String(layerIdx).padStart(2, "0")}_dom.png`;
-          const dumpPath = join23(debugDumpDir, dumpName);
-          writeFileSync7(dumpPath, domPng);
+          const dumpPath = join28(debugDumpDir, dumpName);
+          writeFileSync8(dumpPath, domPng);
           log.info("[diag] dom layer blit", {
             frame: debugFrameIndex,
             layerIdx,
@@ -116428,10 +117887,10 @@ function extractStandaloneEntryFromIndex(indexHtml, entryFile) {
   return document2.toString();
 }
 async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSignal) {
-  const moduleDir = dirname11(fileURLToPath3(import.meta.url));
+  const moduleDir = dirname12(fileURLToPath4(import.meta.url));
   const producerRoot = process.env.PRODUCER_RENDERS_DIR ? resolve12(process.env.PRODUCER_RENDERS_DIR, "..") : resolve12(moduleDir, "../..");
-  const debugDir = join23(producerRoot, ".debug");
-  const workDir = job.config.debug ? join23(debugDir, job.id) : join23(dirname11(outputPath), `work-${job.id}`);
+  const debugDir = join28(producerRoot, ".debug");
+  const workDir = job.config.debug ? join28(debugDir, job.id) : join28(dirname12(outputPath), `work-${job.id}`);
   const pipelineStart = Date.now();
   const log = job.config.logger ?? defaultLogger;
   let fileServer = null;
@@ -116444,32 +117903,18 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     imageDecodeFailures: 0
   };
   let hdrPerf;
-  const perfOutputPath = join23(workDir, "perf-summary.json");
+  const perfOutputPath = join28(workDir, "perf-summary.json");
   const cfg = { ...job.config.producerConfig ?? resolveConfig() };
   const outputFormat = job.config.format ?? "mp4";
   const isWebm = outputFormat === "webm";
   const isMov = outputFormat === "mov";
   const isPngSequence = outputFormat === "png-sequence";
   const needsAlpha = isWebm || isMov || isPngSequence;
-  if (needsAlpha) {
-    cfg.forceScreenshot = true;
-  }
   const enableChunkedEncode = cfg.enableChunkedEncode;
   const chunkedEncodeSize = cfg.chunkSizeFrames;
-  let peakRssBytes = 0;
-  let peakHeapUsedBytes = 0;
-  const sampleMemory = () => {
-    try {
-      const m = process.memoryUsage();
-      if (m.rss > peakRssBytes) peakRssBytes = m.rss;
-      if (m.heapUsed > peakHeapUsedBytes) peakHeapUsedBytes = m.heapUsed;
-    } catch {
-    }
-  };
-  sampleMemory();
-  const memSamplerInterval = setInterval(sampleMemory, 250);
-  memSamplerInterval.unref?.();
+  let memSampler = null;
   try {
+    memSampler = createMemorySampler();
     const assertNotAborted = () => {
       if (abortSignal?.aborted) {
         throw new RenderCancelledError("render_cancelled");
@@ -116477,22 +117922,22 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     };
     job.startedAt = /* @__PURE__ */ new Date();
     assertNotAborted();
-    if (!existsSync19(workDir)) mkdirSync14(workDir, { recursive: true });
+    if (!existsSync21(workDir)) mkdirSync15(workDir, { recursive: true });
     if (job.config.debug) {
-      const logPath = join23(workDir, "render.log");
+      const logPath = join28(workDir, "render.log");
       restoreLogger = installDebugLogger(logPath, log);
     }
     const entryFile = job.config.entryFile || "index.html";
-    let htmlPath = join23(projectDir, entryFile);
-    if (!existsSync19(htmlPath)) {
+    let htmlPath = join28(projectDir, entryFile);
+    if (!existsSync21(htmlPath)) {
       throw new Error(`Entry file not found: ${htmlPath}`);
     }
     assertNotAborted();
     const rawEntry = readFileSync11(htmlPath, "utf-8");
     if (entryFile !== "index.html" && rawEntry.trimStart().startsWith("<template")) {
-      const wrapperPath = join23(workDir, "standalone-entry.html");
-      const projectIndexPath = join23(projectDir, "index.html");
-      if (!existsSync19(projectIndexPath)) {
+      const wrapperPath = join28(workDir, "standalone-entry.html");
+      const projectIndexPath = join28(projectDir, "index.html");
+      if (!existsSync21(projectIndexPath)) {
         throw new Error(
           `Template entry file "${entryFile}" requires a project index.html to extract its render shell.`
         );
@@ -116506,7 +117951,7 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
           `Entry file "${entryFile}" is not mounted from index.html via data-composition-src, so it cannot be rendered independently.`
         );
       }
-      writeFileSync7(wrapperPath, standaloneHtml, "utf-8");
+      writeFileSync8(wrapperPath, standaloneHtml, "utf-8");
       htmlPath = wrapperPath;
       log.info("Extracted standalone entry from index.html host context", {
         entryFile
@@ -116530,6 +117975,7 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     const { deviceScaleFactor, outputWidth, outputHeight } = compileResult;
     const { width, height } = composition;
     perfStages.compileOnlyMs = compileResult.compileOnlyMs;
+    let captureForceScreenshot = compileResult.forceScreenshot;
     const probeResult = await runProbeStage({
       projectDir,
       workDir,
@@ -116554,7 +118000,7 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     perfStages.browserProbeMs = probeResult.browserProbeMs;
     perfStages.compileMs = Date.now() - stage1Start;
     updateJobStatus(job, "preprocessing", "Extracting video frames", 10, onProgress);
-    const compiledDir = join23(workDir, "compiled");
+    const compiledDir = join28(workDir, "compiled");
     const extractResult = await runExtractVideosStage({
       projectDir,
       compiledDir,
@@ -116577,55 +118023,13 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
       imageColorSpaces
     } = extractResult;
     perfStages.videoExtractMs = extractResult.videoExtractMs;
-    let effectiveHdr;
-    let forcedHdrWithoutSources = false;
-    {
-      const hdrMode = job.config.hdrMode ?? "auto";
-      const videoColorSpaces = (extractionResult?.extracted ?? []).map(
-        (ext) => ext.metadata.colorSpace
-      );
-      const allColorSpaces = [...videoColorSpaces, ...imageColorSpaces];
-      const info = allColorSpaces.length > 0 ? analyzeCompositionHdr(allColorSpaces) : null;
-      if (hdrMode === "force-sdr") {
-        effectiveHdr = void 0;
-      } else if (hdrMode === "force-hdr") {
-        if (info?.hasHdr && info.dominantTransfer) {
-          effectiveHdr = { transfer: info.dominantTransfer };
-        } else {
-          effectiveHdr = { transfer: "hlg" };
-          forcedHdrWithoutSources = true;
-        }
-      } else {
-        if (info?.hasHdr && info.dominantTransfer) {
-          effectiveHdr = { transfer: info.dominantTransfer };
-        }
-      }
-    }
-    if (effectiveHdr && outputFormat !== "mp4") {
-      const hdrSourceReason = forcedHdrWithoutSources ? "HDR was forced without detected HDR sources" : "HDR source detected";
-      log.warn(
-        `[Render] ${hdrSourceReason}, but format is "${outputFormat}" \u2014 falling back to SDR. HDR + alpha is not supported. Use --format mp4 for HDR10 output.`
-      );
-      effectiveHdr = void 0;
-    }
-    {
-      const hdrMode = job.config.hdrMode ?? "auto";
-      if (forcedHdrWithoutSources) {
-        log.warn(
-          "[Render] HDR forced by --hdr flag, but no HDR sources were detected \u2014 defaulting to HLG. SDR-only compositions may look perceptually wrong on HDR displays."
-        );
-      }
-      if (effectiveHdr) {
-        const reason = hdrMode === "force-hdr" ? forcedHdrWithoutSources ? "forced by --hdr flag (no HDR sources detected \u2014 defaulting to HLG)" : "forced by --hdr flag" : "auto-detected from source(s)";
-        log.info(
-          `[Render] HDR ${reason} \u2014 output: ${effectiveHdr.transfer.toUpperCase()} (BT.2020, 10-bit H.265)`
-        );
-      } else if (hdrMode === "force-sdr") {
-        log.info("[Render] SDR forced by --sdr flag");
-      } else {
-        log.info("[Render] No HDR sources detected \u2014 rendering SDR");
-      }
-    }
+    const effectiveHdr = resolveEffectiveHdrMode({
+      hdrMode: job.config.hdrMode,
+      outputFormat,
+      extractionResult,
+      imageColorSpaces,
+      log
+    });
     updateJobStatus(job, "preprocessing", "Processing audio tracks", 20, onProgress);
     const audioResult = await runAudioStage({
       projectDir,
@@ -116643,14 +118047,14 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     if (!fileServer) {
       fileServer = await createFileServer2({
         projectDir,
-        compiledDir: join23(workDir, "compiled"),
+        compiledDir: join28(workDir, "compiled"),
         port: 0,
         preHeadScripts: [VIRTUAL_TIME_SHIM]
       });
       assertNotAborted();
     }
-    const framesDir = join23(workDir, "captured-frames");
-    if (!existsSync19(framesDir)) mkdirSync14(framesDir, { recursive: true });
+    const framesDir = join28(workDir, "captured-frames");
+    if (!existsSync21(framesDir)) mkdirSync15(framesDir, { recursive: true });
     const captureOptions = {
       width,
       height,
@@ -116673,95 +118077,24 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     });
     let captureCalibration;
     if (job.config.workers === void 0 && totalFrames >= 60) {
-      const calibrationDir = join23(workDir, "capture-calibration");
-      const calibrationCfg = createCaptureCalibrationConfig(cfg);
-      const videoInjector = createRenderVideoFrameInjector();
-      let calibrationSession = null;
-      try {
-        calibrationSession = await createCaptureSession(
-          fileServer.url,
-          calibrationDir,
-          buildCaptureOptions(),
-          videoInjector,
-          calibrationCfg
-        );
-        if (!calibrationSession.isInitialized) {
-          await initializeSession(calibrationSession);
-        }
-        assertNotAborted();
-        captureCalibration = await measureCaptureCostFromSession(
-          calibrationSession,
-          totalFrames,
-          fpsToNumber(job.config.fps)
-        );
-        logCaptureCalibrationResult(captureCalibration, log);
-      } catch (error) {
-        const shouldFallbackToScreenshot = !cfg.forceScreenshot && shouldFallbackToScreenshotAfterCalibrationError(error);
-        if (shouldFallbackToScreenshot) {
-          cfg.forceScreenshot = true;
-          if (probeSession) {
-            lastBrowserConsole = probeSession.browserConsoleBuffer;
-            await closeCaptureSession(probeSession).catch(() => {
-            });
-            probeSession = null;
-          }
-          if (calibrationSession) {
-            lastBrowserConsole = calibrationSession.browserConsoleBuffer;
-            await closeCaptureSession(calibrationSession).catch(() => {
-            });
-            calibrationSession = null;
-          }
-          log.warn(
-            "[Render] BeginFrame auto-worker calibration timed out; retrying calibration in screenshot capture mode.",
-            {
-              protocolTimeout: calibrationCfg.protocolTimeout,
-              error: error instanceof Error ? error.message : String(error)
-            }
-          );
-          const screenshotCalibrationCfg = createCaptureCalibrationConfig(cfg);
-          try {
-            calibrationSession = await createCaptureSession(
-              fileServer.url,
-              join23(workDir, "capture-calibration-screenshot"),
-              buildCaptureOptions(),
-              createRenderVideoFrameInjector(),
-              screenshotCalibrationCfg
-            );
-            if (!calibrationSession.isInitialized) {
-              await initializeSession(calibrationSession);
-            }
-            assertNotAborted();
-            captureCalibration = await measureCaptureCostFromSession(
-              calibrationSession,
-              totalFrames,
-              fpsToNumber(job.config.fps)
-            );
-            logCaptureCalibrationResult(captureCalibration, log);
-          } catch (fallbackError) {
-            captureCalibration = createFailedCaptureCalibrationEstimate(
-              "calibration-screenshot-failed"
-            );
-            log.warn(
-              "[Render] Screenshot auto-worker calibration failed after BeginFrame fallback; using conservative worker budget.",
-              {
-                protocolTimeout: screenshotCalibrationCfg.protocolTimeout,
-                error: fallbackError instanceof Error ? fallbackError.message : String(fallbackError)
-              }
-            );
-          }
-        } else {
-          captureCalibration = createFailedCaptureCalibrationEstimate("calibration-failed");
-          log.warn("[Render] Auto-worker calibration failed; using conservative worker budget.", {
-            protocolTimeout: calibrationCfg.protocolTimeout,
-            error: error instanceof Error ? error.message : String(error)
-          });
-        }
-      } finally {
-        if (calibrationSession) {
-          lastBrowserConsole = calibrationSession.browserConsoleBuffer;
-          await closeCaptureSession(calibrationSession).catch(() => {
-          });
-        }
+      const outcome = await runCaptureCalibration({
+        cfg,
+        fileServer,
+        workDir,
+        log,
+        job,
+        totalFrames,
+        forceScreenshot: captureForceScreenshot,
+        probeSession,
+        buildCaptureOptions,
+        createRenderVideoFrameInjector,
+        assertNotAborted
+      });
+      captureCalibration = outcome.calibration;
+      captureForceScreenshot = outcome.forceScreenshot;
+      probeSession = outcome.probeSession;
+      if (outcome.lastBrowserConsole.length > 0) {
+        lastBrowserConsole = outcome.lastBrowserConsole;
       }
     }
     let workerCount = resolveRenderWorkerCount(
@@ -116794,7 +118127,7 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
       "png-sequence": ""
     };
     const videoExt = FORMAT_EXT[outputFormat] ?? ".mp4";
-    const videoOnlyPath = join23(workDir, `video-only${videoExt}`);
+    const videoOnlyPath = join28(workDir, `video-only${videoExt}`);
     const nativeHdrIds = /* @__PURE__ */ new Set([...nativeHdrVideoIds, ...nativeHdrImageIds]);
     const hasHdrContent = Boolean(effectiveHdr && nativeHdrIds.size > 0);
     const useLayeredComposite = shouldUseLayeredComposite({
@@ -116814,9 +118147,11 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     const effectiveBitrate = job.config.crf != null ? void 0 : job.config.videoBitrate;
     job.framesRendered = 0;
     if (useLayeredComposite) {
+      captureForceScreenshot = true;
       const hdrRes = await runCaptureHdrStage({
         job,
         cfg,
+        forceScreenshot: captureForceScreenshot,
         log,
         projectDir,
         compiledDir,
@@ -116859,6 +118194,7 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
           job,
           totalFrames,
           cfg,
+          forceScreenshot: captureForceScreenshot,
           log,
           workerCount,
           probeSession,
@@ -116901,6 +118237,7 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
           job,
           totalFrames,
           cfg,
+          forceScreenshot: captureForceScreenshot,
           log,
           workerCount,
           probeSession,
@@ -116965,45 +118302,33 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     job.outputPath = outputPath;
     updateJobStatus(job, "complete", "Render complete", 100, onProgress);
     const totalElapsed = Date.now() - pipelineStart;
-    sampleMemory();
-    const tmpPeakBytes = existsSync19(workDir) ? sampleDirectoryBytes(workDir) : 0;
-    const perfSummary = {
-      renderId: job.id,
-      totalElapsedMs: totalElapsed,
-      // RenderPerfSummary surfaces fps as a decimal because it lands in JSON
-      // payloads (CLI telemetry, regression-harness reports) where a single
-      // number is friendlier than `{num,den}`. Callers needing the rational
-      // back can read `job.config.fps`.
-      fps: fpsToNumber(job.config.fps),
-      quality: job.config.quality,
-      workers: workerCount,
-      chunkedEncode: enableChunkedEncode,
-      chunkSizeFrames: enableChunkedEncode ? chunkedEncodeSize : null,
+    const tmpPeakBytes = existsSync21(workDir) ? sampleDirectoryBytes(workDir) : 0;
+    const perfSummary = buildRenderPerfSummary({
+      job,
+      workerCount,
+      enableChunkedEncode,
+      chunkedEncodeSize,
       compositionDurationSeconds: composition.duration,
       totalFrames,
-      resolution: { width: outputWidth, height: outputHeight },
+      outputWidth,
+      outputHeight,
       videoCount: composition.videos.length,
       audioCount: composition.audios.length,
-      stages: perfStages,
+      totalElapsedMs: totalElapsed,
+      perfStages,
       videoExtractBreakdown: extractionResult?.phaseBreakdown,
       tmpPeakBytes,
-      captureCalibration: captureCalibration ? {
-        sampledFrames: captureCalibration.samples.map((sample) => sample.frameIndex),
-        p95Ms: captureCalibration.estimate.p95Ms,
-        multiplier: captureCalibration.estimate.multiplier,
-        reasons: captureCalibration.estimate.reasons
-      } : void 0,
-      captureAttempts: captureAttempts.length > 0 ? captureAttempts : void 0,
-      hdrDiagnostics: hdrDiagnostics.videoExtractionFailures > 0 || hdrDiagnostics.imageDecodeFailures > 0 ? { ...hdrDiagnostics } : void 0,
-      hdrPerf: hdrPerf ? finalizeHdrPerf(hdrPerf) : void 0,
-      captureAvgMs: totalFrames > 0 ? Math.round((perfStages.captureMs ?? 0) / totalFrames) : void 0,
-      peakRssMb: Math.round(peakRssBytes / (1024 * 1024)),
-      peakHeapUsedMb: Math.round(peakHeapUsedBytes / (1024 * 1024))
-    };
+      captureCalibration,
+      captureAttempts,
+      hdrDiagnostics,
+      hdrPerf,
+      peakRssBytes: memSampler.peakRssBytes(),
+      peakHeapUsedBytes: memSampler.peakHeapUsedBytes()
+    });
     job.perfSummary = perfSummary;
     if (job.config.debug) {
       try {
-        writeFileSync7(perfOutputPath, JSON.stringify(perfSummary, null, 2), "utf-8");
+        writeFileSync8(perfOutputPath, JSON.stringify(perfSummary, null, 2), "utf-8");
       } catch (err) {
         log.debug("Failed to write perf summary", {
           perfOutputPath,
@@ -117012,8 +118337,8 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
       }
     }
     if (job.config.debug) {
-      if (!isPngSequence && existsSync19(outputPath)) {
-        const debugOutput = join23(workDir, `output${videoExt}`);
+      if (!isPngSequence && existsSync21(outputPath)) {
+        const debugOutput = join28(workDir, `output${videoExt}`);
         copyFileSync4(outputPath, debugOutput);
       }
     } else if (process.env.KEEP_TEMP === "1") {
@@ -117022,7 +118347,7 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
       await safeCleanup(
         "remove workDir",
         () => {
-          rmSync4(workDir, { recursive: true, force: true });
+          rmSync5(workDir, { recursive: true, force: true });
         },
         log
       );
@@ -117032,34 +118357,18 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     if (error instanceof RenderCancelledError || abortSignal?.aborted) {
       job.error = error instanceof Error ? error.message : "render_cancelled";
       updateJobStatus(job, "cancelled", "Render cancelled", job.progress, onProgress);
-      if (fileServer) {
-        const fs8 = fileServer;
-        await safeCleanup(
-          "close file server (cancel)",
-          () => {
-            fs8.close();
-          },
-          log
-        );
-      }
-      if (probeSession) {
-        const session = probeSession;
-        await safeCleanup("close probe session (cancel)", () => closeCaptureSession(session), log);
-      }
-      if (!job.config.debug) {
-        await safeCleanup(
-          "remove workDir (cancel)",
-          () => {
-            rmSync4(workDir, { recursive: true, force: true });
-          },
-          log
-        );
-      }
+      await cleanupRenderResources({
+        fileServer,
+        probeSession,
+        workDir,
+        debug: Boolean(job.config.debug),
+        log,
+        label: "cancel"
+      });
       if (restoreLogger) restoreLogger();
       throw error instanceof RenderCancelledError ? error : new RenderCancelledError("render_cancelled");
     }
     const errorMessage = error instanceof Error ? error.message : String(error);
-    const errorStack = error instanceof Error ? error.stack : void 0;
     const isTimeoutError = errorMessage.includes("Waiting failed") || errorMessage.includes("timeout exceeded") || errorMessage.includes("Navigation timeout");
     const wasParallel = job.config.workers !== 1;
     if (isTimeoutError && wasParallel) {
@@ -117069,51 +118378,32 @@ async function executeRenderJob(job, projectDir, outputPath, onProgress, abortSi
     }
     job.error = errorMessage;
     updateJobStatus(job, "failed", `Failed: ${errorMessage}`, job.progress, onProgress);
-    const elapsed = Date.now() - pipelineStart;
-    const freeMemMB = Math.round(freemem2() / (1024 * 1024));
     job.failedStage = job.currentStage;
-    job.errorDetails = {
-      message: errorMessage,
-      stack: errorStack,
-      elapsedMs: elapsed,
-      freeMemoryMB: freeMemMB,
-      browserConsoleTail: lastBrowserConsole.length > 0 ? lastBrowserConsole.slice(-30) : void 0,
-      perfStages: Object.keys(perfStages).length > 0 ? { ...perfStages } : void 0,
-      hdrDiagnostics: hdrDiagnostics.videoExtractionFailures > 0 || hdrDiagnostics.imageDecodeFailures > 0 ? { ...hdrDiagnostics } : void 0
-    };
-    if (fileServer) {
-      const fs8 = fileServer;
-      await safeCleanup(
-        "close file server (error)",
-        () => {
-          fs8.close();
-        },
-        log
-      );
-    }
-    if (probeSession) {
-      const session = probeSession;
-      await safeCleanup("close probe session (error)", () => closeCaptureSession(session), log);
-    }
-    if (!job.config.debug) {
-      await safeCleanup(
-        "remove workDir (error)",
-        () => {
-          if (existsSync19(workDir)) rmSync4(workDir, { recursive: true, force: true });
-        },
-        log
-      );
-    }
+    job.errorDetails = buildRenderErrorDetails({
+      error,
+      pipelineStartMs: pipelineStart,
+      lastBrowserConsole,
+      perfStages,
+      hdrDiagnostics
+    });
+    await cleanupRenderResources({
+      fileServer,
+      probeSession,
+      workDir,
+      debug: Boolean(job.config.debug),
+      log,
+      label: "error"
+    });
     if (restoreLogger) restoreLogger();
     throw error;
   } finally {
-    clearInterval(memSamplerInterval);
+    memSampler?.stop();
   }
 }
 
 // src/services/hyperframeLint.ts
-import { existsSync as existsSync20, readFileSync as readFileSync12, statSync as statSync9 } from "node:fs";
-import { resolve as resolve13, join as join24 } from "node:path";
+import { existsSync as existsSync22, readFileSync as readFileSync12, statSync as statSync9 } from "node:fs";
+import { resolve as resolve13, join as join29 } from "node:path";
 function isStringRecord(value) {
   if (!value || typeof value !== "object" || Array.isArray(value)) {
     return false;
@@ -117141,7 +118431,7 @@ function pickEntryFile(files, preferredEntryFile) {
 }
 function readProjectEntryFile(projectDir, preferredEntryFile) {
   const absProjectDir = resolve13(projectDir);
-  if (!existsSync20(absProjectDir) || !statSync9(absProjectDir).isDirectory()) {
+  if (!existsSync22(absProjectDir) || !statSync9(absProjectDir).isDirectory()) {
     return { error: `Project directory not found: ${absProjectDir}` };
   }
   const entryCandidates = [preferredEntryFile, "index.html", "src/index.html"].filter(
@@ -117152,7 +118442,7 @@ function readProjectEntryFile(projectDir, preferredEntryFile) {
     if (!absoluteEntryPath.startsWith(absProjectDir)) {
       return { error: `Entry file must stay inside project directory: ${entryFile}` };
     }
-    if (existsSync20(absoluteEntryPath) && statSync9(absoluteEntryPath).isFile()) {
+    if (existsSync22(absoluteEntryPath) && statSync9(absoluteEntryPath).isFile()) {
       return {
         entryFile,
         html: readFileSync12(absoluteEntryPath, "utf-8"),
@@ -117161,7 +118451,7 @@ function readProjectEntryFile(projectDir, preferredEntryFile) {
     }
   }
   return {
-    error: `No HTML entry file found in project directory: ${join24(absProjectDir, preferredEntryFile || "index.html")}`
+    error: `No HTML entry file found in project directory: ${join29(absProjectDir, preferredEntryFile || "index.html")}`
   };
 }
 function prepareHyperframeLintBody(body) {
@@ -117255,11 +118545,11 @@ async function prepareRenderBody(body) {
   const projectDir = typeof body.projectDir === "string" ? body.projectDir : void 0;
   if (projectDir) {
     const absProjectDir = resolve14(projectDir);
-    if (!existsSync21(absProjectDir) || !statSync10(absProjectDir).isDirectory()) {
+    if (!existsSync23(absProjectDir) || !statSync10(absProjectDir).isDirectory()) {
       return { error: `Project directory not found: ${absProjectDir}` };
     }
     const entry = options.entryFile || "index.html";
-    if (!existsSync21(resolve14(absProjectDir, entry))) {
+    if (!existsSync23(resolve14(absProjectDir, entry))) {
       return { error: `Entry file "${entry}" not found in project directory: ${absProjectDir}` };
     }
     return { prepared: { input: { projectDir: absProjectDir, ...options } } };
@@ -117284,8 +118574,8 @@ async function prepareRenderBody(body) {
     }
   }
   const tempRoot = process.env.PRODUCER_TMP_PROJECT_DIR || tmpdir2();
-  const tempProjectDir = mkdtempSync(join25(tempRoot, "producer-project-"));
-  writeFileSync8(join25(tempProjectDir, "index.html"), htmlContent, "utf-8");
+  const tempProjectDir = mkdtempSync(join30(tempRoot, "producer-project-"));
+  writeFileSync9(join30(tempProjectDir, "index.html"), htmlContent, "utf-8");
   return {
     prepared: {
       input: {
@@ -117336,7 +118626,7 @@ function createArtifactStore(ttlMs) {
 function cleanupTempDir(dir, log) {
   if (!dir) return;
   try {
-    rmSync5(dir, { recursive: true, force: true });
+    rmSync6(dir, { recursive: true, force: true });
   } catch (error) {
     log.warn("Failed to cleanup temp project dir", {
       cleanupProjectDir: dir,
@@ -117407,8 +118697,8 @@ function createRenderHandlers(options = {}) {
       rendersDir,
       log
     );
-    const outputDir = dirname12(absoluteOutputPath);
-    if (!existsSync21(outputDir)) mkdirSync15(outputDir, { recursive: true });
+    const outputDir = dirname13(absoluteOutputPath);
+    if (!existsSync23(outputDir)) mkdirSync16(outputDir, { recursive: true });
     const release = await renderSemaphore.acquire();
     log.info("render started", {
       requestId,
@@ -117435,7 +118725,7 @@ function createRenderHandlers(options = {}) {
           log.info(`render progress ${pct}%`, { requestId, stage: j2.currentStage, message });
         }
       });
-      const fileSize = existsSync21(absoluteOutputPath) ? statSync10(absoluteOutputPath).size : 0;
+      const fileSize = existsSync23(absoluteOutputPath) ? statSync10(absoluteOutputPath).size : 0;
       const durationMs = Date.now() - t0;
       const outputToken = store.register(absoluteOutputPath);
       const outputUrl = `${outputUrlPrefix}/${outputToken}`;
@@ -117518,8 +118808,8 @@ function createRenderHandlers(options = {}) {
         rendersDir,
         log
       );
-      const outputDir = dirname12(absoluteOutputPath);
-      if (!existsSync21(outputDir)) mkdirSync15(outputDir, { recursive: true });
+      const outputDir = dirname13(absoluteOutputPath);
+      if (!existsSync23(outputDir)) mkdirSync16(outputDir, { recursive: true });
       log.info("render-stream started", { requestId, projectDir: input2.projectDir });
       const job = createRenderJob({
         fps: input2.fps,
@@ -117564,7 +118854,7 @@ function createRenderHandlers(options = {}) {
           },
           abortController.signal
         );
-        const fileSize = existsSync21(absoluteOutputPath) ? statSync10(absoluteOutputPath).size : 0;
+        const fileSize = existsSync23(absoluteOutputPath) ? statSync10(absoluteOutputPath).size : 0;
         const outputToken = store.register(absoluteOutputPath);
         const outputUrl = `${outputUrlPrefix}/${outputToken}`;
         log.info("render-stream completed", { requestId, fileSize, perf: job.perfSummary ?? null });
@@ -117623,7 +118913,7 @@ function createRenderHandlers(options = {}) {
     if (!artifact) {
       return c.json({ success: false, error: "Output artifact not found or expired" }, 404);
     }
-    if (!existsSync21(artifact.path)) {
+    if (!existsSync23(artifact.path)) {
       store.delete(token);
       return c.json({ success: false, error: "Output artifact file missing" }, 404);
     }

@@ -1,0 +1,32 @@
+/**
+ * HDR-pipeline perf instrumentation.
+ *
+ * `HdrPerfCollector` accumulates per-phase wall-clock ms for the
+ * layered HDR / shader-transition composite path; `finalizeHdrPerf`
+ * converts the running totals into the `HdrPerfSummary` shape that
+ * lands in `RenderPerfSummary.hdrPerf`.
+ */
+export type HdrPerfTimingKey = "frameSeekMs" | "frameInjectMs" | "stackingQueryMs" | "canvasClearMs" | "normalCompositeMs" | "transitionCompositeMs" | "encoderWriteMs" | "hdrVideoReadDecodeMs" | "hdrVideoTransferMs" | "hdrVideoBlitMs" | "hdrImageTransferMs" | "hdrImageBlitMs" | "domLayerSeekMs" | "domLayerInjectMs" | "domMaskApplyMs" | "domScreenshotMs" | "domMaskRemoveMs" | "domPngDecodeMs" | "domBlitMs";
+export interface HdrPerfCollector {
+    frames: number;
+    normalFrames: number;
+    transitionFrames: number;
+    domLayerCaptures: number;
+    hdrVideoLayerBlits: number;
+    hdrImageLayerBlits: number;
+    timings: Record<HdrPerfTimingKey, number>;
+}
+export interface HdrPerfSummary {
+    frames: number;
+    normalFrames: number;
+    transitionFrames: number;
+    domLayerCaptures: number;
+    hdrVideoLayerBlits: number;
+    hdrImageLayerBlits: number;
+    timings: Record<string, number>;
+    avgMs: Record<string, number>;
+}
+export declare function createHdrPerfCollector(): HdrPerfCollector;
+export declare function addHdrTiming(perf: HdrPerfCollector | undefined, key: HdrPerfTimingKey, startMs: number): void;
+export declare function finalizeHdrPerf(perf: HdrPerfCollector): HdrPerfSummary;
+//# sourceMappingURL=hdrPerf.d.ts.map

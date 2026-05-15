@@ -1,0 +1,93 @@
+/**
+ * captureHdrFrameShared — shared helpers and types for the HDR
+ * layered-composite frame loop (sequential + hybrid).
+ *
+ * Extracted from `captureHdrStage.ts` so the per-frame logic can live
+ * under the project's 500-line file ceiling. The hybrid parallel path
+ * (hf#732) adds a multi-DOM-worker dispatcher on top of the same per-
+ * frame primitives the sequential loop uses, so the primitives are
+ * centralized here.
+ */
+import { type CaptureSession, type ElementStackingInfo } from "@hyperframes/engine";
+import type { ProducerLogger } from "../../../logger.js";
+import { type HdrCompositeContext, type HdrPerfCollector, type HdrVideoFrameSource, type TransitionRange } from "../../renderOrchestrator.js";
+/**
+ * Decide whether the hybrid parallel layered path is safe to use. Returns
+ * `false` (legacy sequential path) when:
+ *  - HDR content is present (HDR video raw-frame sources are fd-bound to a
+ *    single worker; sharing across workers is out of scope for hf#732).
+ *  - Every frame is inside a transition window (parallel workers buy
+ *    nothing; sequential loop is fine).
+ *  - workerCount <= 1.
+ *
+ * Exported so tests can pin the predicate without spinning up a render.
+ */
+export declare function shouldUseHybridLayeredPath(args: {
+    hasHdrContent: boolean;
+    transitionFramesCount: number;
+    totalFrames: number;
+    workerCount: number;
+}): boolean;
+/**
+ * Distribute [0, totalFrames) across `workerCount` workers as roughly
+ * equal contiguous slices. Transition-frame boundaries are NOT respected —
+ * each worker runs both flavors of compositing on its own session.
+ */
+export declare function distributeLayeredHybridFrameRanges(totalFrames: number, workerCount: number): Array<{
+    start: number;
+    end: number;
+}>;
+/** Build a Set of frame indices that fall inside any transition window. */
+export declare function partitionTransitionFrames(transitionRanges: ReadonlyArray<Pick<TransitionRange, "startFrame" | "endFrame">>, totalFrames: number): Set<number>;
+export interface LayeredTransitionBuffers {
+    bufferA: Buffer;
+    bufferB: Buffer;
+    output: Buffer;
+}
+export interface CaptureSceneArgs {
+    session: CaptureSession;
+    sceneBuf: Buffer;
+    sceneIds: Set<string>;
+    stackingInfo: ElementStackingInfo[];
+    time: number;
+    width: number;
+    height: number;
+    nativeHdrIds: Set<string>;
+    nativeHdrImageIds: Set<string>;
+    beforeCaptureHook: CaptureSession["onBeforeCapture"];
+    hdrCompositeCtx: HdrCompositeContext;
+    compositeTransfer: "srgb" | "pq" | "hlg";
+    hdrTargetTransfer: "pq" | "hlg" | undefined;
+    hdrPerf: HdrPerfCollector | undefined;
+    log: ProducerLogger;
+    frameIdx: number;
+}
+export declare function captureSceneIntoBuffer(a: CaptureSceneArgs): Promise<void>;
+export interface CaptureTransitionOnWorkerArgs {
+    session: CaptureSession;
+    frameIdx: number;
+    time: number;
+    transition: TransitionRange;
+    buffers: LayeredTransitionBuffers;
+    nativeHdrIds: Set<string>;
+    nativeHdrImageIds: Set<string>;
+    sceneElements: Record<string, string[]>;
+    hdrCompositeCtx: HdrCompositeContext;
+    width: number;
+    height: number;
+    compositeTransfer: "srgb" | "pq" | "hlg";
+    hdrTargetTransfer: "pq" | "hlg" | undefined;
+    hdrPerf: HdrPerfCollector | undefined;
+    log: ProducerLogger;
+}
+export declare function captureTransitionFrameOnWorker(a: CaptureTransitionOnWorkerArgs): Promise<void>;
+export declare function cleanupEndedHdrVideos(args: {
+    time: number;
+    activeTransition: TransitionRange | undefined;
+    hdrVideoEndTimes: Map<string, number>;
+    cleanedUpVideos: Set<string>;
+    hdrVideoFrameSources: Map<string, HdrVideoFrameSource>;
+    sceneElements: Record<string, string[]>;
+    log: ProducerLogger;
+}): void;
+//# sourceMappingURL=captureHdrFrameShared.d.ts.map
