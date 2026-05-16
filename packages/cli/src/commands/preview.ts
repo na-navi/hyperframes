@@ -8,7 +8,6 @@ export const examples: Example[] = [
   ["Use a custom port", "hyperframes preview --port 8080"],
   ["Force a new server even if one is already running", "hyperframes preview --force-new"],
   ["Start without opening the browser", "hyperframes preview --no-open"],
-  ["Open with a specific browser", "hyperframes preview --browser-path /usr/bin/chromium"],
   ["List all active preview servers", "hyperframes preview --list"],
   ["Kill all active preview servers", "hyperframes preview --kill-all"],
 ];
@@ -19,7 +18,6 @@ import { createRequire } from "node:module";
 import * as clack from "@clack/prompts";
 import { c } from "../ui/colors.js";
 import { isDevMode } from "../utils/env.js";
-import { openBrowser, type OpenBrowserOptions } from "../utils/openBrowser.js";
 import { lintProject } from "../utils/lintProject.js";
 import { formatLintFindings } from "../utils/lintFormat.js";
 import {
@@ -49,22 +47,10 @@ export default defineCommand({
       description: "Kill all active preview servers and exit",
       default: false,
     },
-    "no-open": {
+    open: {
       type: "boolean",
-      description: "Start the server without opening the browser",
-      default: false,
-    },
-    "browser-path": {
-      type: "string",
-      description: "Path to the browser executable to open",
-    },
-    "user-data-dir": {
-      type: "string",
-      description: "Chrome user data directory (requires --browser-path)",
-    },
-    "remote-debugging-port": {
-      type: "string",
-      description: "Chrome remote debugging port (requires --browser-path)",
+      default: true,
+      description: "Open browser automatically",
     },
   },
   async run({ args }) {
@@ -120,26 +106,19 @@ export default defineCommand({
       }
     }
 
-    const browserOptions = {
-      noOpen: !!args["no-open"],
-      browserPath: args["browser-path"] as string | undefined,
-      userDataDir: args["user-data-dir"] as string | undefined,
-      remoteDebuggingPort: args["remote-debugging-port"]
-        ? parseInt(args["remote-debugging-port"] as string, 10)
-        : undefined,
-    };
+    const noOpen = !args.open;
 
     if (isDevMode()) {
-      return runDevMode(dir, { projectName, browserOptions });
+      return runDevMode(dir, { projectName, noOpen });
     }
 
     // If @hyperframes/studio is installed locally, use Vite for full HMR
     if (hasLocalStudio(dir)) {
-      return runLocalStudioMode(dir, { projectName, browserOptions });
+      return runLocalStudioMode(dir, { projectName, noOpen });
     }
 
     const forceNew = !!args["force-new"];
-    return runEmbeddedMode(dir, startPort, { projectName, forceNew, browserOptions });
+    return runEmbeddedMode(dir, startPort, { projectName, forceNew, noOpen });
   },
 });
 
@@ -148,7 +127,7 @@ export default defineCommand({
  */
 async function runDevMode(
   dir: string,
-  options?: { projectName?: string; browserOptions?: OpenBrowserOptions },
+  options?: { projectName?: string; noOpen?: boolean },
 ): Promise<void> {
   // Find monorepo root by navigating from packages/cli/src/commands/
   const thisFile = fileURLToPath(import.meta.url);
@@ -213,12 +192,9 @@ async function runDevMode(
       console.log(`  ${c.dim("Press Ctrl+C to stop")}`);
       console.log();
 
-      if (options?.browserOptions) {
-        openBrowser(`${frontendUrl}#project/${pName}`, options.browserOptions);
-      } else {
-        import("open")
-          .then((mod) => mod.default(`${frontendUrl}#project/${pName}`))
-          .catch(() => {});
+      if (!options?.noOpen) {
+        const urlToOpen = `${frontendUrl}#project/${pName}`;
+        import("open").then((mod) => mod.default(urlToOpen)).catch(() => {});
       }
 
       child.stdout?.removeListener("data", handleOutput);
@@ -271,7 +247,7 @@ function hasLocalStudio(dir: string): boolean {
  */
 async function runLocalStudioMode(
   dir: string,
-  options?: { projectName?: string; browserOptions?: OpenBrowserOptions },
+  options?: { projectName?: string; noOpen?: boolean },
 ): Promise<void> {
   const req = createRequire(join(dir, "package.json"));
   const studioPkgPath = dirname(req.resolve("@hyperframes/studio/package.json"));
@@ -319,9 +295,7 @@ async function runLocalStudioMode(
       console.log();
       console.log(`  ${c.dim("Press Ctrl+C to stop")}`);
       console.log();
-      if (options?.browserOptions) {
-        openBrowser(`${url}#project/${pName}`, options.browserOptions);
-      } else {
+      if (!options?.noOpen) {
         import("open").then((mod) => mod.default(`${url}#project/${pName}`)).catch(() => {});
       }
     }
@@ -359,7 +333,7 @@ async function runLocalStudioMode(
 async function runEmbeddedMode(
   dir: string,
   startPort: number,
-  options?: { projectName?: string; forceNew?: boolean; browserOptions?: OpenBrowserOptions },
+  options?: { projectName?: string; forceNew?: boolean; noOpen?: boolean },
 ): Promise<void> {
   const { createStudioServer, resolveStudioBundle } = await import("../server/studioServer.js");
 
@@ -409,9 +383,7 @@ async function runEmbeddedMode(
       `  ${c.dim("Reusing existing server. Use --force-new to start a fresh instance.")}`,
     );
     console.log();
-    if (options?.browserOptions) {
-      openBrowser(`${url}#project/${pName}`, options.browserOptions);
-    } else {
+    if (!options?.noOpen) {
       import("open").then((mod) => mod.default(`${url}#project/${pName}`)).catch(() => {});
     }
     return;
@@ -432,9 +404,7 @@ async function runEmbeddedMode(
   console.log();
   console.log(`  ${c.dim("Press Ctrl+C to stop")}`);
   console.log();
-  if (options?.browserOptions) {
-    openBrowser(`${url}#project/${pName}`, options.browserOptions);
-  } else {
+  if (!options?.noOpen) {
     import("open").then((mod) => mod.default(`${url}#project/${pName}`)).catch(() => {});
   }
 

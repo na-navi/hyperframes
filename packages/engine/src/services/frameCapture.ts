@@ -713,19 +713,50 @@ async function prepareFrameForCapture(
   const seekStart = Date.now();
   // Seek via the __hf protocol. The page's seek() implementation handles
   // all framework-specific logic (GSAP stepping, CSS animation sync, etc.)
-  await page.evaluate((t: number) => {
+  // Seek + check page-side composite pending flag in one round-trip.
+  const hasPendingComposite = await page.evaluate((t: number) => {
     if (window.__hf && typeof window.__hf.seek === "function") {
       window.__hf.seek(t);
     }
+    return !!(window as unknown as { __hf_page_composite_pending?: boolean })
+      .__hf_page_composite_pending;
   }, quantizedTime);
+
   const seekMs = Date.now() - seekStart;
 
-  // Before-capture hook (e.g. video frame injection)
+  // Before-capture hook (e.g. video frame injection) — runs before
+  // page-side compositor clones so cloneNode picks up injected <img>
+  // replacements for <video> elements.
   const beforeCaptureStart = Date.now();
   if (session.onBeforeCapture) {
     await session.onBeforeCapture(page, quantizedTime);
   }
   const beforeCaptureMs = Date.now() - beforeCaptureStart;
+
+  // Page-side compositing three-phase protocol:
+  //  1. prepare — clone scenes (now containing injected video <img>s)
+  //  2. micro-screenshot — force browser to paint cloned elements
+  //  3. resolve — drawElementImage reads paint records, shader composites
+  if (hasPendingComposite && session.captureMode !== "beginframe") {
+    await page.evaluate(async () => {
+      const w = window as unknown as { __hf_page_composite_prepare?: () => Promise<boolean> };
+      if (typeof w.__hf_page_composite_prepare === "function") {
+        await w.__hf_page_composite_prepare();
+      }
+    });
+    const cdp = await getCdpSession(page);
+    await cdp.send("Page.captureScreenshot", {
+      format: "jpeg",
+      quality: 1,
+      clip: { x: 0, y: 0, width: 1, height: 1, scale: 1 },
+    });
+    await page.evaluate(() => {
+      const w = window as unknown as { __hf_page_composite_resolve?: () => boolean };
+      if (typeof w.__hf_page_composite_resolve === "function") {
+        w.__hf_page_composite_resolve();
+      }
+    });
+  }
 
   return { quantizedTime, seekMs, beforeCaptureMs };
 }

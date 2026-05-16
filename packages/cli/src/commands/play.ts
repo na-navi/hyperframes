@@ -7,35 +7,21 @@ export const examples: Example[] = [
   ["Play a specific project directory", "hyperframes play ./my-video"],
   ["Use a custom port", "hyperframes play --port 8080"],
   ["Start without opening the browser", "hyperframes play --no-open"],
-  ["Open with a specific browser", "hyperframes play --browser-path /usr/bin/chromium"],
 ];
 import { resolve, dirname } from "node:path";
 import * as clack from "@clack/prompts";
 import { c } from "../ui/colors.js";
 import { resolveProject } from "../utils/project.js";
-import { openBrowser, type OpenBrowserOptions } from "../utils/openBrowser.js";
 
 export default defineCommand({
   meta: { name: "play", description: "Play a composition in a lightweight browser player" },
   args: {
     dir: { type: "positional", description: "Project directory", required: false },
     port: { type: "string", description: "Port to run the player server on", default: "3003" },
-    "no-open": {
+    open: {
       type: "boolean",
-      description: "Start the server without opening the browser",
-      default: false,
-    },
-    "browser-path": {
-      type: "string",
-      description: "Path to the browser executable to open",
-    },
-    "user-data-dir": {
-      type: "string",
-      description: "Chrome user data directory (requires --browser-path)",
-    },
-    "remote-debugging-port": {
-      type: "string",
-      description: "Chrome remote debugging port (requires --browser-path)",
+      default: true,
+      description: "Open browser automatically",
     },
   },
   async run({ args }) {
@@ -165,15 +151,9 @@ export default defineCommand({
     console.log();
     console.log(`  ${c.dim("Press Ctrl+C to stop")}`);
     console.log();
-    const browserOptions: OpenBrowserOptions = {
-      noOpen: !!args["no-open"],
-      browserPath: args["browser-path"] as string | undefined,
-      userDataDir: args["user-data-dir"] as string | undefined,
-      remoteDebuggingPort: args["remote-debugging-port"]
-        ? parseInt(args["remote-debugging-port"] as string, 10)
-        : undefined,
-    };
-    openBrowser(url, browserOptions);
+    if (args.open) {
+      import("open").then((mod) => mod.default(url)).catch(() => {});
+    }
 
     return new Promise<void>(() => {});
   },
